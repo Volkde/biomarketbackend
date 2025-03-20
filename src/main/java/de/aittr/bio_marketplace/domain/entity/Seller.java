@@ -12,6 +12,8 @@ public class Seller {
     private String storeDescription;
     private String storeLogo;
     private BigDecimal rating;
+    //ToDo как лучше всего реализовать продавца и ферму, через дополнительный класс фермы
+    // с дублированием данных в юзере и селлере, или так как сейчас (вроде и так ок)
     private User user;
 
     //    @ManyToMany(fetch = FetchType.EAGER)
