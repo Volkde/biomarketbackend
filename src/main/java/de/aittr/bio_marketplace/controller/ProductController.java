@@ -26,6 +26,21 @@ public class ProductController {
 
     // --- METHODS ---
 
+    // --- Create ---
+
+    // Saves product in DB
+    @Operation(
+            summary = "Save product",
+            description = "Saving product with given parameters"
+    )
+    @PostMapping
+    public Product save(
+            @RequestBody
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Instance of a Product")
+            Product product) {
+        return service.save(product);
+    }
+
     // --- Read ---
 
     // Returns all active products

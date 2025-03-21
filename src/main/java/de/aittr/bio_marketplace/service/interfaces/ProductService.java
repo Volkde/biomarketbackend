@@ -6,6 +6,9 @@ import java.util.List;
 
 public interface ProductService {
 
+    // Save product in DB
+    Product save(Product product);
+
     // Return all active products
     List<Product> getAllActiveProducts();
 

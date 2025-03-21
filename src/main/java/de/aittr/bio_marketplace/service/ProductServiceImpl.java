@@ -24,6 +24,25 @@ public class ProductServiceImpl implements ProductService {
 
     // --- METHODS ---
 
+    // --- Create ---
+
+
+    @Override
+    public Product save(Product product) {
+
+//        try {
+//            Product entity = mappingService.mapDtoToEntity(dto);
+//            entity = repository.save(entity);
+//            return mappingService.mapEntityToDto(entity);
+//        } catch (Exception e) {
+//            throw new ProductValidationException(e);
+//        }
+
+        return repository.save(product);
+
+    }
+
+
     // --- Read ---
 
     // Returns all active products
