@@ -6,8 +6,17 @@ import java.util.List;
 
 public interface ProductService {
 
+    // Save product in DB
+    Product save(Product product);
+
     // Return all active products
     List<Product> getAllActiveProducts();
+
+    // Return active product by id
+    Product getActiveProductEntityById(Long id);
+
+    // Delete product by id
+    void deleteById(Long id);
 
 
 
