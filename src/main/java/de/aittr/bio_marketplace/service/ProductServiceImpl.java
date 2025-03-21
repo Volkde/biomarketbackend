@@ -24,6 +24,8 @@ public class ProductServiceImpl implements ProductService {
 
     // --- METHODS ---
 
+    // --- Read ---
+
     // Returns all active products
     @Override
     public List<Product> getAllActiveProducts() {
@@ -41,7 +43,14 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new ProductNotFoundException(id));
     }
 
+    // --- Delete ---
 
+    // Deletes product by id
+
+    @Override
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
 }
 
 /* TODO:

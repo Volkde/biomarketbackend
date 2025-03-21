@@ -12,6 +12,11 @@ public interface ProductService {
     // Return active product by id
     Product getActiveProductEntityById(Long id);
 
+    // Delete product by id
+    void deleteById(Long id);
+
+
+
     // TODO: Change class type from Product to ProductDto!!!
 
 }
