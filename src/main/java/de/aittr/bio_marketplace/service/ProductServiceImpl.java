@@ -1,6 +1,7 @@
 package de.aittr.bio_marketplace.service;
 
 import de.aittr.bio_marketplace.domain.entity.Product;
+import de.aittr.bio_marketplace.exception_handling.exceptions.ProductNotFoundException;
 import de.aittr.bio_marketplace.repository.ProductRepository;
 import de.aittr.bio_marketplace.service.interfaces.ProductService;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ public class ProductServiceImpl implements ProductService {
 
     // --- METHODS ---
 
+    // Returns all active products
     @Override
     public List<Product> getAllActiveProducts() {
         return repository.findAll()
@@ -31,9 +33,19 @@ public class ProductServiceImpl implements ProductService {
 //                .map(mappingService::mapEntityToDto)
                 .toList();
     }
+
+    // Returns active product by id
+    public Product getActiveProductEntityById(Long id) {
+        return repository.findById(id)
+//                .filter(Product::isActive)
+                .orElseThrow(() -> new ProductNotFoundException(id));
+    }
+
+
 }
 
 /* TODO:
-- activate filter when active field is ready;
+- activate filter when field active is ready;
 - activate mapping when DTO and mapping are ready;
+- write function getById when ProductDto class is ready;
  */

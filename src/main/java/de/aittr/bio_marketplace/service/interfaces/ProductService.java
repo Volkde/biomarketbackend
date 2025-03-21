@@ -9,7 +9,8 @@ public interface ProductService {
     // Return all active products
     List<Product> getAllActiveProducts();
 
-
+    // Return active product by id
+    Product getActiveProductEntityById(Long id);
 
     // TODO: Change class type from Product to ProductDto!!!
 
