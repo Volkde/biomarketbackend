@@ -167,7 +167,7 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format(" User: ID - %d, Имя - %s, Фамилия - %s, Email - %s, Никнейм - %s, Пароль - %s, Номер телефона - %s,Статус - %s, Аватар - %s, Роли - %s, Продавцы - %s.",
+        return String.format(" User: ID - %d, First name - %s, Last name - %s, Email - %s, Username - %s, Password - %s, Phone number  - %s, Status - %s, Avatar - %s, Roles - %s, Sellers - %s.",
                 id, firstName, lastName, email, username, password, phoneNumber, status, avatar, roles, sellers);
     }
 }

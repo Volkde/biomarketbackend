@@ -45,7 +45,7 @@ public class Role {
 
     @Override
     public String toString() {
-        return String.format(" Role: ID - %d, title - %s", id, title);
+        return String.format(" Role: ID - %d, Title - %s", id, title);
     }
 
 }

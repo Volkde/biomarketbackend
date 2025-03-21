@@ -101,7 +101,7 @@ public class Seller {
 
     @Override
     public String toString() {
-        return String.format(" Seller: ID - %d, Имя магазина - %s, Описание - %s, Номер телефона - %s, Логотип - %s, Рейтинг - %.2f, Роли - %s.",
+        return String.format(" Seller: ID - %d, Store name - %s, Description - %s, Logo - %s, Rating - %.2f, Roles - %s.",
                 id, storeName, storeDescription, storeLogo, rating, roles);
     }
 }
