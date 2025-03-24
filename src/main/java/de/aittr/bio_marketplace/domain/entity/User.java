@@ -1,19 +1,63 @@
 package de.aittr.bio_marketplace.domain.entity;
 
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+
 import java.util.Objects;
 import java.util.Set;
 
+@Entity
+@Table(name = "user")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "firstName", nullable = false)
+    @NotNull(message = "User firstName cannot be null")
+    @NotBlank(message = "User firstName cannot be empty")
+    @Pattern(
+            regexp = "[A-Z][a-z ]{2,}",
+            message = "User firstName should be at least three characters length and start with capital letter"
+    )
     private String firstName;
+
+    @Column(name = "firstName", nullable = false)
+    @NotNull(message = "User lastName cannot be null")
+    @NotBlank(message = "User lastName cannot be empty")
+    @Pattern(
+            regexp = "[A-Z][a-z ]{2,}",
+            message = "User lastName should be at least three characters length and start with capital letter"
+    )
     private String lastName;
+
+    @Column(name = "email", nullable = false)
     private String email;
+
+    @Column(name = "username", nullable = false)
+    @NotNull(message = "User username cannot be null")
+    @NotBlank(message = "User username cannot be empty")
+    @Pattern(
+            regexp = "[A-Z][a-z ]{2,}",
+            message = "User username should be at least three characters length and start with capital letter"
+    )
     private String username;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "phoneNumber")
     private String phoneNumber;
+
+    @Column(name = "status")
     private boolean status;
+
+    @Column(name = "avatar")
     private String avatar;
 
 
@@ -30,21 +74,21 @@ public class User {
 //    private Address address;
 
 
-    //    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "user_role",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "role_id")
-//    )
+        @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
     private Set<Role> roles;
 
 
-    //    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "user_role",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "seller_id")
-//    )
+        @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "user_seller",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "seller_id")
+    )
     private Set<Seller> sellers;
 
     public User() {
