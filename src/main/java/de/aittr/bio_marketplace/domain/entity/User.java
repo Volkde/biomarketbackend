@@ -1,6 +1,7 @@
 package de.aittr.bio_marketplace.domain.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -27,7 +28,7 @@ public class User {
     )
     private String firstName;
 
-    @Column(name = "firstName", nullable = false)
+    @Column(name = "lastName", nullable = false)
     @NotNull(message = "User lastName cannot be null")
     @NotBlank(message = "User lastName cannot be empty")
     @Pattern(
@@ -90,6 +91,11 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "seller_id")
     )
     private Set<Seller> sellers;
+
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "seller_id")
+    private Seller seller;
 
     public User() {
     }

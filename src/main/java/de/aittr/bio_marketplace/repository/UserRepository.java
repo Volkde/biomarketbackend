@@ -12,8 +12,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByUsername(String username);
 
-    void deleteByName(@NotNull(message = "User name cannot be null") @NotBlank(message = "User name cannot be empty") @Pattern(
+    void deleteByUsername(@NotNull(message = "User username cannot be null") @NotBlank(message = "User username cannot be empty") @Pattern(
             regexp = "[A-Z][a-z ]{2,}",
-            message = "User name should be at least three characters length and start with capital letter"
-    ) String name);
+            message = "User username should be at least three characters length and start with capital letter"
+    ) String username);
 }

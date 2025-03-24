@@ -1,10 +1,20 @@
 package de.aittr.bio_marketplace.domain.entity;
 
 
+import jakarta.persistence.*;
+
 import java.util.Objects;
 
+@Entity
+@Table(name = "role")
 public class Role {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "title")
     private String title;
 
     public Role() {

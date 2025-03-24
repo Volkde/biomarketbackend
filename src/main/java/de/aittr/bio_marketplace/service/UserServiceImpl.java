@@ -4,17 +4,20 @@ import de.aittr.bio_marketplace.domain.entity.User;
 import de.aittr.bio_marketplace.repository.UserRepository;
 import de.aittr.bio_marketplace.service.interfaces.UserService;
 import de.aittr.bio_marketplace.service.mapping.UserMappingService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
 
+
+@Service
 public class UserServiceImpl implements UserService {
 
-    private final UserMappingService mappingService;
+    //private final UserMappingService mappingService;
     private final UserRepository repository;
 
-    public UserServiceImpl(UserMappingService mappingService, UserRepository repository) {
-        this.mappingService = mappingService;
+    public UserServiceImpl(UserRepository repository) {
+        //this.mappingService = mappingService;
         this.repository = repository;
     }
 
@@ -84,7 +87,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteByName(String name) {
-        repository.deleteByName(name);
+    public void deleteByUsername(String username) {
+        repository.deleteByUsername(username);
     }
 }

@@ -1,12 +1,13 @@
 package de.aittr.bio_marketplace.controller;
 
 
-import de.aittr.bio_marketplace.domain.entity.Product;
 import de.aittr.bio_marketplace.domain.entity.User;
 import de.aittr.bio_marketplace.service.interfaces.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -56,8 +57,8 @@ public class UserController {
         service.deleteById(id);
     }
 
-    @DeleteMapping("/by-title/{title}")
-    public void deleteByTitle(@PathVariable String title) {
-        service.deleteByName(title);
+    @DeleteMapping("/by-username/{username}")
+    public void deleteByTitle(@PathVariable String username) {
+        service.deleteByUsername(username);
     }
 }

@@ -22,5 +22,5 @@ public interface UserService {
 
     void deleteById(Long id);
 
-    void deleteByName(String name);
+    void deleteByUsername(String username);
 }
