@@ -2,26 +2,51 @@ package de.aittr.bio_marketplace.domain.entity;
 
 
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+
 import java.math.BigDecimal;
 import java.util.Objects;
 import java.util.Set;
 
+@Entity
+@Table(name = "seller")
 public class Seller {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+
+    @Column(name = "storeName", nullable = false)
+    @NotNull(message = "Seller storeName cannot be null")
+    @NotBlank(message = "Seller storeName cannot be empty")
+    @Pattern(
+            regexp = "[A-Z][a-z ]{2,}",
+            message = "Seller storeName should be at least three characters length and start with capital letter"
+    )
     private String storeName;
+
+    @Column(name = "storeDescription")
     private String storeDescription;
+
+    @Column(name = "storeLogo")
     private String storeLogo;
+
+    @Column(name = "rating")
     private BigDecimal rating;
-    //ToDo как лучше всего реализовать продавца и ферму, через дополнительный класс фермы
-    // с дублированием данных в юзере и селлере, или так как сейчас (вроде и так ок)
+
+    @OneToOne(mappedBy = "seller", cascade = CascadeType.ALL)
     private User user;
 
-    //    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "seller_role",
-//            joinColumns = @JoinColumn(name = "seller_id"),
-//            inverseJoinColumns = @JoinColumn(name = "role_id")
-//    )
+        @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "seller_role",
+            joinColumns = @JoinColumn(name = "seller_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
     private Set<Role> roles;
 
     public Seller() {
