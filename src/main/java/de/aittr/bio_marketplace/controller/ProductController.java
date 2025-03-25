@@ -48,7 +48,7 @@ public class ProductController {
             summary = "Get all products",
             description = "Getting all active products that exist in the database"
     )
-    @GetMapping("/all")
+    @GetMapping()
     public List<Product> getAll() {
         return service.getAllActiveProducts();
     }
