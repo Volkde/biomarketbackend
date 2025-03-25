@@ -34,7 +34,7 @@ public class UserController {
     }
 
 
-    @GetMapping("/all")
+    @GetMapping()
     @Operation(
             summary = "Get all users",
             description = "Getting all users that exist in the database"
@@ -50,6 +50,12 @@ public class UserController {
                                Long id
     ) {
         return service.getById(id);
+    }
+
+    @PutMapping
+    public void update(@RequestBody User user) {
+        service.update(user);
+
     }
 
     @DeleteMapping("/{id}")

@@ -1,9 +1,11 @@
 package de.aittr.bio_marketplace.service;
 
+import de.aittr.bio_marketplace.domain.entity.Seller;
 import de.aittr.bio_marketplace.domain.entity.User;
 import de.aittr.bio_marketplace.repository.UserRepository;
 import de.aittr.bio_marketplace.service.interfaces.UserService;
 import de.aittr.bio_marketplace.service.mapping.UserMappingService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,6 +35,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public User saveCustomer(User user) {
 //        try {
 //            User entity = mappingService.mapDtoToEntity(dto);
@@ -66,8 +69,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void update(User user) {
-
+        Long id = user.getId();
+        User findUser = repository.findById(id)
+                .filter(User::isStatus)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        findUser.setFirstName(user.getFirstName());
+        findUser.setLastName(user.getLastName());
+        findUser.setUsername(user.getUsername());
+        findUser.setPhoneNumber(user.getPhoneNumber());
+        findUser.setAvatar(user.getAvatar());
     }
 
 
