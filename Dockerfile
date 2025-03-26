@@ -12,4 +12,4 @@ ARG DEPENDENCY=/workspace/app/target/dependency
 COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
 COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
 COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
-ENTRYPOINT ["java","-cp","app:app/lib/*", "de.aittr.g_52_shop.G52ShopApplication"]
+ENTRYPOINT ["java","-cp","app:app/lib/*", "de.aittr.bio_marketplace.BioMarketplaceApplication"]
