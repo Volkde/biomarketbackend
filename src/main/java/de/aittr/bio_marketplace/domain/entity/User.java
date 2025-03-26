@@ -57,19 +57,8 @@ public class User {
     @Column(name = "avatar")
     private String avatar;
 
-
-//ToDo реализовать в будущем объекты Cart и Address
-
-    // Связь один-к-одному со стороны той таблицы, в которой нет
-    // колонки, которая ссылается на другую таблицу
-//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-
-//    private Cart cart;
-
-
-//    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-//    private Address address;
-
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Cart cart;
 
         @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -96,8 +85,10 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName, String email, String username, String password,
-                String phoneNumber, boolean status, String avatar, Set<Role> roles, Set<Seller> sellers) {
+    public User(Long id, String firstName, String lastName,
+                String email, String username, String password, String phoneNumber,
+                boolean status, String avatar, Cart cart, Set<Role> roles,
+                Set<Seller> sellers, Seller seller) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -107,8 +98,10 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.status = status;
         this.avatar = avatar;
+        this.cart = cart;
         this.roles = roles;
         this.sellers = sellers;
+        this.seller = seller;
     }
 
     public Long getId() {
@@ -129,6 +122,14 @@ public class User {
 
     public String getUsername() {
         return username;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public Seller getSeller() {
+        return seller;
     }
 
     public String getPassword() {
@@ -175,6 +176,14 @@ public class User {
         this.username = username;
     }
 
+    public void setSeller(Seller seller) {
+        this.seller = seller;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -203,17 +212,17 @@ public class User {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return status == user.status && Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(avatar, user.avatar) && Objects.equals(roles, user.roles) && Objects.equals(sellers, user.sellers);
+        return status == user.status && Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(avatar, user.avatar) && Objects.equals(cart, user.cart) && Objects.equals(roles, user.roles) && Objects.equals(sellers, user.sellers) && Objects.equals(seller, user.seller);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, username, password, phoneNumber, status, avatar, roles, sellers);
+        return Objects.hash(id, firstName, lastName, email, username, password, phoneNumber, status, avatar, cart, roles, sellers, seller);
     }
 
     @Override
     public String toString() {
-        return String.format(" User: ID - %d, First name - %s, Last name - %s, Email - %s, Username - %s, Password - %s, Phone number  - %s, Status - %s, Avatar - %s, Roles - %s, Sellers - %s.",
-                id, firstName, lastName, email, username, password, phoneNumber, status, avatar, roles, sellers);
+        return String.format(" User: ID - %d, First name - %s, Last name - %s, Email - %s, Username - %s, Password - %s, Phone number  - %s, Status - %s, Avatar - %s, Roles - %s, Sellers - %s, Cart - %s.",
+                id, firstName, lastName, email, username, password, phoneNumber, status, avatar, roles, sellers, cart);
     }
 }
