@@ -1,5 +1,6 @@
 package de.aittr.bio_marketplace.domain.dto;
 
+import de.aittr.bio_marketplace.domain.entity.Cart;
 import de.aittr.bio_marketplace.domain.entity.Role;
 import de.aittr.bio_marketplace.domain.entity.Seller;
 
@@ -17,6 +18,7 @@ public class UserDto {
     private String avatar;
     private Set<Role> roles;
     private Set<Seller> sellers;
+    private Cart cart;
 
     public Long getId() {
         return id;
@@ -32,6 +34,10 @@ public class UserDto {
 
     public String getEmail() {
         return email;
+    }
+
+    public Cart getCart() {
+        return cart;
     }
 
     public String getUsername() {
@@ -98,22 +104,26 @@ public class UserDto {
         this.sellers = sellers;
     }
 
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         UserDto userDto = (UserDto) o;
-        return Objects.equals(id, userDto.id) && Objects.equals(firstName, userDto.firstName) && Objects.equals(lastName, userDto.lastName) && Objects.equals(email, userDto.email) && Objects.equals(username, userDto.username) && Objects.equals(password, userDto.password) && Objects.equals(phoneNumber, userDto.phoneNumber) && Objects.equals(avatar, userDto.avatar) && Objects.equals(roles, userDto.roles) && Objects.equals(sellers, userDto.sellers);
+        return Objects.equals(id, userDto.id) && Objects.equals(firstName, userDto.firstName) && Objects.equals(lastName, userDto.lastName) && Objects.equals(email, userDto.email) && Objects.equals(username, userDto.username) && Objects.equals(password, userDto.password) && Objects.equals(phoneNumber, userDto.phoneNumber) && Objects.equals(avatar, userDto.avatar) && Objects.equals(roles, userDto.roles) && Objects.equals(sellers, userDto.sellers) && Objects.equals(cart, userDto.cart);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, username, password, phoneNumber, avatar, roles, sellers);
+        return Objects.hash(id, firstName, lastName, email, username, password, phoneNumber, avatar, roles, sellers, cart);
     }
 
     @Override
     public String toString() {
-        return String.format(" User: ID - %d, First name - %s, Last name - %s, Email - %s, Username - %s, Password - %s, Phone number  - %s, Avatar - %s, Roles - %s, Sellers - %s.",
-                id, firstName, lastName, email, username, password, phoneNumber, avatar, roles, sellers);
+        return String.format(" User: ID - %d, First name - %s, Last name - %s, Email - %s, Username - %s, Password - %s, Phone number  - %s, Avatar - %s, Roles - %s, Sellers - %s, Cart - %s.",
+                id, firstName, lastName, email, username, password, phoneNumber, avatar, roles, sellers, cart);
     }
 }
 
