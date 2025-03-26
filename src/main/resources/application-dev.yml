@@ -5,6 +5,10 @@ spring:
     password: sql77777
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/changelog-master.xml
+
   jpa:
     hibernate:
       ddl-auto: none
@@ -13,7 +17,8 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
 
-  liquibase:
-    enabled: true
-    change-log: classpath:db/changelog/changelog-master.xml
-
+server:
+  messages:
+    hello: Hello from Bio-Marketplace Digital Ocean application!
+  servlet:
+    context-path: /api
