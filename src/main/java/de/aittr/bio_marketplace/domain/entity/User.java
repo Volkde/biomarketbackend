@@ -51,7 +51,7 @@ public class User {
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
-    @Column(name = "status")
+    @Column(name = "status", nullable = false)
     private boolean status;
 
     @Column(name = "avatar")

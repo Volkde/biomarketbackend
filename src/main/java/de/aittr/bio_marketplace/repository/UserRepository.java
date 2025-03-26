@@ -16,4 +16,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
             regexp = "[A-Z][a-z ]{2,}",
             message = "User username should be at least three characters length and start with capital letter"
     ) String username);
+
 }
