@@ -5,22 +5,22 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
 
-    <changeSet id="003-create-products-table" author="team46">
-        <createTable tableName="products">
+    <changeSet id="001-create-user-table" author="team46">
+        <createTable tableName="user">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="title" type="VARCHAR(255)">
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="price" type="DECIMAL(10,2)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="category_id" type="BIGINT"/>
-            <column name="seller_id" type="BIGINT"/>
-            <column name="status" type="VARCHAR(20)" defaultValue="ACTIVE"/>
-            <column name="date_publication" type="DATE"/>
-            <column name="rating" type="DECIMAL(3,2)"/>
+            <column name="role_id" type="BIGINT"/>
+            <column name="first_name" type="VARCHAR(255)"/>
+            <column name="last_name" type="VARCHAR(255)"/>
+            <column name="avatar" type="VARCHAR(500)"/>
+            <column name="is_active" type="BOOLEAN" defaultValueBoolean="true"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

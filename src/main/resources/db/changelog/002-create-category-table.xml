@@ -5,22 +5,16 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
 
-    <changeSet id="001-create-users-table" author="team46">
-        <createTable tableName="users">
+    <changeSet id="002-create-category-table" author="team46">
+        <createTable tableName="category">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="email" type="VARCHAR(255)">
+            <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false" unique="true"/>
             </column>
-            <column name="password" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
-            <column name="role_id" type="BIGINT"/>
-            <column name="first_name" type="VARCHAR(255)"/>
-            <column name="last_name" type="VARCHAR(255)"/>
-            <column name="avatar" type="VARCHAR(500)"/>
-            <column name="is_active" type="BOOLEAN" defaultValueBoolean="true"/>
+            <column name="description" type="TEXT"/>
+            <column name="parent_id" type="BIGINT"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>
