@@ -24,15 +24,19 @@ public class UserController {
     }
 
 
-    @PostMapping
-    public User save(
+    @PostMapping("/auth/register")
+    public User register(
             @RequestBody
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Instance of a User")
             User user
     ) {
-        return service.saveCustomer(user);
+        return service.registerUser(user);
     }
 
+    @PostMapping("/auth/login/{email}/{password}")
+    public void login(@PathVariable String email, @PathVariable String password) {
+        service.loginUser(email, password);
+    }
 
     @GetMapping()
     @Operation(

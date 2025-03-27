@@ -1,11 +1,14 @@
 package de.aittr.bio_marketplace.service;
 
+import de.aittr.bio_marketplace.domain.entity.Cart;
 import de.aittr.bio_marketplace.domain.entity.Seller;
 import de.aittr.bio_marketplace.domain.entity.User;
 import de.aittr.bio_marketplace.repository.UserRepository;
+import de.aittr.bio_marketplace.service.interfaces.RoleService;
 import de.aittr.bio_marketplace.service.interfaces.UserService;
 import de.aittr.bio_marketplace.service.mapping.UserMappingService;
 import jakarta.transaction.Transactional;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,39 +20,45 @@ public class UserServiceImpl implements UserService {
 
     //private final UserMappingService mappingService;
     private final UserRepository repository;
+    private final RoleService roleService;
+    private final BCryptPasswordEncoder encoder;
 
-    public UserServiceImpl(UserRepository repository) {
+    public UserServiceImpl(UserRepository repository, RoleService roleService, BCryptPasswordEncoder encoder) {
         //this.mappingService = mappingService;
         this.repository = repository;
-    }
-
-    @Override
-    public void register(User user) {
-//        user.setId(null);
-//        user.setPassword(encoder.encode(user.getPassword()));
-//        user.setStatus(false);
-//        user.setRoles(Set.of(roleService.getRoleUser()));
-//
-        repository.save(user);
-//        emailService.sendConfirmationEmail(user);
+        this.roleService = roleService;
+        this.encoder = encoder;
     }
 
     @Override
     @Transactional
-    public User saveCustomer(User user) {
+    public User registerUser(User user) {
+
+        user.setId(null);
+        //user.setPassword(encoder.encode(user.getPassword()));
+//      ToDo Confirmation Email (false)
+        user.setStatus(true);
+        user.setRoles(Set.of(roleService.getRoleUser()));
 //        try {
 //            User entity = mappingService.mapDtoToEntity(dto);
-//
-//            Cart cart = new Cart();
-//            cart.setCustomer(entity);
-//            entity.setCart(cart);
-//
+            Cart cart = new Cart();
+            cart.setUser(user);
+            user.setCart(cart);
 //            entity = repository.save(entity);
-//           return mappingService.mapEntityToDto(user);
-           return repository.save(user);
+//            return mappingService.mapEntityToDto(user);
+//            emailService.sendConfirmationEmail(user);
+       return repository.save(user);
 //        }  catch (Exception e) {
 //            throw new CustomerValidationException(e);
 //        }
+    }
+
+    @Override
+    public void loginUser(String email, String password) {
+        User user = repository.findUserByEmail(email)
+                .filter(User::isStatus)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+       encoder.matches(password, user.getPassword());
     }
 
     @Override

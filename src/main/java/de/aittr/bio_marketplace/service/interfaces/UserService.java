@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface UserService {
 
-    void register(User user);
+    User registerUser(User user);
 
-    User saveCustomer(User user);
+    void loginUser(String email, String password);
 
     List<User> getAllActiveUsers();
 
