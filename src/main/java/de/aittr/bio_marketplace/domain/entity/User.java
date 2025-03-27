@@ -52,7 +52,7 @@ public class User {
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "is_active", nullable = false)
     private boolean status = true;
 
     @Column(name = "avatar")

@@ -8,5 +8,6 @@
     <include file="001-create-user-table.xml" relativeToChangelogFile="true"/>
     <include file="002-create-category-table.xml" relativeToChangelogFile="true"/>
     <include file="003-create-product-table.xml" relativeToChangelogFile="true"/>
+    <include file="004-update-user-table.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
