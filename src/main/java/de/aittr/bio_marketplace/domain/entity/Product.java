@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 @Entity
 @Table(name = "product")
@@ -25,6 +26,14 @@ public class Product {
     )
     private String title;
 
+    @Column(name = "description")
+    // TODO: add swagger annotations
+    private String description;
+
+    @Column(name = "image")
+    private String image;
+    // TODO: add swagger annotations
+
     @Column(name = "price")
     @DecimalMin(
             value = "1.00",
@@ -37,15 +46,22 @@ public class Product {
     )
     private BigDecimal price;
 
+    @Column(name = "status")
+    private String status;
+    // TODO: add swagger annotations
+
     // --- CONSTRUCTORS ---
 
     public Product() {
     }
 
-    public Product(Long id, String title, BigDecimal price) {
+    public Product(Long id, String title, String description, String image, BigDecimal price, String status) {
         this.id = id;
         this.title = title;
+        this.description = description;
+        this.image = image;
         this.price = price;
+        this.status = status;
     }
 
     // --- METHODS ---
@@ -76,11 +92,47 @@ public class Product {
         this.price = price;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    // --- Ecquals and hashcode ---
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(id, product.id) && Objects.equals(title, product.title) && Objects.equals(description, product.description) && Objects.equals(image, product.image) && Objects.equals(price, product.price) && Objects.equals(status, product.status);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, description, image, price, status);
+    }
+
 
 
     /* TODO: add the following fields:
-    - description
-    - status
     - images
     - rating
     - categoryId
