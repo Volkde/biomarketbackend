@@ -36,21 +36,21 @@ public record AuthenticatedUser(User user) implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user != null && user.isStatus();
+        return user != null && user.isActive();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return user != null && user.isStatus();
+        return user != null && user.isActive();
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return user != null && user.isStatus();
+        return user != null && user.isActive();
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return user != null && user.isStatus();
+        return user != null && user.isActive();
     }
 }

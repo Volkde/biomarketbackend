@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
         User user = registerDto.toUser();
         user.setPassword(encoder.encode(registerDto.password()));
 //      ToDo Confirmation Email (false)
-        user.setStatus(true);
+        user.setIsActive(true);
         user.setRoles(Set.of(roleService.getRoleUser()));
         Cart cart = new Cart(user);
         user.setCart(cart);
@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllActiveUsers() {
         return repository.findAll()
                 .stream()
-                .filter(User::isStatus)
+                .filter(User::isActive)
                 //           .map(mappingService::mapEntityToDto)
                 .toList();
     }
@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getById(Long id) {
         return repository.findById(id)
-                .filter(User::isStatus)
+                .filter(User::isActive)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
 
@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
     public void update(User user) {
         Long id = user.getId();
         User findUser = repository.findById(id)
-                .filter(User::isStatus)
+                .filter(User::isActive)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         findUser.setFirstName(user.getFirstName());
         findUser.setLastName(user.getLastName());

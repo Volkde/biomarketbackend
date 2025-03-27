@@ -53,7 +53,7 @@ public class User {
     private String phoneNumber;
 
     @Column(name = "is_active", nullable = false)
-    private boolean status = true;
+    private boolean isActive = true;
 
     @Column(name = "avatar")
     private String avatar;
@@ -129,8 +129,8 @@ public class User {
         return phoneNumber;
     }
 
-    public boolean isStatus() {
-        return status;
+    public boolean isActive() {
+        return isActive;
     }
 
     public String getAvatar() {
@@ -181,8 +181,8 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setIsActive(boolean status) {
+        this.isActive = status;
     }
 
     public void setAvatar(String avatar) {
@@ -201,17 +201,17 @@ public class User {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return status == user.status && Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(avatar, user.avatar) && Objects.equals(cart, user.cart) && Objects.equals(roles, user.roles) && Objects.equals(sellers, user.sellers) && Objects.equals(seller, user.seller);
+        return isActive == user.isActive && Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(avatar, user.avatar) && Objects.equals(cart, user.cart) && Objects.equals(roles, user.roles) && Objects.equals(sellers, user.sellers) && Objects.equals(seller, user.seller);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, username, password, phoneNumber, status, avatar, cart, roles, sellers, seller);
+        return Objects.hash(id, firstName, lastName, email, username, password, phoneNumber, isActive, avatar, cart, roles, sellers, seller);
     }
 
     @Override
     public String toString() {
         return String.format(" User: ID - %d, First name - %s, Last name - %s, Email - %s, Username - %s, Password - %s, Phone number  - %s, Status - %s, Avatar - %s, Roles - %s, Sellers - %s, Cart - %s.",
-                id, firstName, lastName, email, username, password, phoneNumber, status, avatar, roles, sellers, cart);
+                id, firstName, lastName, email, username, password, phoneNumber, isActive, avatar, roles, sellers, cart);
     }
 }
