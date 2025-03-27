@@ -13,7 +13,6 @@ public class UserDto {
     private String lastName;
     private String email;
     private String username;
-    private String password;
     private String phoneNumber;
     private String avatar;
     private Set<Role> roles;
@@ -42,10 +41,6 @@ public class UserDto {
 
     public String getUsername() {
         return username;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public String getPhoneNumber() {
@@ -84,10 +79,6 @@ public class UserDto {
         this.username = username;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
@@ -112,18 +103,18 @@ public class UserDto {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         UserDto userDto = (UserDto) o;
-        return Objects.equals(id, userDto.id) && Objects.equals(firstName, userDto.firstName) && Objects.equals(lastName, userDto.lastName) && Objects.equals(email, userDto.email) && Objects.equals(username, userDto.username) && Objects.equals(password, userDto.password) && Objects.equals(phoneNumber, userDto.phoneNumber) && Objects.equals(avatar, userDto.avatar) && Objects.equals(roles, userDto.roles) && Objects.equals(sellers, userDto.sellers) && Objects.equals(cart, userDto.cart);
+        return Objects.equals(id, userDto.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, username, password, phoneNumber, avatar, roles, sellers, cart);
+        return Objects.hash(id);
     }
 
     @Override
     public String toString() {
-        return String.format(" User: ID - %d, First name - %s, Last name - %s, Email - %s, Username - %s, Password - %s, Phone number  - %s, Avatar - %s, Roles - %s, Sellers - %s, Cart - %s.",
-                id, firstName, lastName, email, username, password, phoneNumber, avatar, roles, sellers, cart);
+        return String.format(" User: ID - %d, First name - %s, Last name - %s, Email - %s, Username - %s, Phone number  - %s, Avatar - %s, Roles - %s, Sellers - %s, Cart - %s.",
+                id, firstName, lastName, email, username, phoneNumber, avatar, roles, sellers, cart);
     }
 }
 
