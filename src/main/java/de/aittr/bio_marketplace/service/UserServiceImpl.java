@@ -1,64 +1,80 @@
 package de.aittr.bio_marketplace.service;
 
+import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserDto;
+import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
 import de.aittr.bio_marketplace.domain.entity.Cart;
-import de.aittr.bio_marketplace.domain.entity.Seller;
 import de.aittr.bio_marketplace.domain.entity.User;
+import de.aittr.bio_marketplace.exceptiions.AuthenticationException;
 import de.aittr.bio_marketplace.repository.UserRepository;
+import de.aittr.bio_marketplace.security.service.JwtTokenService;
 import de.aittr.bio_marketplace.service.interfaces.RoleService;
 import de.aittr.bio_marketplace.service.interfaces.UserService;
-import de.aittr.bio_marketplace.service.mapping.UserMappingService;
 import jakarta.transaction.Transactional;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.authentication.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
 
-
 @Service
 public class UserServiceImpl implements UserService {
+
+    private static final String PASSWORD_OR_EMAIL_IS_INCORRECT = "Password or email is incorrect";
 
     //private final UserMappingService mappingService;
     private final UserRepository repository;
     private final RoleService roleService;
-    private final BCryptPasswordEncoder encoder;
+    private final PasswordEncoder encoder;
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenService jwtTokenService;
 
-    public UserServiceImpl(UserRepository repository, RoleService roleService, BCryptPasswordEncoder encoder) {
+    public UserServiceImpl(UserRepository repository,
+                           RoleService roleService,
+                           PasswordEncoder encoder,
+                           AuthenticationManager authenticationManager,
+                           JwtTokenService jwtTokenService) {
         //this.mappingService = mappingService;
         this.repository = repository;
         this.roleService = roleService;
         this.encoder = encoder;
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenService = jwtTokenService;
     }
 
     @Override
     @Transactional
-    public User registerUser(User user) {
-
-        user.setId(null);
-        //user.setPassword(encoder.encode(user.getPassword()));
+    public RegisterUserResponseDto registerUser(RegisterUserDto registerDto) {
+        User user = registerDto.toUser();
+        user.setPassword(encoder.encode(registerDto.password()));
 //      ToDo Confirmation Email (false)
         user.setStatus(true);
         user.setRoles(Set.of(roleService.getRoleUser()));
-//        try {
-//            User entity = mappingService.mapDtoToEntity(dto);
-            Cart cart = new Cart();
-            cart.setUser(user);
-            user.setCart(cart);
-//            entity = repository.save(entity);
-//            return mappingService.mapEntityToDto(user);
-//            emailService.sendConfirmationEmail(user);
-       return repository.save(user);
-//        }  catch (Exception e) {
-//            throw new CustomerValidationException(e);
-//        }
+        Cart cart = new Cart(user);
+        user.setCart(cart);
+        return RegisterUserResponseDto.fromUser(repository.save(user));
     }
+
 
     @Override
     public void loginUser(String email, String password) {
         User user = repository.findUserByEmail(email)
-                .filter(User::isStatus)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-       encoder.matches(password, user.getPassword());
+                .orElseThrow(() -> new AuthenticationException(PASSWORD_OR_EMAIL_IS_INCORRECT));
+        boolean isMatch = encoder.matches(password, user.getPassword());
+
+        if (!isMatch) {
+            throw new AuthenticationException(PASSWORD_OR_EMAIL_IS_INCORRECT);
+        }
+
+        Authentication authenticationToken = new UsernamePasswordAuthenticationToken(email, password);
+        try {
+            Authentication authenticated = authenticationManager.authenticate(authenticationToken);
+            SecurityContextHolder.getContext().setAuthentication(authenticated);
+        } catch (DisabledException | LockedException | BadCredentialsException ex) {
+            throw new AuthenticationException(PASSWORD_OR_EMAIL_IS_INCORRECT);
+        }
     }
 
     @Override
@@ -66,7 +82,7 @@ public class UserServiceImpl implements UserService {
         return repository.findAll()
                 .stream()
                 .filter(User::isStatus)
-     //           .map(mappingService::mapEntityToDto)
+                //           .map(mappingService::mapEntityToDto)
                 .toList();
     }
 

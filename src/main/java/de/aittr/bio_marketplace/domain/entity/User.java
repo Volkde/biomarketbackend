@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -37,11 +38,11 @@ public class User {
     private String email;
 
     @Column(name = "username", nullable = false)
-    @NotNull(message = "User username cannot be null")
-    @NotBlank(message = "User username cannot be empty")
+    @NotNull(message = "User email cannot be null")
+    @NotBlank(message = "User email cannot be empty")
     @Pattern(
             regexp = "[A-Z][a-z ]{2,}",
-            message = "User username should be at least three characters length and start with capital letter"
+            message = "User email should be at least three characters length and start with capital letter"
     )
     private String username;
 
@@ -52,7 +53,7 @@ public class User {
     private String phoneNumber;
 
     @Column(name = "status", nullable = false)
-    private boolean status;
+    private boolean status = true;
 
     @Column(name = "avatar")
     private String avatar;
@@ -60,16 +61,16 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Cart cart;
 
-        @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
 
-        @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_seller",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -85,23 +86,11 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName,
-                String email, String username, String password, String phoneNumber,
-                boolean status, String avatar, Cart cart, Set<Role> roles,
-                Set<Seller> sellers, Seller seller) {
-        this.id = id;
+    public User(String firstName, String lastName, String email, String username) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.status = status;
-        this.avatar = avatar;
-        this.cart = cart;
-        this.roles = roles;
-        this.sellers = sellers;
-        this.seller = seller;
     }
 
     public Long getId() {
