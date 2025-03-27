@@ -20,14 +20,14 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "firstName", nullable = false)
+    @Column(name = "first_name", nullable = false)
     @Pattern(
             regexp = "[A-Z][a-z ]{2,}",
             message = "User firstName should be at least three characters length and start with capital letter"
     )
     private String firstName;
 
-    @Column(name = "lastName", nullable = false)
+    @Column(name = "last_name", nullable = false)
     @Pattern(
             regexp = "[A-Z][a-z ]{2,}",
             message = "User lastName should be at least three characters length and start with capital letter"
@@ -38,8 +38,8 @@ public class User {
     private String email;
 
     @Column(name = "username", nullable = false)
-    @NotNull(message = "User email cannot be null")
-    @NotBlank(message = "User email cannot be empty")
+    @NotNull(message = "User username cannot be null")
+    @NotBlank(message = "User username cannot be empty")
     @Pattern(
             regexp = "[A-Z][a-z ]{2,}",
             message = "User email should be at least three characters length and start with capital letter"
