@@ -5,10 +5,11 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
 
-    <include file="001-create-user-table.xml" relativeToChangelogFile="true"/>
+    <include file="001-create-role-table.xml" relativeToChangelogFile="true"/>
     <include file="002-create-category-table.xml" relativeToChangelogFile="true"/>
-    <include file="003-create-product-table.xml" relativeToChangelogFile="true"/>
-    <include file="004-create-role-table.xml" relativeToChangelogFile="true"/>
-    <include file="104-update-user-table.xml" relativeToChangelogFile="true"/>
+    <include file="003-create-user-table.xml" relativeToChangelogFile="true"/>
+    <include file="004-create-product-table.xml" relativeToChangelogFile="true"/>
+    <include file="005-add-columns-description-and-image-to-product.xml" relativeToChangelogFile="true"/>
+    <include file="006-update-user-table.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>
