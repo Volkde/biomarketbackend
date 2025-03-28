@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="902-insert-categories" author="your-name">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="category"/>
+        </preConditions>
+        <insert tableName="category">
+            <column name="id" valueNumeric="1"/>
+            <column name="name" value="Dairy Products"/>
+            <column name="description" value="Fresh dairy products from German farms"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" valueNumeric="2"/>
+            <column name="name" value="Meat Products"/>
+            <column name="description" value="Traditional German meat specialties"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" valueNumeric="3"/>
+            <column name="name" value="Vegetables"/>
+            <column name="description" value="Locally grown organic vegetables"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" valueNumeric="4"/>
+            <column name="name" value="Fruits"/>
+            <column name="description" value="Seasonal fruits from German orchards"/>
+        </insert>
+        <insert tableName="category">
+            <column name="id" valueNumeric="5"/>
+            <column name="name" value="Bakery Products"/>
+            <column name="description" value="Artisan breads and pastries"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
