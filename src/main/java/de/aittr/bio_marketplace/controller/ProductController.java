@@ -1,5 +1,6 @@
 package de.aittr.bio_marketplace.controller;
 
+import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.entity.Product;
 import de.aittr.bio_marketplace.service.interfaces.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -34,10 +35,10 @@ public class ProductController {
             description = "Saving product with given parameters"
     )
     @PostMapping
-    public Product save(
+    public ProductDto save(
             @RequestBody
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Instance of a Product")
-            Product product) {
+            ProductDto product) {
         return service.save(product);
     }
 
@@ -49,7 +50,7 @@ public class ProductController {
             description = "Getting all active products that exist in the database"
     )
     @GetMapping()
-    public List<Product> getAll() {
+    public List<ProductDto> getAll() {
         return service.getAllActiveProducts();
     }
 
@@ -59,12 +60,12 @@ public class ProductController {
             description = "Getting product from database by id"
     )
     @GetMapping("/{id}")
-    public Product getById(
+    public ProductDto getById(
             @PathVariable
             @Parameter(description = "Product unique identifier")
             Long id
     ) {
-        return service.getActiveProductEntityById(id);
+        return service.getById(id);
     }
 
     // --- Delete ---
