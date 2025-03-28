@@ -35,6 +35,10 @@ public class Cart {
     public Cart() {
     }
 
+    public Cart(User user) {
+        this.user = user;
+    }
+
     public void addProduct(Product product) {
         //ToDo isActive in product
        // if (product.isActive()) {

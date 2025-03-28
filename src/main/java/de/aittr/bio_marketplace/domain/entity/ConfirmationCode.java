@@ -80,7 +80,7 @@ public class ConfirmationCode {
 
     @Override
     public String toString() {
-        return String.format("Confirmation Code: Id - %d, code - %s, expired - %s, username - %s.",
-                id, code, expired, user.getUsername());
+        return String.format("Confirmation Code: Id - %d, code - %s, expired - %s, email - %s.",
+                id, code, expired, user.getEmail());
     }
 }
