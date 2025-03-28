@@ -1,5 +1,6 @@
 package de.aittr.bio_marketplace.service.interfaces;
 
+import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.entity.Product;
 
 import java.util.List;
@@ -7,19 +8,18 @@ import java.util.List;
 public interface ProductService {
 
     // Save product in DB
-    Product save(Product product);
+    ProductDto save(ProductDto product);
 
     // Return all active products
-    List<Product> getAllActiveProducts();
+    List<ProductDto> getAllActiveProducts();
 
     // Return active product by id
+    ProductDto getById(Long id);
+
+    // Return active product entity by id
     Product getActiveProductEntityById(Long id);
 
     // Delete product by id
     void deleteById(Long id);
-
-
-
-    // TODO: Change class type from Product to ProductDto!!!
 
 }
