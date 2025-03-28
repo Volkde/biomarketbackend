@@ -22,3 +22,11 @@ server:
     hello: Hello from Bio-Marketplace Digital Ocean application!
   servlet:
     context-path: /api
+
+jwt:
+  jwtAtSecret: ${JWT_AT_SECRET:3b4b2f2822144afa49ace61e650775809579816de5e6b170ff3911931fb717ed}
+  jwtRtSecret: ${JWT_RT_SECRET:3b4b2f2822144afa49ace61e650775809579816de5e6b170ff3911931fb717aB}
+  atExpirationInMs: ${JWT_AT_EXPIRATION_IN_MS:1200000}
+  rtExpirationInMs: ${JWT_RT_EXPIRATION_IN_MS:86400000}
+  atCookieName: access-token
+  rtCookieName: refresh-token

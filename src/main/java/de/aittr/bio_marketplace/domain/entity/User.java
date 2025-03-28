@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -19,14 +20,14 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "firstName", nullable = false)
+    @Column(name = "first_name", nullable = false)
     @Pattern(
             regexp = "[A-Z][a-z ]{2,}",
             message = "User firstName should be at least three characters length and start with capital letter"
     )
     private String firstName;
 
-    @Column(name = "lastName", nullable = false)
+    @Column(name = "last_name", nullable = false)
     @Pattern(
             regexp = "[A-Z][a-z ]{2,}",
             message = "User lastName should be at least three characters length and start with capital letter"
@@ -41,7 +42,7 @@ public class User {
     @NotBlank(message = "User username cannot be empty")
     @Pattern(
             regexp = "[A-Z][a-z ]{2,}",
-            message = "User username should be at least three characters length and start with capital letter"
+            message = "User email should be at least three characters length and start with capital letter"
     )
     private String username;
 
@@ -51,8 +52,8 @@ public class User {
     @Column(name = "phoneNumber")
     private String phoneNumber;
 
-    @Column(name = "status", nullable = false)
-    private boolean status;
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive = true;
 
     @Column(name = "avatar")
     private String avatar;
@@ -60,16 +61,16 @@ public class User {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Cart cart;
 
-        @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    private Set<Role> roles;
+    private Set<Role> roles = new HashSet<>();
 
 
-        @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_seller",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -85,23 +86,11 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName,
-                String email, String username, String password, String phoneNumber,
-                boolean status, String avatar, Cart cart, Set<Role> roles,
-                Set<Seller> sellers, Seller seller) {
-        this.id = id;
+    public User(String firstName, String lastName, String email, String username) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
-        this.password = password;
-        this.phoneNumber = phoneNumber;
-        this.status = status;
-        this.avatar = avatar;
-        this.cart = cart;
-        this.roles = roles;
-        this.sellers = sellers;
-        this.seller = seller;
     }
 
     public Long getId() {
@@ -140,8 +129,8 @@ public class User {
         return phoneNumber;
     }
 
-    public boolean isStatus() {
-        return status;
+    public boolean isActive() {
+        return isActive;
     }
 
     public String getAvatar() {
@@ -192,8 +181,8 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public void setStatus(boolean status) {
-        this.status = status;
+    public void setIsActive(boolean status) {
+        this.isActive = status;
     }
 
     public void setAvatar(String avatar) {
@@ -212,17 +201,17 @@ public class User {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return status == user.status && Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(avatar, user.avatar) && Objects.equals(cart, user.cart) && Objects.equals(roles, user.roles) && Objects.equals(sellers, user.sellers) && Objects.equals(seller, user.seller);
+        return isActive == user.isActive && Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(avatar, user.avatar) && Objects.equals(cart, user.cart) && Objects.equals(roles, user.roles) && Objects.equals(sellers, user.sellers) && Objects.equals(seller, user.seller);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, username, password, phoneNumber, status, avatar, cart, roles, sellers, seller);
+        return Objects.hash(id, firstName, lastName, email, username, password, phoneNumber, isActive, avatar, cart, roles, sellers, seller);
     }
 
     @Override
     public String toString() {
         return String.format(" User: ID - %d, First name - %s, Last name - %s, Email - %s, Username - %s, Password - %s, Phone number  - %s, Status - %s, Avatar - %s, Roles - %s, Sellers - %s, Cart - %s.",
-                id, firstName, lastName, email, username, password, phoneNumber, status, avatar, roles, sellers, cart);
+                id, firstName, lastName, email, username, password, phoneNumber, isActive, avatar, roles, sellers, cart);
     }
 }

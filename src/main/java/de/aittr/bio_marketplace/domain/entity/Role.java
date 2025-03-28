@@ -14,14 +14,13 @@ public class Role {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = false, unique = true)
     private String title;
 
     public Role() {
     }
 
-    public Role(Long id, String title) {
-        this.id = id;
+    public Role(String title) {
         this.title = title;
     }
 
@@ -35,10 +34,6 @@ public class Role {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     @Override

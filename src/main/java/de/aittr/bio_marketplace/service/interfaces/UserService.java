@@ -1,14 +1,16 @@
 package de.aittr.bio_marketplace.service.interfaces;
 
+import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
 import de.aittr.bio_marketplace.domain.entity.User;
+import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserDto;
 
 import java.util.List;
 
 public interface UserService {
 
-    void register(User user);
+    RegisterUserResponseDto registerUser(RegisterUserDto registerUserDto);
 
-    User saveCustomer(User user);
+    void loginUser(String email, String password);
 
     List<User> getAllActiveUsers();
 
