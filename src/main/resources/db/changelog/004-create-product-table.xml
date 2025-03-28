@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
 
-    <changeSet id="003-create-product-table" author="team46">
+    <changeSet id="004-create-product-table" author="team46">
         <createTable tableName="product">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -16,8 +16,12 @@
             <column name="price" type="DECIMAL(10,2)">
                 <constraints nullable="false"/>
             </column>
-            <column name="category_id" type="BIGINT"/>
-            <column name="seller_id" type="BIGINT"/>
+            <column name="category_id" type="BIGINT">
+                <constraints foreignKeyName="fk_product_category" references="category(id)"/>
+            </column>
+            <column name="seller_id" type="BIGINT">
+                <constraints foreignKeyName="fk_product_seller" references="user(id)"/>
+            </column>
             <column name="status" type="VARCHAR(20)" defaultValue="ACTIVE"/>
             <column name="date_publication" type="DATE"/>
             <column name="rating" type="DECIMAL(3,2)"/>
