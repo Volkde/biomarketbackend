@@ -51,7 +51,7 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDto> getAllActiveProducts() {
         return repository.findAll()
                 .stream()
-                .filter(product -> "active".equals(product.getStatus()))
+                .filter(product -> "active".equalsIgnoreCase(product.getStatus()))
                 .map(mappingService::mapEntityToDto)
                 .toList();
     }
@@ -65,8 +65,17 @@ public class ProductServiceImpl implements ProductService {
     // Returns active product entity by id
     public Product getActiveProductEntityById(Long id) {
         return repository.findById(id)
-                .filter(product -> "active".equals(product.getStatus()))
+                .filter(product -> "active".equalsIgnoreCase(product.getStatus()))
                 .orElseThrow(() -> new ProductNotFoundException(id));
+    }
+
+    // Returns active products by search
+    @Override
+    public List<ProductDto> getAllActiveProductsBySearch(String search) {
+        return repository.findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCaseAndStatus(search, search, "active")
+                .stream()
+                .map(mappingService::mapEntityToDto)
+                .toList();
     }
 
     // --- Delete ---
@@ -80,7 +89,5 @@ public class ProductServiceImpl implements ProductService {
 }
 
 /* TODO:
-- activate filter when field active is ready;
-- activate mapping when DTO and mapping are ready;
 - write function getById when ProductDto class is ready;
  */

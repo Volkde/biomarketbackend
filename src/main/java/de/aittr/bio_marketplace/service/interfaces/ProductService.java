@@ -16,6 +16,9 @@ public interface ProductService {
     // Return active product by id
     ProductDto getById(Long id);
 
+    // Return active products by search
+    List<ProductDto> getAllActiveProductsBySearch(String search);
+
     // Return active product entity by id
     Product getActiveProductEntityById(Long id);
 

@@ -47,14 +47,21 @@ public class ProductController {
     // Returns all active products
     @Operation(
             summary = "Get all products",
-            description = "Getting all active products that exist in the database"
+            description = "Getting all active products that exist in the database, optionally filtered by search term in title or description"
     )
     @GetMapping()
-    public List<ProductDto> getAll() {
+    public List<ProductDto> getAll(
+            @RequestParam(value = "search", required = false)
+            @Parameter(description = "Search term to filter products by title or description")
+            String search
+    ) {
+        if (search != null && !search.isBlank()) {
+            return service.getAllActiveProductsBySearch(search);
+        }
         return service.getAllActiveProducts();
     }
 
-    // Returns all active products
+    // Returns product by id
         @Operation(
             summary = "Get product by id",
             description = "Getting product from database by id"
@@ -77,9 +84,3 @@ public class ProductController {
     }
 
 }
-
-/* TODO:
-    - change class Product to ProductDto!!!
-    - replace in function getById from getActiveProductEntityById to getById when the last one is ready;
-
- */

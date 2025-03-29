@@ -46,6 +46,8 @@ public class SecurityConfig {
                                 "/swagger-ui.html",
                                 "/swagger-ui/index.html",
                                 "/swagger-ui/**").permitAll()
+                        // Product controller
+                        .requestMatchers(HttpMethod.GET, "/products").permitAll()
 
                         .anyRequest().authenticated())
 
