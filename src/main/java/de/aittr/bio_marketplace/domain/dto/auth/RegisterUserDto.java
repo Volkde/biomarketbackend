@@ -6,7 +6,7 @@ public record RegisterUserDto(
         String email,
         String firstName,
         String lastName,
-        String userName,
+        String username,
         String password
 ) {
 
@@ -15,7 +15,7 @@ public record RegisterUserDto(
                 firstName,
                 lastName,
                 email,
-                userName
+                username
         );
     }
 }
