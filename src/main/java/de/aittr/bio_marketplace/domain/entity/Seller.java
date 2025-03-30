@@ -20,7 +20,7 @@ public class Seller {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "storeName", nullable = false)
+    @Column(name = "store_name", nullable = false)
     @NotNull(message = "Seller storeName cannot be null")
     @NotBlank(message = "Seller storeName cannot be empty")
     @Pattern(
@@ -29,10 +29,10 @@ public class Seller {
     )
     private String storeName;
 
-    @Column(name = "storeDescription")
+    @Column(name = "store_description")
     private String storeDescription;
 
-    @Column(name = "storeLogo")
+    @Column(name = "store_logo")
     private String storeLogo;
 
     @Column(name = "rating")

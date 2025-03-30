@@ -1,11 +1,6 @@
 package de.aittr.bio_marketplace.domain.dto;
 
-import de.aittr.bio_marketplace.domain.entity.Cart;
-import de.aittr.bio_marketplace.domain.entity.Role;
-import de.aittr.bio_marketplace.domain.entity.Seller;
-
 import java.util.Objects;
-import java.util.Set;
 
 public class UserDto {
     private Long id;
@@ -15,9 +10,6 @@ public class UserDto {
     private String username;
     private String phoneNumber;
     private String avatar;
-    private Set<Role> roles;
-    private Set<Seller> sellers;
-    private Cart cart;
 
     public Long getId() {
         return id;
@@ -35,9 +27,6 @@ public class UserDto {
         return email;
     }
 
-    public Cart getCart() {
-        return cart;
-    }
 
     public String getUsername() {
         return username;
@@ -49,14 +38,6 @@ public class UserDto {
 
     public String getAvatar() {
         return avatar;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public Set<Seller> getSellers() {
-        return sellers;
     }
 
     public void setId(Long id) {
@@ -87,18 +68,6 @@ public class UserDto {
         this.avatar = avatar;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
-    public void setSellers(Set<Seller> sellers) {
-        this.sellers = sellers;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
@@ -113,8 +82,8 @@ public class UserDto {
 
     @Override
     public String toString() {
-        return String.format(" User: ID - %d, First name - %s, Last name - %s, Email - %s, Username - %s, Phone number  - %s, Avatar - %s, Roles - %s, Sellers - %s, Cart - %s.",
-                id, firstName, lastName, email, username, phoneNumber, avatar, roles, sellers, cart);
+        return String.format(" User: ID - %d, First name - %s, Last name - %s, Email - %s, Username - %s, Phone number  - %s, Avatar - %s.",
+                id, firstName, lastName, email, username, phoneNumber, avatar);
     }
 }
 

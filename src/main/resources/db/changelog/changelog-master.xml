@@ -10,5 +10,16 @@
     <include file="003-create-product-table.xml" relativeToChangelogFile="true"/>
     <include file="004-create-role-table.xml" relativeToChangelogFile="true"/>
     <include file="104-update-user-table.xml" relativeToChangelogFile="true"/>
+    <include file="007-create-table-cart.xml" relativeToChangelogFile="true"/>
+    <include file="008-create-table-seller.xml" relativeToChangelogFile="true"/>
+    <include file="009-create-table-user-role.xml" relativeToChangelogFile="true"/>
+    <include file="010-add-foreign-keys-to-user-role.xml" relativeToChangelogFile="true"/>
+    <include file="011-add-foreign-key-cart-to-user.xml" relativeToChangelogFile="true"/>
+    <include file="012-add-foreign-key-user-to-seller.xml" relativeToChangelogFile="true"/>
+    <include file="013-create-table-seller-role.xml" relativeToChangelogFile="true"/>
+    <include file="014-add-foreign-keys-to-seller-role.xml" relativeToChangelogFile="true"/>
+    <include file="015-create-table-seller-user.xml" relativeToChangelogFile="true"/>
+    <include file="016-add-foreign-keys-to-seller-user.xml" relativeToChangelogFile="true"/>
+
 
 </databaseChangeLog>

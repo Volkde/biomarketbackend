@@ -1,21 +1,14 @@
 package de.aittr.bio_marketplace.controller;
 
 
-import de.aittr.bio_marketplace.domain.dto.auth.LoginRequestDto;
-import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
-import de.aittr.bio_marketplace.domain.entity.User;
-import de.aittr.bio_marketplace.service.CookieService;
-import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserDto;
+import de.aittr.bio_marketplace.domain.dto.UserDto;
 import de.aittr.bio_marketplace.service.interfaces.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseCookie;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -24,47 +17,24 @@ import java.util.List;
 public class UserController {
 
     private final UserService service;
-    private final CookieService cookieService;
 
-    public UserController(UserService service, CookieService cookieService) {
+    public UserController(UserService service) {
         this.service = service;
-        this.cookieService = cookieService;
     }
 
-    @PostMapping("/auth/register")
-    public RegisterUserResponseDto register(
-            @RequestBody
-            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Instance of a User")
-            RegisterUserDto registerUserDto
-    ) {
-        return service.registerUser(registerUserDto);
-    }
-
-    @PostMapping("/auth/login")
-    public ResponseEntity<Void> login(@RequestBody LoginRequestDto loginDto, HttpServletResponse response) {
-        service.loginUser(loginDto.email(), loginDto.password());
-
-        ResponseCookie accessTokenCookie = cookieService.generateAccessTokenCookie(loginDto.email());
-        ResponseCookie refreshTokenCookie = cookieService.generateRefreshTokenCookie(loginDto.email());
-
-        return ResponseEntity.noContent()
-                .header(HttpHeaders.SET_COOKIE, accessTokenCookie.toString())
-                .header(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString())
-                .build();
-    }
 
     @GetMapping()
     @Operation(
             summary = "Get all users",
             description = "Getting all users that exist in the database"
     )
-    public List<User> getAll() {
+    public List<UserDto> getAll() {
         return service.getAllActiveUsers();
     }
 
 
     @GetMapping("/{id}")
-    public User getById(@PathVariable
+    public UserDto getById(@PathVariable
                         @Parameter(description = "User unique identifier")
                         Long id
     ) {
@@ -72,9 +42,13 @@ public class UserController {
     }
 
     @PutMapping
-    public void update(@RequestBody User user) {
+    public void update(@RequestBody UserDto user) {
         service.update(user);
+    }
 
+    @GetMapping("/quantity")
+    public long getUserQuantity() {
+        return service.getAllActiveUsersCount();
     }
 
     @DeleteMapping("/{id}")
@@ -83,7 +57,31 @@ public class UserController {
     }
 
     @DeleteMapping("/by-username/{username}")
-    public void deleteByTitle(@PathVariable String username) {
+    public void deleteByUsername(@PathVariable String username) {
         service.deleteByUsername(username);
+    }
+
+    @PutMapping ("/{id}/product/{productId}")
+    public void addProduct(@PathVariable Long id, @PathVariable Long productId) {
+        service.addProductToUserCart(id, productId);
+    }
+
+    @GetMapping("/total-cost/{userId}")
+    public BigDecimal getUserCartTotalCost(Long userId){
+        return service.getUsersCartTotalCost(userId);
+    }
+
+    @DeleteMapping("/remove-user/{userId}/product/{id}")
+    public void removeProductFromUserCart(Long userId, Long productId) {
+        service.removeProductFromUserCart(userId, productId);
+    }
+    @DeleteMapping("/clear-cart")
+    public void clearUserCart(Long userId){
+        service.clearUserCart(userId);
+    }
+
+    @GetMapping("/product-average-price")
+    public BigDecimal getUserProductsAveragePrice(Long userId){
+        return service.getUserProductsAveragePrice(userId);
     }
 }

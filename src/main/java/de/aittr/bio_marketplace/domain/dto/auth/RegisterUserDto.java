@@ -9,13 +9,18 @@ public record RegisterUserDto(
         String userName,
         String password
 ) {
+    @Override
+    public String userName() {
+        return userName;
+    }
 
-    public User toUser() {
-        return new User(
-                firstName,
-                lastName,
-                email,
-                userName
-        );
+    @Override
+    public String email() {
+        return email;
+    }
+
+    @Override
+    public String password() {
+        return password;
     }
 }

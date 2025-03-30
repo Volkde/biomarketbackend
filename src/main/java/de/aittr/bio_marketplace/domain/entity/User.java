@@ -49,7 +49,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @Column(name = "phoneNumber")
+    @Column(name = "phone_number")
     private String phoneNumber;
 
     @Column(name = "is_active", nullable = false)
@@ -72,7 +72,7 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "user_seller",
+            name = "seller_user",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "seller_id")
     )
@@ -179,6 +179,10 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
     }
 
     public void setIsActive(boolean status) {

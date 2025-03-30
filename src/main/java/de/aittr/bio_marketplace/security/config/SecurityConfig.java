@@ -23,6 +23,8 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;
+    private final String ADMIN_ROLE = "ADMIN";
+    private final String USER_ROLE = "USER";
 
     public SecurityConfig(CustomUserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
@@ -38,7 +40,10 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         // Auth Controller
-                        .requestMatchers(HttpMethod.POST, "/users/auth/login", "/users/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register").permitAll()
+                        //.requestMatchers(HttpMethod.GET, "/users").hasRole(ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/users").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/products").permitAll()//.hasRole(ADMIN_ROLE, USER_ROLE)
                         // Swagger
                         .requestMatchers("/v3/api-docs",
                                 "/v3/api-docs/**",
