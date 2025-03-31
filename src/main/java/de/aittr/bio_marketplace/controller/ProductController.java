@@ -47,18 +47,17 @@ public class ProductController {
     // Returns all active products
     @Operation(
             summary = "Get all products",
-            description = "Getting all active products that exist in the database, optionally filtered by search term in title or description"
+            description = "Getting all active products that exist in the database, optionally filtered by search term in title or description and/or by category ID"
     )
     @GetMapping()
     public List<ProductDto> getAll(
-            @RequestParam(value = "search", required = false)
-            @Parameter(description = "Search term to filter products by title or description")
-            String search
-    ) {
-        if (search != null && !search.isBlank()) {
-            return service.getAllActiveProductsBySearch(search);
-        }
-        return service.getAllActiveProducts();
+            @RequestParam(value = "search-term", required = false)
+            @Parameter(description = "Search term to filter products by title or description (case-insensitive, minimum 2 characters)")
+            String search,
+            @RequestParam(value = "category-id", required = false)
+            @Parameter(description = "Category ID to filter products")
+            Long categoryId) {
+        return service.getAllActiveProductsFiltered(search, categoryId);
     }
 
     // Returns product by id

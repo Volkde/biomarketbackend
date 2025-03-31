@@ -33,6 +33,9 @@ public class ProductDto {
     @Schema(description = "Product price", example = "190.00")
     private BigDecimal price;
 
+    @Schema(description = "Category identifier", example = "1")
+    private Long categoryId;
+
     // --- METHODS ---
 
     // --- Getters and setters ---
@@ -77,19 +80,31 @@ public class ProductDto {
         this.price = price;
     }
 
+    public Long getCategoryId() {
+        return categoryId;
+    }
 
-    // --- Ecquals and hashcode ---
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    // --- Equals and hashcode ---
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         ProductDto that = (ProductDto) o;
-        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(description, that.description) && Objects.equals(image, that.image) && Objects.equals(price, that.price);
+        return Objects.equals(id, that.id) &&
+                Objects.equals(title, that.title) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(image, that.image) &&
+                Objects.equals(price, that.price) &&
+                Objects.equals(categoryId, that.categoryId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, image, price);
+        return Objects.hash(id, title, description, image, price, categoryId);
     }
 
 }

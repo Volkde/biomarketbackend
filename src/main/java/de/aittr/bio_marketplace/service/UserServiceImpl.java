@@ -4,7 +4,7 @@ import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserDto;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
 import de.aittr.bio_marketplace.domain.entity.Cart;
 import de.aittr.bio_marketplace.domain.entity.User;
-import de.aittr.bio_marketplace.exceptiions.AuthenticationException;
+import de.aittr.bio_marketplace.exceptions.AuthenticationException;
 import de.aittr.bio_marketplace.repository.UserRepository;
 import de.aittr.bio_marketplace.security.service.JwtTokenService;
 import de.aittr.bio_marketplace.service.interfaces.RoleService;

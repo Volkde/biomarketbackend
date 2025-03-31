@@ -1,7 +1,10 @@
 package de.aittr.bio_marketplace.service;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
 import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.entity.Product;
+import de.aittr.bio_marketplace.domain.entity.QProduct;
 import de.aittr.bio_marketplace.exception_handling.exceptions.ProductNotFoundException;
 import de.aittr.bio_marketplace.exception_handling.exceptions.ProductValidationException;
 import de.aittr.bio_marketplace.repository.ProductRepository;
@@ -69,11 +72,18 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new ProductNotFoundException(id));
     }
 
-    // Returns active products by search
+    // Returns active products filtered by given parameters
     @Override
-    public List<ProductDto> getAllActiveProductsBySearch(String search) {
-        return repository.findByTitleContainingIgnoreCaseOrDescriptionContainingIgnoreCaseAndStatus(search, search, "active")
-                .stream()
+    public List<ProductDto> getAllActiveProductsFiltered(String search, Long categoryId) {
+        Predicate predicate =ProductQueryPredicateBuilder.builder()
+                .andStatusActive()
+                .byNameOrDescription(search)
+                .byCategoryId(categoryId)
+                .build();
+
+        List<Product> products = (List<Product>) repository.findAll(predicate);
+
+        return products.stream()
                 .map(mappingService::mapEntityToDto)
                 .toList();
     }
