@@ -7,15 +7,13 @@ import de.aittr.bio_marketplace.domain.entity.Cart;
 import de.aittr.bio_marketplace.domain.entity.Product;
 import de.aittr.bio_marketplace.domain.entity.User;
 import de.aittr.bio_marketplace.exceptions.AuthenticationException;
-import de.aittr.bio_marketplace.exceptiions.AuthenticationException;
 import de.aittr.bio_marketplace.exception_handling.exceptions.UserNotFoundException;
 import de.aittr.bio_marketplace.repository.UserRepository;
-import de.aittr.bio_marketplace.security.service.JwtTokenService;
 import de.aittr.bio_marketplace.service.interfaces.ProductService;
 import de.aittr.bio_marketplace.service.interfaces.RoleService;
 import de.aittr.bio_marketplace.service.interfaces.UserService;
-import de.aittr.bio_marketplace.service.mapping.RegisterUserMappingService;
-import de.aittr.bio_marketplace.service.mapping.UserMappingService;
+import de.aittr.bio_marketplace.service.mapping.RegisterUserMapper;
+import de.aittr.bio_marketplace.service.mapping.UserMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
@@ -32,28 +30,28 @@ public class UserServiceImpl implements UserService {
 
     private static final String PASSWORD_OR_EMAIL_IS_INCORRECT = "Password or email is incorrect";
 
-    private final RegisterUserMappingService mappingRegisterService;
-    private final UserMappingService mappingService;
+    private final RegisterUserMapper mappingRegisterService;
+    private final UserMapper mappingService;
     private final ProductService productService;
     private final UserRepository repository;
     private final RoleService roleService;
     private final PasswordEncoder encoder;
     private final AuthenticationManager authenticationManager;
-    private final JwtTokenService jwtTokenService;
 
-    public UserServiceImpl(RegisterUserMappingService mappingService, UserMappingService mappingService1, ProductService productService, UserRepository repository,
+    public UserServiceImpl(RegisterUserMapper registerUserMapper,
+                           UserMapper userMapper,
+                           ProductService productService,
+                           UserRepository repository,
                            RoleService roleService,
                            PasswordEncoder encoder,
-                           AuthenticationManager authenticationManager,
-                           JwtTokenService jwtTokenService) {
-        this.mappingRegisterService = mappingService;
-        this.mappingService = mappingService1;
+                           AuthenticationManager authenticationManager) {
+        this.mappingRegisterService = registerUserMapper;
+        this.mappingService = userMapper;
         this.productService = productService;
         this.repository = repository;
         this.roleService = roleService;
         this.encoder = encoder;
         this.authenticationManager = authenticationManager;
-        this.jwtTokenService = jwtTokenService;
     }
 
     @Override

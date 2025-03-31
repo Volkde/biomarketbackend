@@ -4,21 +4,20 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
-    <changeSet id="009-create-table-user-role" author="Kristina">
+    <changeSet id="009-create-table-seller" author="Kristina">
 
-        <createTable tableName="user_role">
+        <createTable tableName="seller">
 
             <column name="id" type="bigint" autoIncrement="true">
-                <constraints primaryKey="true"/>
+                <constraints primaryKey="true" nullable="false"/>
             </column>
 
-            <column name="user_id" type="bigint">
-                <constraints nullable="false"/>
+            <column name="store_name" type="varchar(64)">
+                <constraints nullable="false" unique="true"/>
             </column>
-
-            <column name="role_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
+            <column name="store_description" type="TEXT"/>
+            <column name="store_logo" type="VARCHAR(255)"/>
+            <column name="rating" type="DECIMAL(5,2)"/>
 
         </createTable>
 

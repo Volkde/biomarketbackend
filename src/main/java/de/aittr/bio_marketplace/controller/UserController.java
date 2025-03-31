@@ -30,49 +30,7 @@ public class UserController {
         this.service = service;
     }
 
-    @GetMapping("/auth/refresh")
-    public ResponseEntity<Void> refreshToken(HttpServletRequest request, HttpServletResponse response) {
-        String refreshToken = cookieService.getJwtRefreshFromCookies(request);
-        if (refreshToken == null) {
-            return ResponseEntity.status(401).build(); // нет куки
-        }
-
-        //2 Проверить валидность
-        boolean valid = /* jwtTokenService.validateRefreshToken(refreshToken) */
-                jwtTokenService.parseRefreshToken(refreshToken) != null;
-        if (!valid) {
-            //неправильный/просроченный
-            return ResponseEntity.status(401).build();
-        }
-
-        //3 Получить email из refresh
-        String email = jwtTokenService.getEmailFromRefreshToken(refreshToken);
-
-        //4 Сгенерировать новый Access
-        ResponseCookie newAccessCookie = cookieService.generateAccessTokenCookie(email);
-
-        //5 Записать в ответ
-        return ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE, newAccessCookie.toString())
-                .build();
-    }
-
-    /**
-     * Логаут — чистим оба куки (Access/Refresh)
-     */
-    @PostMapping("/auth/logout")
-    public ResponseEntity<Void> logout(HttpServletResponse response) {
-        //1 Берём пустые куки
-        ResponseCookie cleanAccess = cookieService.getCleanAtJwtCookie();
-        ResponseCookie cleanRefresh = cookieService.getCleanRtJwtCookie();
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE, cleanAccess.toString())
-                .header(HttpHeaders.SET_COOKIE, cleanRefresh.toString())
-                .build();
-    }
-
-    @GetMapping
+    @GetMapping("/")
     @Operation(
             summary = "Get all users",
             description = "Getting all users that exist in the database"

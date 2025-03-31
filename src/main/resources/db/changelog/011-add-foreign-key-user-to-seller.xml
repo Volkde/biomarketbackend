@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
 
-    <changeSet id="012-add-foreign-key-user-to-seller" author="Kristina">
+    <changeSet id="011-add-foreign-key-user-to-seller" author="Kristina">
 
         <addForeignKeyConstraint baseTableName="user"
                                  baseColumnNames="seller_id"

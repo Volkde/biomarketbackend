@@ -1,6 +1,5 @@
 package de.aittr.bio_marketplace.service;
 
-import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.entity.Product;
@@ -9,7 +8,7 @@ import de.aittr.bio_marketplace.exception_handling.exceptions.ProductNotFoundExc
 import de.aittr.bio_marketplace.exception_handling.exceptions.ProductValidationException;
 import de.aittr.bio_marketplace.repository.ProductRepository;
 import de.aittr.bio_marketplace.service.interfaces.ProductService;
-import de.aittr.bio_marketplace.service.mapping.ProductMappingService;
+import de.aittr.bio_marketplace.service.mapping.ProductMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -21,11 +20,11 @@ public class ProductServiceImpl implements ProductService {
     // --- FIELDS ---
 
     private final ProductRepository repository;
-    private final ProductMappingService mappingService;
+    private final ProductMapper mappingService;
 
     // --- CONSTRUCTOR ---
 
-    public ProductServiceImpl(ProductRepository repository, ProductMappingService mappingService) {
+    public ProductServiceImpl(ProductRepository repository, ProductMapper mappingService) {
         this.repository = repository;
         this.mappingService = mappingService;
     }
