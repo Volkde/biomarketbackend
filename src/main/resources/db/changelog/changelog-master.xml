@@ -11,6 +11,11 @@
     <include file="004-create-product-table.xml" relativeToChangelogFile="true"/>
     <include file="005-add-columns-description-and-image-to-product.xml" relativeToChangelogFile="true"/>
     <include file="006-update-user-table.xml" relativeToChangelogFile="true"/>
+    <include file="007-create-cart-table.xml" relativeToChangelogFile="true"/>
+    <include file="008-create-cart-product-table.xml" relativeToChangelogFile="true"/>
+    <include file="010-create-seller-table.xml" relativeToChangelogFile="true"/>
+    <include file="009-add-seller-id-to-user.xml" relativeToChangelogFile="true"/>
+    <include file="011-create-user-role-table.xml" relativeToChangelogFile="true"/>
     <include file="902-insert-categories.xml" relativeToChangelogFile="true"/>
     <include file="903-insert-users.xml" relativeToChangelogFile="true"/>
     <include file="904-insert-products.xml" relativeToChangelogFile="true"/>
