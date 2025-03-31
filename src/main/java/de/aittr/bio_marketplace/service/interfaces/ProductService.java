@@ -15,7 +15,12 @@ public interface ProductService {
     List<ProductDto> getAllActiveProducts();
 
     // Return active products filtered
-    List<ProductDto> getAllActiveProductsFiltered(String search, Long categoryId);
+    List<ProductDto> getAllActiveProductsFiltered(
+            String search,
+            Long categoryId,
+            BigDecimal minPrice,
+            BigDecimal maxPrice
+            );
 
     // Return active product by id
     ProductDto getById(Long id);

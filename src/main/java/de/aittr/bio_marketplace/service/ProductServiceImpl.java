@@ -12,6 +12,7 @@ import de.aittr.bio_marketplace.service.interfaces.ProductService;
 import de.aittr.bio_marketplace.service.mapping.ProductMappingService;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -74,11 +75,17 @@ public class ProductServiceImpl implements ProductService {
 
     // Returns active products filtered by given parameters
     @Override
-    public List<ProductDto> getAllActiveProductsFiltered(String search, Long categoryId) {
+    public List<ProductDto> getAllActiveProductsFiltered(
+            String search,
+            Long categoryId,
+            BigDecimal minPrice,
+            BigDecimal maxPrice
+    ) {
         Predicate predicate =ProductQueryPredicateBuilder.builder()
                 .andStatusActive()
                 .byNameOrDescription(search)
                 .byCategoryId(categoryId)
+                .byPriceRange(minPrice, maxPrice)
                 .build();
 
         List<Product> products = (List<Product>) repository.findAll(predicate);

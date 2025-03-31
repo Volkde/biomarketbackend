@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -56,12 +57,21 @@ public class ProductController {
             String search,
             @RequestParam(value = "category-id", required = false)
             @Parameter(description = "Category ID to filter products")
-            Long categoryId) {
-        return service.getAllActiveProductsFiltered(search, categoryId);
+            Long categoryId,
+            @RequestParam(value = "min-price", required = false)
+            @Parameter(description = "Minimal price to filter products")
+            Double minPriceDouble,
+            @RequestParam(value = "max-price", required = false)
+            @Parameter(description = "Maximal price to filter products")
+            Double maxPriceDouble
+    ) {
+        BigDecimal minPrice = (minPriceDouble != null) ? BigDecimal.valueOf(minPriceDouble) : null;
+        BigDecimal maxPrice = (maxPriceDouble != null) ? BigDecimal.valueOf(maxPriceDouble) : null;
+        return service.getAllActiveProductsFiltered(search, categoryId, minPrice, maxPrice);
     }
 
     // Returns product by id
-        @Operation(
+    @Operation(
             summary = "Get product by id",
             description = "Getting product from database by id"
     )
@@ -83,3 +93,5 @@ public class ProductController {
     }
 
 }
+
+// TODO: add sending exceptions description
