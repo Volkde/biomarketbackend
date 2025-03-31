@@ -16,9 +16,7 @@
             <column name="password" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="role_id" type="BIGINT">
-                <constraints foreignKeyName="fk_user_role" references="role(id)"/>
-            </column>
+            <column name="role_id" type="BIGINT"/>
             <column name="first_name" type="VARCHAR(255)"/>
             <column name="last_name" type="VARCHAR(255)"/>
             <column name="avatar" type="VARCHAR(500)"/>

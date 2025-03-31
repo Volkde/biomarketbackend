@@ -14,14 +14,4 @@ public record RegisterUserResponseDto(
         List<String> roles
 ) {
 
-    public static RegisterUserResponseDto fromUser(User user) {
-        return new RegisterUserResponseDto(
-                user.getId(),
-                user.getEmail(),
-                user.getFirstName(),
-                user.getLastName(),
-                user.getUsername(),
-                user.getRoles().stream().map(Role::getTitle).toList()
-        );
-    }
 }

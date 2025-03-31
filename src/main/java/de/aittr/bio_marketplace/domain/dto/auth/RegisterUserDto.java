@@ -6,16 +6,7 @@ public record RegisterUserDto(
         String email,
         String firstName,
         String lastName,
-        String username,
+        String userName,
         String password
 ) {
-
-    public User toUser() {
-        return new User(
-                firstName,
-                lastName,
-                email,
-                username
-        );
-    }
 }

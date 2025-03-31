@@ -25,13 +25,14 @@ public class SecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final String ADMIN_ROLE = "ADMIN";
+    private final String USER_ROLE = "USER";
 
     public SecurityConfig(CustomUserDetailsService userDetailsService,
                           JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.userDetailsService = userDetailsService;
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
-
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -43,7 +44,12 @@ public class SecurityConfig {
 
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         //Auth Controller
-                        .requestMatchers(HttpMethod.POST, "/users/auth/register", "/users/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register","/auth/logout").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/auth//refresh").permitAll()
+
+                        //User Controller
+                        .requestMatchers(HttpMethod.GET, "/users").permitAll()
+
                         // Swagger
                         .requestMatchers("/v3/api-docs",
                                 "/v3/api-docs/**",
@@ -51,6 +57,7 @@ public class SecurityConfig {
                                 "/swagger-ui.html",
                                 "/swagger-ui/index.html",
                                 "/swagger-ui/**").permitAll()
+
                         // Product controller
                         .requestMatchers(HttpMethod.GET, "/products").permitAll()
 
@@ -59,9 +66,8 @@ public class SecurityConfig {
                 .sessionManagement(x ->
                         x.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-        //ставим фильтр
                 .addFilterBefore(jwtAuthenticationFilter,
-                org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class)
+                        org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class)
 
 
                 .authenticationProvider(authenticationProvider())

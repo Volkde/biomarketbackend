@@ -21,5 +21,8 @@
         <insert tableName="role">
             <column name="title" value="ROLE_ADMIN"/>
         </insert>
+        <insert tableName="role">
+            <column name="title" value="ROLE_SELLER"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>

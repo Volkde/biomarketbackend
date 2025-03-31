@@ -69,14 +69,13 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
 
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-            name = "user_seller",
+            name = "seller_user",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "seller_id")
     )
-    private Set<Seller> sellers;
+    private Set<Seller> sellers = new HashSet<>();
 
     @JsonIgnore
     @OneToOne

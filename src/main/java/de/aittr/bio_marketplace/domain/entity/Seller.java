@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -20,7 +21,7 @@ public class Seller {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "storeName", nullable = false)
+    @Column(name = "store_name", nullable = false)
     @NotNull(message = "Seller storeName cannot be null")
     @NotBlank(message = "Seller storeName cannot be empty")
     @Pattern(
@@ -29,10 +30,10 @@ public class Seller {
     )
     private String storeName;
 
-    @Column(name = "storeDescription")
+    @Column(name = "store_description")
     private String storeDescription;
 
-    @Column(name = "storeLogo")
+    @Column(name = "store_logo")
     private String storeLogo;
 
     @Column(name = "rating")
@@ -40,14 +41,6 @@ public class Seller {
 
     @OneToOne(mappedBy = "seller", cascade = CascadeType.ALL)
     private User user;
-
-        @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "seller_role",
-            joinColumns = @JoinColumn(name = "seller_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
-    )
-    private Set<Role> roles;
 
     public Seller() {
     }
@@ -58,7 +51,6 @@ public class Seller {
         this.storeDescription = storeDescription;
         this.storeLogo = storeLogo;
         this.rating = rating;
-        this.roles = roles;
     }
 
     public Long getId() {
@@ -81,10 +73,6 @@ public class Seller {
         return rating;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -105,28 +93,23 @@ public class Seller {
         this.rating = rating;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Seller seller = (Seller) o;
         return Objects.equals(id, seller.id) && Objects.equals(storeName, seller.storeName)
                 && Objects.equals(storeDescription, seller.storeDescription)
-                && Objects.equals(storeLogo, seller.storeLogo) && Objects.equals(rating, seller.rating)
-                && Objects.equals(roles, seller.roles);
+                && Objects.equals(storeLogo, seller.storeLogo) && Objects.equals(rating, seller.rating);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, storeName, storeDescription, storeLogo, rating, roles);
+        return Objects.hash(id, storeName, storeDescription, storeLogo, rating);
     }
 
     @Override
     public String toString() {
-        return String.format(" Seller: ID - %d, Store name - %s, Description - %s, Logo - %s, Rating - %.2f, Roles - %s.",
-                id, storeName, storeDescription, storeLogo, rating, roles);
+        return String.format(" Seller: ID - %d, Store name - %s, Description - %s, Logo - %s, Rating - %.2f.",
+                id, storeName, storeDescription, storeLogo, rating);
     }
 }

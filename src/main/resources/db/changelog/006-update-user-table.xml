@@ -13,9 +13,13 @@
             </column>
         </addColumn>
 
-        <!-- Добавление нового столбца phoneNumber -->
         <addColumn tableName="user">
             <column name="phone_number" type="VARCHAR(255)"/>
+        </addColumn>
+
+        <addColumn tableName="user">
+            <column name="seller_id" type="bigint">
+            </column>
         </addColumn>
     </changeSet>
 </databaseChangeLog>

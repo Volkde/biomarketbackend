@@ -44,7 +44,7 @@ public class Address {
     )
     private String street;
 
-    @Column(name = "zipCode", nullable = false)
+    @Column(name = "zip_code", nullable = false)
     @NotNull(message = "Address zipCode cannot be null")
     @NotBlank(message = "Address zipCode cannot be empty")
 
