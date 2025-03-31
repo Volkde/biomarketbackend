@@ -9,18 +9,4 @@ public record RegisterUserDto(
         String userName,
         String password
 ) {
-    @Override
-    public String userName() {
-        return userName;
-    }
-
-    @Override
-    public String email() {
-        return email;
-    }
-
-    @Override
-    public String password() {
-        return password;
-    }
 }

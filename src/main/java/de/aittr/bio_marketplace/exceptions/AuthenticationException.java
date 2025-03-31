@@ -1,4 +1,4 @@
-package de.aittr.bio_marketplace.exceptiions;
+package de.aittr.bio_marketplace.exceptions;
 
 public class AuthenticationException extends RuntimeException {
 

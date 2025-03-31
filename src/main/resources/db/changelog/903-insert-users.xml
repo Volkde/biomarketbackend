@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="903-insert-users" author="team46">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="user"/>
+        </preConditions>
+        <insert tableName="user">
+            <column name="id" valueNumeric="1"/>
+            <column name="email" value="seller1@example.com"/>
+            <column name="password" value="$2a$10$XURP2fZ0uT1Z/lP.9.5tluF0e2gY0H4gP2gq4Z2X9.5tluF0e2gY0"/>
+            <column name="role_id" valueNumeric="1"/>
+            <column name="first_name" value="John"/>
+            <column name="last_name" value="Doe"/>
+            <column name="avatar" value="https://example.com/avatar.jpg"/>
+            <column name="is_active" valueBoolean="true"/>
+            <column name="username" value="seller1"/>
+            <column name="phone_number" value="+1234567890"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

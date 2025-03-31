@@ -1,5 +1,6 @@
 package de.aittr.bio_marketplace.security.config;
 
+import de.aittr.bio_marketplace.security.filter.JwtAuthenticationFilter;
 import de.aittr.bio_marketplace.security.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,11 +24,14 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final String ADMIN_ROLE = "ADMIN";
     private final String USER_ROLE = "USER";
 
-    public SecurityConfig(CustomUserDetailsService userDetailsService) {
+    public SecurityConfig(CustomUserDetailsService userDetailsService,
+                          JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.userDetailsService = userDetailsService;
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
     @Bean
@@ -39,11 +43,12 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        // Auth Controller
+                        //Auth Controller
                         .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register").permitAll()
-                        //.requestMatchers(HttpMethod.GET, "/users").hasRole(ADMIN_ROLE)
+
+                        //User Controller
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/products").permitAll()//.hasRole(ADMIN_ROLE, USER_ROLE)
+
                         // Swagger
                         .requestMatchers("/v3/api-docs",
                                 "/v3/api-docs/**",
@@ -52,10 +57,17 @@ public class SecurityConfig {
                                 "/swagger-ui/index.html",
                                 "/swagger-ui/**").permitAll()
 
+                        // Product controller
+                        .requestMatchers(HttpMethod.GET, "/products").permitAll()
+
                         .anyRequest().authenticated())
 
                 .sessionManagement(x ->
                         x.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+                .addFilterBefore(jwtAuthenticationFilter,
+                        org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class)
+
 
                 .authenticationProvider(authenticationProvider())
                 .build();

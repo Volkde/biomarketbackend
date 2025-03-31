@@ -6,6 +6,7 @@ import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
 import de.aittr.bio_marketplace.domain.entity.Cart;
 import de.aittr.bio_marketplace.domain.entity.Product;
 import de.aittr.bio_marketplace.domain.entity.User;
+import de.aittr.bio_marketplace.exceptions.AuthenticationException;
 import de.aittr.bio_marketplace.exceptiions.AuthenticationException;
 import de.aittr.bio_marketplace.exception_handling.exceptions.UserNotFoundException;
 import de.aittr.bio_marketplace.repository.UserRepository;
@@ -74,7 +75,6 @@ public class UserServiceImpl implements UserService {
         return mappingRegisterService.mapEntityToRegisterResponseDto(entity);
     }
 
-
     @Override
     public void loginUser(String email, String password) {
         User user = repository.findUserByEmail(email)
@@ -105,18 +105,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getById(Long id) {
-        return mappingService.mapEntityToDto(repository.findById(id)
-                .filter(User::isActive)
-                .orElseThrow(() -> new UserNotFoundException(id)));
+        return mappingService.mapEntityToDto(getActiveUserEntityById(id));
     }
 
     @Override
     @Transactional
     public void update(UserDto user) {
         Long id = user.getId();
-        User findUser = repository.findById(id)
-                .filter(User::isActive)
-                .orElseThrow(() -> new UserNotFoundException(id));
+        User findUser = getActiveUserEntityById(id);
         findUser.setFirstName(user.getFirstName());
         findUser.setLastName(user.getLastName());
         findUser.setUsername(user.getUsername());

@@ -1,0 +1,498 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="904-insert-products" author="team46">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="product"/>
+        </preConditions>
+        <!-- Dairy Products -->
+        <insert tableName="product">
+            <column name="id" valueNumeric="1"/>
+            <column name="title" value="Bavarian Milk"/>
+            <column name="price" valueNumeric="1.20"/>
+            <column name="category_id" valueNumeric="1"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.8"/>
+            <column name="description" value="Fresh cow milk from Bavaria"/>
+            <column name="image" value="https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="2"/>
+            <column name="title" value="Quark Cheese"/>
+            <column name="price" valueNumeric="2.50"/>
+            <column name="category_id" valueNumeric="1"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.5"/>
+            <column name="description" value="Creamy German quark"/>
+            <column name="image" value="https://images.pexels.com/photos/773253/pexels-photo-773253.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="3"/>
+            <column name="title" value="Black Forest Butter"/>
+            <column name="price" valueNumeric="3.00"/>
+            <column name="category_id" valueNumeric="1"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.7"/>
+            <column name="description" value="Rich butter from the Black Forest"/>
+            <column name="image" value="https://images.pexels.com/photos/236798/pexels-photo-236798.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="4"/>
+            <column name="title" value="Gouda Cheese"/>
+            <column name="price" valueNumeric="4.20"/>
+            <column name="category_id" valueNumeric="1"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.6"/>
+            <column name="description" value="Aged Gouda from local farms"/>
+            <column name="image" value="https://images.pexels.com/photos/821365/pexels-photo-821365.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="5"/>
+            <column name="title" value="Yogurt Natural"/>
+            <column name="price" valueNumeric="1.80"/>
+            <column name="category_id" valueNumeric="1"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.4"/>
+            <column name="description" value="Organic plain yogurt"/>
+            <column name="image" value="https://images.pexels.com/photos/594672/pexels-photo-594672.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="6"/>
+            <column name="title" value="Tilsiter Cheese"/>
+            <column name="price" valueNumeric="3.80"/>
+            <column name="category_id" valueNumeric="1"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.9"/>
+            <column name="description" value="Spicy Tilsiter from northern Germany"/>
+            <column name="image" value="https://images.pexels.com/photos/773253/pexels-photo-773253.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="7"/>
+            <column name="title" value="Cream Fresh"/>
+            <column name="price" valueNumeric="2.10"/>
+            <column name="category_id" valueNumeric="1"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.3"/>
+            <column name="description" value="Fresh cream for cooking"/>
+            <column name="image" value="https://images.pexels.com/photos/594672/pexels-photo-594672.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="8"/>
+            <column name="title" value="Alpine Milk"/>
+            <column name="price" valueNumeric="1.30"/>
+            <column name="category_id" valueNumeric="1"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.7"/>
+            <column name="description" value="Milk from Alpine cows"/>
+            <column name="image" value="https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg"/>
+        </insert>
+        <!-- Meat Products -->
+        <insert tableName="product">
+            <column name="id" valueNumeric="9"/>
+            <column name="title" value="Bratwurst"/>
+            <column name="price" valueNumeric="5.50"/>
+            <column name="category_id" valueNumeric="2"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.8"/>
+            <column name="description" value="Traditional German sausage"/>
+            <column name="image" value="https://images.pexels.com/photos/1108117/pexels-photo-1108117.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="10"/>
+            <column name="title" value="Weisswurst"/>
+            <column name="price" valueNumeric="6.00"/>
+            <column name="category_id" valueNumeric="2"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.9"/>
+            <column name="description" value="Bavarian white sausage"/>
+            <column name="image" value="https://images.pexels.com/photos/1108117/pexels-photo-1108117.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="11"/>
+            <column name="title" value="Black Forest Ham"/>
+            <column name="price" valueNumeric="8.90"/>
+            <column name="category_id" valueNumeric="2"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.7"/>
+            <column name="description" value="Smoked ham from the Black Forest"/>
+            <column name="image" value="https://images.pexels.com/photos/6210939/pexels-photo-6210939.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="12"/>
+            <column name="title" value="Leberwurst"/>
+            <column name="price" valueNumeric="4.20"/>
+            <column name="category_id" valueNumeric="2"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.5"/>
+            <column name="description" value="German liver sausage"/>
+            <column name="image" value="https://images.pexels.com/photos/1108117/pexels-photo-1108117.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="13"/>
+            <column name="title" value="Schweinshaxe"/>
+            <column name="price" valueNumeric="12.00"/>
+            <column name="category_id" valueNumeric="2"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.8"/>
+            <column name="description" value="Roasted pork knuckle"/>
+            <column name="image" value="https://images.pexels.com/photos/6210939/pexels-photo-6210939.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="14"/>
+            <column name="title" value="Currywurst"/>
+            <column name="price" valueNumeric="5.80"/>
+            <column name="category_id" valueNumeric="2"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.6"/>
+            <column name="description" value="Sausage with curry sauce"/>
+            <column name="image" value="https://images.pexels.com/photos/1108117/pexels-photo-1108117.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="15"/>
+            <column name="title" value="Speck"/>
+            <column name="price" valueNumeric="7.50"/>
+            <column name="category_id" valueNumeric="2"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.7"/>
+            <column name="description" value="Cured pork fat"/>
+            <column name="image" value="https://images.pexels.com/photos/6210939/pexels-photo-6210939.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="16"/>
+            <column name="title" value="Rinderbraten"/>
+            <column name="price" valueNumeric="14.00"/>
+            <column name="category_id" valueNumeric="2"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.9"/>
+            <column name="description" value="German beef roast"/>
+            <column name="image" value="https://images.pexels.com/photos/6210939/pexels-photo-6210939.jpeg"/>
+        </insert>
+        <!-- Vegetables -->
+        <insert tableName="product">
+            <column name="id" valueNumeric="17"/>
+            <column name="title" value="Kartoffeln"/>
+            <column name="price" valueNumeric="0.80"/>
+            <column name="category_id" valueNumeric="3"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.6"/>
+            <column name="description" value="Fresh German potatoes"/>
+            <column name="image" value="https://images.pexels.com/photos/1627915/pexels-photo-1627915.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="18"/>
+            <column name="title" value="Rotkohl"/>
+            <column name="price" valueNumeric="1.50"/>
+            <column name="category_id" valueNumeric="3"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.5"/>
+            <column name="description" value="Red cabbage"/>
+            <column name="image" value="https://images.pexels.com/photos/41123/pexels-photo-41123.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="19"/>
+            <column name="title" value="Spargel"/>
+            <column name="price" valueNumeric="3.20"/>
+            <column name="category_id" valueNumeric="3"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.8"/>
+            <column name="description" value="White asparagus"/>
+            <column name="image" value="https://images.pexels.com/photos/1414651/pexels-photo-1414651.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="20"/>
+            <column name="title" value="Sauerkraut"/>
+            <column name="price" valueNumeric="2.00"/>
+            <column name="category_id" valueNumeric="3"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.7"/>
+            <column name="description" value="Fermented cabbage"/>
+            <column name="image" value="https://images.pexels.com/photos/41123/pexels-photo-41123.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="21"/>
+            <column name="title" value="Karotten"/>
+            <column name="price" valueNumeric="1.00"/>
+            <column name="category_id" valueNumeric="3"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.4"/>
+            <column name="description" value="Organic carrots"/>
+            <column name="image" value="https://images.pexels.com/photos/143133/pexels-photo-143133.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="22"/>
+            <column name="title" value="Zwiebeln"/>
+            <column name="price" valueNumeric="0.90"/>
+            <column name="category_id" valueNumeric="3"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.6"/>
+            <column name="description" value="Fresh onions"/>
+            <column name="image" value="https://images.pexels.com/photos/175415/pexels-photo-175415.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="23"/>
+            <column name="title" value="Rote Beete"/>
+            <column name="price" valueNumeric="1.40"/>
+            <column name="category_id" valueNumeric="3"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.5"/>
+            <column name="description" value="Red beets"/>
+            <column name="image" value="https://images.pexels.com/photos/533340/pexels-photo-533340.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="24"/>
+            <column name="title" value="Grünkohl"/>
+            <column name="price" valueNumeric="2.50"/>
+            <column name="category_id" valueNumeric="3"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.7"/>
+            <column name="description" value="Kale from northern Germany"/>
+            <column name="image" value="https://images.pexels.com/photos/1359326/pexels-photo-1359326.jpeg"/>
+        </insert>
+        <!-- Fruits -->
+        <insert tableName="product">
+            <column name="id" valueNumeric="25"/>
+            <column name="title" value="Äpfel"/>
+            <column name="price" valueNumeric="1.20"/>
+            <column name="category_id" valueNumeric="4"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.8"/>
+            <column name="description" value="German apples"/>
+            <column name="image" value="https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="26"/>
+            <column name="title" value="Birnen"/>
+            <column name="price" valueNumeric="1.50"/>
+            <column name="category_id" valueNumeric="4"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.6"/>
+            <column name="description" value="Fresh pears"/>
+            <column name="image" value="https://images.pexels.com/photos/209339/pexels-photo-209339.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="27"/>
+            <column name="title" value="Kirschen"/>
+            <column name="price" valueNumeric="3.00"/>
+            <column name="category_id" valueNumeric="4"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.7"/>
+            <column name="description" value="Sweet cherries"/>
+            <column name="image" value="https://images.pexels.com/photos/109274/pexels-photo-109274.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="28"/>
+            <column name="title" value="Pflaumen"/>
+            <column name="price" valueNumeric="2.20"/>
+            <column name="category_id" valueNumeric="4"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.5"/>
+            <column name="description" value="Plums from German orchards"/>
+            <column name="image" value="https://images.pexels.com/photos/114112/pexels-photo-114112.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="29"/>
+            <column name="title" value="Erdbeeren"/>
+            <column name="price" valueNumeric="3.50"/>
+            <column name="category_id" valueNumeric="4"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.9"/>
+            <column name="description" value="Organic strawberries"/>
+            <column name="image" value="https://images.pexels.com/photos/89778/pexels-photo-89778.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="30"/>
+            <column name="title" value="Himbeeren"/>
+            <column name="price" valueNumeric="4.00"/>
+            <column name="category_id" valueNumeric="4"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.8"/>
+            <column name="description" value="Fresh raspberries"/>
+            <column name="image" value="https://images.pexels.com/photos/59997/pexels-photo-59997.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="31"/>
+            <column name="title" value="Johannisbeeren"/>
+            <column name="price" valueNumeric="3.20"/>
+            <column name="category_id" valueNumeric="4"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.6"/>
+            <column name="description" value="Red currants"/>
+            <column name="image" value="https://images.pexels.com/photos/70862/pexels-photo-70862.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="32"/>
+            <column name="title" value="Trauben"/>
+            <column name="price" valueNumeric="2.80"/>
+            <column name="category_id" valueNumeric="4"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.7"/>
+            <column name="description" value="Grapes from German vineyards"/>
+            <column name="image" value="https://images.pexels.com/photos/96380/pexels-photo-96380.jpeg"/>
+        </insert>
+        <!-- Bakery Products -->
+        <insert tableName="product">
+            <column name="id" valueNumeric="33"/>
+            <column name="title" value="Bauernbrot"/>
+            <column name="price" valueNumeric="3.50"/>
+            <column name="category_id" valueNumeric="5"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.8"/>
+            <column name="description" value="German farmer’s bread"/>
+            <column name="image" value="https://images.pexels.com/photos/461060/pexels-photo-461060.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="34"/>
+            <column name="title" value="Roggenbrot"/>
+            <column name="price" valueNumeric="3.20"/>
+            <column name="category_id" valueNumeric="5"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.7"/>
+            <column name="description" value="Rye bread"/>
+            <column name="image" value="https://images.pexels.com/photos/1586948/pexels-photo-1586948.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="35"/>
+            <column name="title" value="Brezeln"/>
+            <column name="price" valueNumeric="1.50"/>
+            <column name="category_id" valueNumeric="5"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.9"/>
+            <column name="description" value="Traditional pretzels"/>
+            <column name="image" value="https://images.pexels.com/photos/2232/pexels-photo-2232.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="36"/>
+            <column name="title" value="Vollkornbrot"/>
+            <column name="price" valueNumeric="3.80"/>
+            <column name="category_id" valueNumeric="5"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.6"/>
+            <column name="description" value="Whole grain bread"/>
+            <column name="image" value="https://images.pexels.com/photos/1586948/pexels-photo-1586948.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="37"/>
+            <column name="title" value="Pumpernickel"/>
+            <column name="price" valueNumeric="4.00"/>
+            <column name="category_id" valueNumeric="5"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.5"/>
+            <column name="description" value="Traditional pumpernickel bread"/>
+            <column name="image" value="https://images.pexels.com/photos/1586948/pexels-photo-1586948.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="38"/>
+            <column name="title" value="Laugenstangen"/>
+            <column name="price" valueNumeric="2.00"/>
+            <column name="category_id" valueNumeric="5"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.7"/>
+            <column name="description" value="Lye bread sticks"/>
+            <column name="image" value="https://images.pexels.com/photos/2232/pexels-photo-2232.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="39"/>
+            <column name="title" value="Sauerteigbrot"/>
+            <column name="price" valueNumeric="3.90"/>
+            <column name="category_id" valueNumeric="5"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.8"/>
+            <column name="description" value="Sourdough bread"/>
+            <column name="image" value="https://images.pexels.com/photos/1586948/pexels-photo-1586948.jpeg"/>
+        </insert>
+        <insert tableName="product">
+            <column name="id" valueNumeric="40"/>
+            <column name="title" value="Brötchen"/>
+            <column name="price" valueNumeric="0.50"/>
+            <column name="category_id" valueNumeric="5"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="status" value="active"/>
+            <column name="date_publication" valueDate="2025-03-28"/>
+            <column name="rating" valueNumeric="4.6"/>
+            <column name="description" value="Fresh bread rolls"/>
+            <column name="image" value="https://images.pexels.com/photos/461060/pexels-photo-461060.jpeg"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
