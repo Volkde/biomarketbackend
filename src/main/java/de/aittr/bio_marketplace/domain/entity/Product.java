@@ -1,5 +1,6 @@
 package de.aittr.bio_marketplace.domain.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
@@ -50,18 +51,23 @@ public class Product {
     private String status;
     // TODO: add swagger annotations
 
+    @Column(name = "category_id")
+    @Schema(description = "Category identifier", example = "1")
+    private Long categoryId;
+
     // --- CONSTRUCTORS ---
 
     public Product() {
     }
 
-    public Product(Long id, String title, String description, String image, BigDecimal price, String status) {
+    public Product(Long id, String title, String description, String image, BigDecimal price, String status, Long categoryId) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.image = image;
         this.price = price;
         this.status = status;
+        this.categoryId = categoryId;
     }
 
     // --- METHODS ---
@@ -116,26 +122,37 @@ public class Product {
         this.status = status;
     }
 
-    // --- Ecquals and hashcode ---
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    // --- Equals and hashcode ---
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Objects.equals(id, product.id) && Objects.equals(title, product.title) && Objects.equals(description, product.description) && Objects.equals(image, product.image) && Objects.equals(price, product.price) && Objects.equals(status, product.status);
+        return Objects.equals(id, product.id) &&
+                Objects.equals(title, product.title) &&
+                Objects.equals(description, product.description) &&
+                Objects.equals(image, product.image) &&
+                Objects.equals(price, product.price) &&
+                Objects.equals(status, product.status) &&
+                Objects.equals(categoryId, product.categoryId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, image, price, status);
+        return Objects.hash(id, title, description, image, price, status, categoryId);
     }
-
-
 
     /* TODO: add the following fields:
     - images
     - rating
-    - categoryId
     - quantity
     - sellerId
     - attributes
