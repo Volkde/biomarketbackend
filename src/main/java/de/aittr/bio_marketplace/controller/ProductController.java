@@ -52,16 +52,16 @@ public class ProductController {
     )
     @GetMapping()
     public List<ProductDto> getAll(
-            @RequestParam(value = "search-term", required = false)
+            @RequestParam(value = "search_term", required = false)
             @Parameter(description = "Search term to filter products by title or description (case-insensitive, minimum 2 characters)")
             String search,
-            @RequestParam(value = "category-id", required = false)
+            @RequestParam(value = "category_id", required = false)
             @Parameter(description = "Category ID to filter products")
             Long categoryId,
-            @RequestParam(value = "min-price", required = false)
+            @RequestParam(value = "min_price", required = false)
             @Parameter(description = "Minimal price to filter products")
             Double minPriceDouble,
-            @RequestParam(value = "max-price", required = false)
+            @RequestParam(value = "max_price", required = false)
             @Parameter(description = "Maximal price to filter products")
             Double maxPriceDouble
     ) {
