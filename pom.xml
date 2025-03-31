@@ -93,20 +93,18 @@
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
-            <version>0.12.5</version>
+            <version>0.11.5</version>
         </dependency>
-
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
-            <version>0.12.5</version>
+            <version>0.11.5</version>
             <scope>runtime</scope>
         </dependency>
-
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
-            <version>0.12.5</version>
+            <version>0.11.5</version>
             <scope>runtime</scope>
         </dependency>
 
@@ -123,6 +121,7 @@
             <classifier>jakarta</classifier>
             <scope>provided</scope>
         </dependency>
+
     </dependencies>
 
     <build>
@@ -140,6 +139,7 @@
                     <source>17</source>
                     <target>17</target>
                     <generatedSourcesDirectory>target/generated-sources/java</generatedSourcesDirectory>
+
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.mapstruct</groupId>

@@ -1,5 +1,6 @@
 package de.aittr.bio_marketplace.security.config;
 
+import de.aittr.bio_marketplace.security.filter.JwtAuthenticationFilter;
 import de.aittr.bio_marketplace.security.service.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,10 +24,14 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     private final CustomUserDetailsService userDetailsService;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    public SecurityConfig(CustomUserDetailsService userDetailsService) {
+    public SecurityConfig(CustomUserDetailsService userDetailsService,
+                          JwtAuthenticationFilter jwtAuthenticationFilter) {
         this.userDetailsService = userDetailsService;
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
+
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
@@ -37,8 +42,8 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        // Auth Controller
-                        .requestMatchers(HttpMethod.POST, "/users/auth/login", "/users/auth/register").permitAll()
+                        //Auth Controller
+                        .requestMatchers(HttpMethod.POST, "/users/auth/register", "/users/auth/login").permitAll()
                         // Swagger
                         .requestMatchers("/v3/api-docs",
                                 "/v3/api-docs/**",
@@ -53,6 +58,11 @@ public class SecurityConfig {
 
                 .sessionManagement(x ->
                         x.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+
+        //ставим фильтр
+                .addFilterBefore(jwtAuthenticationFilter,
+                org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class)
+
 
                 .authenticationProvider(authenticationProvider())
                 .build();
