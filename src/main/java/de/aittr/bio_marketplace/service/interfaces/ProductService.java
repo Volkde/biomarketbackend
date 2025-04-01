@@ -20,7 +20,9 @@ public interface ProductService {
             Long categoryId,
             BigDecimal minPrice,
             BigDecimal maxPrice,
-            Long sellerID
+            Long sellerID,
+            String sortBy,
+            String sortOrder
             );
 
     // Return active product by id

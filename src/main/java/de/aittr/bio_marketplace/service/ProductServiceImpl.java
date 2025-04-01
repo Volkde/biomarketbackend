@@ -1,5 +1,7 @@
 package de.aittr.bio_marketplace.service;
 
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.entity.Product;
@@ -79,7 +81,9 @@ public class ProductServiceImpl implements ProductService {
             Long categoryId,
             BigDecimal minPrice,
             BigDecimal maxPrice,
-            Long sellerID
+            Long sellerID,
+            String sortBy,
+            String sortOrder
     ) {
         Predicate predicate =ProductQueryPredicateBuilder.builder()
                 .andStatusActive()
@@ -89,11 +93,38 @@ public class ProductServiceImpl implements ProductService {
                 .bySellerId(sellerID)
                 .build();
 
-        List<Product> products = (List<Product>) repository.findAll(predicate);
+        // Создаём сортировку
+        OrderSpecifier<?> orderSpecifier = createOrderSpecifier(sortBy, sortOrder);
+
+        // Выполняем запрос с предикатом и сортировкой
+        List<Product> products;
+        if (orderSpecifier != null) {
+            products = (List<Product>) repository.findAll(predicate, orderSpecifier);
+        } else {
+            products = (List<Product>) repository.findAll(predicate);
+        }
 
         return products.stream()
                 .map(mappingService::mapEntityToDto)
                 .toList();
+    }
+
+    private OrderSpecifier<?> createOrderSpecifier(String sortBy, String sortOrder) {
+        if (sortBy == null || sortBy.isBlank()) {
+            return null;
+        }
+
+        Order direction = "desc".equalsIgnoreCase(sortOrder) ? Order.DESC : Order.ASC;
+
+        QProduct qProduct = QProduct.product;
+        switch (sortBy.toLowerCase()) {
+            case "title":
+                return new OrderSpecifier<>(direction, qProduct.title);
+            case "price":
+                return new OrderSpecifier<>(direction, qProduct.price);
+            default:
+                return null;
+        }
     }
 
     // --- Delete ---

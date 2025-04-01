@@ -66,11 +66,25 @@ public class ProductController {
             Double maxPriceDouble,
             @RequestParam(value = "seller_id", required = false)
             @Parameter(description = "Seller ID to filter products")
-            Long sellerId
+            Long sellerId,
+            @RequestParam(value = "sort_by", required = false)
+            @Parameter(description = "Field to sort by: 'title' or 'price'")
+            String sortBy,
+            @RequestParam(value = "sort_order", required = false, defaultValue = "asc")
+            @Parameter(description = "Sort order: 'asc' (ascending) or 'desc' (descending)")
+            String sortOrder
             ) {
         BigDecimal minPrice = (minPriceDouble != null) ? BigDecimal.valueOf(minPriceDouble) : null;
         BigDecimal maxPrice = (maxPriceDouble != null) ? BigDecimal.valueOf(maxPriceDouble) : null;
-        return service.getAllActiveProductsFiltered(search, categoryId, minPrice, maxPrice, sellerId);
+        return service.getAllActiveProductsFiltered(
+                search,
+                categoryId,
+                minPrice,
+                maxPrice,
+                sellerId,
+                sortBy,
+                sortOrder
+        );
     }
 
     // Returns product by id
@@ -97,4 +111,7 @@ public class ProductController {
 
 }
 
-// TODO: add sending exceptions description
+/* TODO:
+- add sending exceptions description
+- add new options of sorting: by rating, popularity, new
+*/
