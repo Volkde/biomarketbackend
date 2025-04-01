@@ -14,6 +14,8 @@ public interface UserService {
 
     void loginUser(String email, String password);
 
+    RegisterUserResponseDto getCurrentUser();
+
     List<UserDto> getAllActiveUsers();
 
     UserDto getById(Long id);

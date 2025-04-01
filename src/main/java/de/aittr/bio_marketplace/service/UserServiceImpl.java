@@ -15,6 +15,7 @@ import de.aittr.bio_marketplace.service.interfaces.UserService;
 import de.aittr.bio_marketplace.service.mapping.RegisterUserMapper;
 import de.aittr.bio_marketplace.service.mapping.UserMapper;
 import jakarta.transaction.Transactional;
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,6 +30,7 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
 
     private static final String PASSWORD_OR_EMAIL_IS_INCORRECT = "Password or email is incorrect";
+    private static final String COOKIES_IS_INCORRECT = "Cookies is incorrect";
 
     private final RegisterUserMapper mappingRegisterService;
     private final UserMapper mappingService;
@@ -90,6 +92,14 @@ public class UserServiceImpl implements UserService {
         } catch (DisabledException | LockedException | BadCredentialsException ex) {
             throw new AuthenticationException(PASSWORD_OR_EMAIL_IS_INCORRECT);
         }
+    }
+
+    @Override
+    public RegisterUserResponseDto getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getPrincipal().toString();
+        return mappingRegisterService.mapEntityToRegisterResponseDto(repository.findUserByEmail(email)
+                .orElseThrow(() -> new AuthenticationException(COOKIES_IS_INCORRECT)));
     }
 
     @Override

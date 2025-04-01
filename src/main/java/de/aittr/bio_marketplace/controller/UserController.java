@@ -30,7 +30,7 @@ public class UserController {
         this.service = service;
     }
 
-    @GetMapping("/")
+    @GetMapping
     @Operation(
             summary = "Get all users",
             description = "Getting all users that exist in the database"
