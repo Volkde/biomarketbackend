@@ -55,12 +55,16 @@ public class Product {
     @Schema(description = "Category identifier", example = "1")
     private Long categoryId;
 
+    @Column(name = "seller_id")
+    @Schema(description = "Seller identifier", example = "1")
+    private Long sellerId;
+
     // --- CONSTRUCTORS ---
 
     public Product() {
     }
 
-    public Product(Long id, String title, String description, String image, BigDecimal price, String status, Long categoryId) {
+    public Product(Long id, String title, String description, String image, BigDecimal price, String status, Long categoryId, Long sellerId) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -68,9 +72,10 @@ public class Product {
         this.price = price;
         this.status = status;
         this.categoryId = categoryId;
+        this.sellerId = sellerId;
     }
 
-    // --- METHODS ---
+// --- METHODS ---
 
     // --- Getters and setters ---
 
@@ -130,31 +135,32 @@ public class Product {
         this.categoryId = categoryId;
     }
 
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
+
     // --- Equals and hashcode ---
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return Objects.equals(id, product.id) &&
-                Objects.equals(title, product.title) &&
-                Objects.equals(description, product.description) &&
-                Objects.equals(image, product.image) &&
-                Objects.equals(price, product.price) &&
-                Objects.equals(status, product.status) &&
-                Objects.equals(categoryId, product.categoryId);
+        return Objects.equals(id, product.id) && Objects.equals(title, product.title) && Objects.equals(description, product.description) && Objects.equals(image, product.image) && Objects.equals(price, product.price) && Objects.equals(status, product.status) && Objects.equals(categoryId, product.categoryId) && Objects.equals(sellerId, product.sellerId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, image, price, status, categoryId);
+        return Objects.hash(id, title, description, image, price, status, categoryId, sellerId);
     }
 
     /* TODO: add the following fields:
     - images
     - rating
     - quantity
-    - sellerId
     - attributes
     - reviews
     - dateProduction

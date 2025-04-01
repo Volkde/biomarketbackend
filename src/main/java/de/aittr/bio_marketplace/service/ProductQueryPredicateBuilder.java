@@ -74,6 +74,15 @@ public class ProductQueryPredicateBuilder {
         return this;
     }
 
+    // Filter by seller
+    public ProductQueryPredicateBuilder bySellerId(Long sellerId) {
+        if (sellerId != null) {
+            this.predicate
+                    .and(this.product.sellerId.eq(sellerId));
+        }
+        return this;
+    }
+
     public Predicate build() {
         return this.predicate;
     }

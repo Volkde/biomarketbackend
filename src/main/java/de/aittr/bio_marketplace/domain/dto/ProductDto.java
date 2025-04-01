@@ -36,6 +36,9 @@ public class ProductDto {
     @Schema(description = "Category identifier", example = "1")
     private Long categoryId;
 
+    @Schema(description = "Seller identifier", example = "1")
+    private Long sellerId;
+
     // --- METHODS ---
 
     // --- Getters and setters ---
@@ -88,23 +91,26 @@ public class ProductDto {
         this.categoryId = categoryId;
     }
 
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
+
     // --- Equals and hashcode ---
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         ProductDto that = (ProductDto) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(title, that.title) &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(image, that.image) &&
-                Objects.equals(price, that.price) &&
-                Objects.equals(categoryId, that.categoryId);
+        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(description, that.description) && Objects.equals(image, that.image) && Objects.equals(price, that.price) && Objects.equals(categoryId, that.categoryId) && Objects.equals(sellerId, that.sellerId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, image, price, categoryId);
+        return Objects.hash(id, title, description, image, price, categoryId, sellerId);
     }
 
 }

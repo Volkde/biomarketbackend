@@ -78,13 +78,15 @@ public class ProductServiceImpl implements ProductService {
             String search,
             Long categoryId,
             BigDecimal minPrice,
-            BigDecimal maxPrice
+            BigDecimal maxPrice,
+            Long sellerID
     ) {
         Predicate predicate =ProductQueryPredicateBuilder.builder()
                 .andStatusActive()
                 .byNameOrDescription(search)
                 .byCategoryId(categoryId)
                 .byPriceRange(minPrice, maxPrice)
+                .bySellerId(sellerID)
                 .build();
 
         List<Product> products = (List<Product>) repository.findAll(predicate);

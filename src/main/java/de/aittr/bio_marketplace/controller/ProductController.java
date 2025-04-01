@@ -63,11 +63,14 @@ public class ProductController {
             Double minPriceDouble,
             @RequestParam(value = "max_price", required = false)
             @Parameter(description = "Maximal price to filter products")
-            Double maxPriceDouble
-    ) {
+            Double maxPriceDouble,
+            @RequestParam(value = "seller_id", required = false)
+            @Parameter(description = "Seller ID to filter products")
+            Long sellerId
+            ) {
         BigDecimal minPrice = (minPriceDouble != null) ? BigDecimal.valueOf(minPriceDouble) : null;
         BigDecimal maxPrice = (maxPriceDouble != null) ? BigDecimal.valueOf(maxPriceDouble) : null;
-        return service.getAllActiveProductsFiltered(search, categoryId, minPrice, maxPrice);
+        return service.getAllActiveProductsFiltered(search, categoryId, minPrice, maxPrice, sellerId);
     }
 
     // Returns product by id
