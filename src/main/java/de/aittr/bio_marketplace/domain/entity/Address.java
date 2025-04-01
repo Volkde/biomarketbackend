@@ -129,6 +129,6 @@ public class Address {
 
     @Override
     public String toString() {
-        return String.format("Address: Id - %d, Country - %s, City - %s, Street - %s, zipCode - %n.", id, country, city, street, zipCode);
+        return String.format("Address: Id - %d, Country - %s, City - %s, Street - %s, zipCode - %d.", id, country, city, street, zipCode);
     }
 }
