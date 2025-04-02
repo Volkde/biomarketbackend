@@ -50,6 +50,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/products").hasAnyRole(ADMIN_ROLE, USER_ROLE)
                         //User Controller
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/orders").permitAll()
 
                         // Swagger
                         .requestMatchers("/v3/api-docs",
@@ -59,12 +60,6 @@ public class SecurityConfig {
                                 "/swagger-ui/index.html",
                                 "/swagger-ui/**").permitAll()
 
-                        .requestMatchers("/v3/api-docs",
-                                "/v3/api-docs/**",
-                                "/swagger-ui/",
-                                "/swagger-ui.html",
-                                "/swagger-ui/index.html",
-                                "/swagger-ui/**").permitAll()
 
                         .anyRequest().authenticated())
 

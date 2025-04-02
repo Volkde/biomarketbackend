@@ -5,12 +5,14 @@ import de.aittr.bio_marketplace.exception_handling.exceptions.UserValidationExce
 import de.aittr.bio_marketplace.exception_handling.exceptions.ProductNotFoundException;
 import de.aittr.bio_marketplace.exception_handling.exceptions.ProductValidationException;
 import de.aittr.bio_marketplace.exceptions.AuthenticationException;
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
+@Hidden
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ProductNotFoundException.class)
