@@ -22,6 +22,8 @@ public interface ProductService {
             BigDecimal maxPrice,
             Long sellerID,
             Double ratingMin,
+            Boolean inStock,
+            Boolean discounted,
             String sortBy,
             String sortOrder
             );

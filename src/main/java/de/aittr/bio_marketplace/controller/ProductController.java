@@ -70,6 +70,12 @@ public class ProductController {
             @RequestParam(value = "rating_min", required = false)
             @Parameter(description = "Minimum rating to filter products (between 1.00 and 5.00)")
             Double ratingMin,
+            @RequestParam(value = "in_stock", required = false)
+            @Parameter(description = "Filter products by stock availability: true (in stock) or false (out of stock)")
+            Boolean inStock,
+            @RequestParam(value = "discounted", required = false)
+            @Parameter(description = "Filter products by discount status: 'true' to show only discounted products, 'false' to show only non-discounted products")
+            Boolean discounted,
             @RequestParam(value = "sort_by", required = false)
             @Parameter(description = "Field to sort by: 'title' or 'price'")
             String sortBy,
@@ -86,6 +92,8 @@ public class ProductController {
                 maxPrice,
                 sellerId,
                 ratingMin,
+                inStock,
+                discounted,
                 sortBy,
                 sortOrder
         );

@@ -83,6 +83,8 @@ public class ProductServiceImpl implements ProductService {
             BigDecimal maxPrice,
             Long sellerID,
             Double ratingMin,
+            Boolean inStock,
+            Boolean discounted,
             String sortBy,
             String sortOrder
     ) {
@@ -93,6 +95,8 @@ public class ProductServiceImpl implements ProductService {
                 .byPriceRange(minPrice, maxPrice)
                 .bySellerId(sellerID)
                 .byMinRating(ratingMin)
+                .byInStock(inStock)
+                .byDiscounted(discounted)
                 .build();
 
         // Creating a sorting

@@ -94,7 +94,24 @@ public class ProductQueryPredicateBuilder {
         return this;
     }
 
+    // Filter by stock availability
+    public ProductQueryPredicateBuilder byInStock(Boolean inStock) {
+        if (inStock != null) {
+            this.predicate.and(this.product.inStock.eq(inStock));
+        }
+        return this;
+    }
+
+    // Filter by discount status
+    public ProductQueryPredicateBuilder byDiscounted(Boolean discounted) {
+        if (discounted != null) {
+            this.predicate.and(this.product.discounted.eq(discounted));
+        }
+        return this;
+    }
+
     public Predicate build() {
         return this.predicate;
     }
+
 }
