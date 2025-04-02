@@ -124,6 +124,8 @@ public class ProductServiceImpl implements ProductService {
                 return new OrderSpecifier<>(direction, qProduct.title);
             case "price":
                 return new OrderSpecifier<>(direction, qProduct.price);
+            case "rating":
+                return new OrderSpecifier<>(direction, qProduct.rating);
             default:
                 return null;
         }
