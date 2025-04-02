@@ -86,4 +86,13 @@ public class AuthController {
                 .header(HttpHeaders.SET_COOKIE, cleanRefresh.toString())
                 .build();
     }
+
+    @GetMapping("/profile")
+    public RegisterUserResponseDto profile() {
+        //1 Берём пустые куки
+
+        return service.getCurrentUser();
+    }
+
+
 }

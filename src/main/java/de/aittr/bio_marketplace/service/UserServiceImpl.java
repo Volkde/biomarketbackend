@@ -1,5 +1,6 @@
 package de.aittr.bio_marketplace.service;
 
+import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.dto.UserDto;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserDto;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
@@ -12,6 +13,7 @@ import de.aittr.bio_marketplace.repository.UserRepository;
 import de.aittr.bio_marketplace.service.interfaces.ProductService;
 import de.aittr.bio_marketplace.service.interfaces.RoleService;
 import de.aittr.bio_marketplace.service.interfaces.UserService;
+import de.aittr.bio_marketplace.service.mapping.ProductMapper;
 import de.aittr.bio_marketplace.service.mapping.RegisterUserMapper;
 import de.aittr.bio_marketplace.service.mapping.UserMapper;
 import jakarta.transaction.Transactional;
@@ -29,9 +31,11 @@ import java.util.Set;
 public class UserServiceImpl implements UserService {
 
     private static final String PASSWORD_OR_EMAIL_IS_INCORRECT = "Password or email is incorrect";
+    private static final String COOKIE_IS_INCORRECT = "Cookie is incorrect";
 
     private final RegisterUserMapper mappingRegisterService;
     private final UserMapper mappingService;
+    private final ProductMapper mappingProductService;
     private final ProductService productService;
     private final UserRepository repository;
     private final RoleService roleService;
@@ -39,7 +43,7 @@ public class UserServiceImpl implements UserService {
     private final AuthenticationManager authenticationManager;
 
     public UserServiceImpl(RegisterUserMapper registerUserMapper,
-                           UserMapper userMapper,
+                           UserMapper userMapper, ProductMapper productMapper,
                            ProductService productService,
                            UserRepository repository,
                            RoleService roleService,
@@ -47,6 +51,7 @@ public class UserServiceImpl implements UserService {
                            AuthenticationManager authenticationManager) {
         this.mappingRegisterService = registerUserMapper;
         this.mappingService = userMapper;
+        this.mappingProductService = productMapper;
         this.productService = productService;
         this.repository = repository;
         this.roleService = roleService;
@@ -93,6 +98,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public RegisterUserResponseDto getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getPrincipal().toString();
+        return mappingRegisterService.mapEntityToRegisterResponseDto(repository.findUserByEmail(email)
+                .orElseThrow(() -> new AuthenticationException(COOKIE_IS_INCORRECT)));
+    }
+
+    @Override
     public List<UserDto> getAllActiveUsers() {
         return repository.findAll()
                 .stream()
@@ -132,9 +145,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
     public void deleteById(Long id) {
-        repository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        getActiveUserEntityById(id);
         repository.deleteById(id);
     }
 
@@ -147,6 +159,15 @@ public class UserServiceImpl implements UserService {
     public BigDecimal getUsersCartTotalCost(Long userId) {
         User user = getActiveUserEntityById(userId);
         return user.getCart().getActiveProductsTotalCost();
+    }
+
+    @Override
+    public List<ProductDto> getAllProductsByUserId(Long userId) {
+        User user = getActiveUserEntityById(userId);
+        return user.getCart().getProducts()
+                .stream()
+                .map(mappingProductService::mapEntityToDto)
+                .toList();
     }
 
     @Override

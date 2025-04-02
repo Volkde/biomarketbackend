@@ -48,22 +48,27 @@ public class Address {
     @NotNull(message = "Address zipCode cannot be null")
     @NotBlank(message = "Address zipCode cannot be empty")
 
-    private int zipCode;
+    private String zipCode;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "seller_id")
+    private Seller seller;
+
     public Address() {
     }
 
-    public Address(Long id, String country, String city, String street, int zipCode, User user) {
+    public Address(Long id, String country, String city, String street, String zipCode, User user, Seller seller) {
         this.id = id;
         this.country = country;
         this.city = city;
         this.street = street;
         this.zipCode = zipCode;
         this.user = user;
+        this.seller = seller;
     }
 
     public Long getId() {
@@ -82,7 +87,7 @@ public class Address {
         return street;
     }
 
-    public int getZipCode() {
+    public String getZipCode() {
         return zipCode;
     }
 
@@ -106,7 +111,7 @@ public class Address {
         this.street = street;
     }
 
-    public void setZipCode(int zipCode) {
+    public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
 
@@ -114,21 +119,28 @@ public class Address {
         this.user = user;
     }
 
+    public Seller getSeller() {
+        return seller;
+    }
+
+    public void setSeller(Seller seller) {
+        this.seller = seller;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return zipCode == address.zipCode && Objects.equals(id, address.id) && Objects.equals(country, address.country) && Objects.equals(city, address.city) && Objects.equals(street, address.street) && Objects.equals(user, address.user);
+        return Objects.equals(id, address.id) && Objects.equals(country, address.country) && Objects.equals(city, address.city) && Objects.equals(street, address.street) && Objects.equals(zipCode, address.zipCode) && Objects.equals(user, address.user) && Objects.equals(seller, address.seller);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, country, city, street, zipCode, user);
+        return Objects.hash(id, country, city, street, zipCode, user, seller);
     }
 
     @Override
     public String toString() {
-        return String.format("Address: Id - %d, Country - %s, City - %s, Street - %s, zipCode - %n.", id, country, city, street, zipCode);
+        return String.format("Address: Id - %d, Country - %s, City - %s, Street - %s, zipCode - %s.", id, country, city, street, zipCode);
     }
 }

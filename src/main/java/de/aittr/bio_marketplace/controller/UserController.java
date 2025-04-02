@@ -1,12 +1,7 @@
 package de.aittr.bio_marketplace.controller;
 
 
-import de.aittr.bio_marketplace.domain.dto.auth.LoginRequestDto;
-import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
-import de.aittr.bio_marketplace.domain.entity.User;
-import de.aittr.bio_marketplace.security.service.JwtTokenService;
-import de.aittr.bio_marketplace.service.CookieService;
-import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserDto;
+import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.dto.UserDto;
 import de.aittr.bio_marketplace.service.interfaces.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/users")
@@ -30,7 +23,7 @@ public class UserController {
         this.service = service;
     }
 
-    @GetMapping("/")
+    @GetMapping
     @Operation(
             summary = "Get all users",
             description = "Getting all users that exist in the database"
@@ -73,22 +66,27 @@ public class UserController {
     }
 
     @GetMapping("/total-cost/{userId}")
-    public BigDecimal getUserCartTotalCost(Long userId) {
+    public BigDecimal getUserCartTotalCost(@PathVariable Long userId) {
         return service.getUsersCartTotalCost(userId);
     }
 
-    @DeleteMapping("/remove-user/{userId}/product/{id}")
-    public void removeProductFromUserCart(Long userId, Long productId) {
+    @GetMapping("/all-products-by-user-id/{id}")
+    public List<ProductDto> getAllProductsByUserId(@PathVariable Long id){
+        return service.getAllProductsByUserId(id);
+    }
+
+    @DeleteMapping("/remove-user/{userId}/product/{productId}")
+    public void removeProductFromUserCart(@PathVariable Long userId,@PathVariable  Long productId) {
         service.removeProductFromUserCart(userId, productId);
     }
 
-    @DeleteMapping("/clear-cart")
-    public void clearUserCart(Long userId) {
-        service.clearUserCart(userId);
+    @DeleteMapping("/clear-cart/{id}")
+    public void clearUserCart(@PathVariable Long id) {
+        service.clearUserCart(id);
     }
 
-    @GetMapping("/product-average-price")
-    public BigDecimal getUserProductsAveragePrice(Long userId) {
-        return service.getUserProductsAveragePrice(userId);
+    @GetMapping("/product-average-price/{id}")
+    public BigDecimal getUserProductsAveragePrice(@PathVariable Long id) {
+        return service.getUserProductsAveragePrice(id);
     }
 }

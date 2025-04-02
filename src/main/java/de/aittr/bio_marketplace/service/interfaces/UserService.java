@@ -1,5 +1,6 @@
 package de.aittr.bio_marketplace.service.interfaces;
 
+import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.dto.UserDto;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
 import de.aittr.bio_marketplace.domain.entity.User;
@@ -13,6 +14,8 @@ public interface UserService {
     RegisterUserResponseDto registerUser(RegisterUserDto registerUserDto);
 
     void loginUser(String email, String password);
+
+    RegisterUserResponseDto getCurrentUser();
 
     List<UserDto> getAllActiveUsers();
 
@@ -31,6 +34,8 @@ public interface UserService {
     void deleteByUsername(String username);
 
     BigDecimal getUsersCartTotalCost(Long userId);
+
+    List<ProductDto> getAllProductsByUserId(Long userId);
 
     void addProductToUserCart(Long userId, Long productId);
 

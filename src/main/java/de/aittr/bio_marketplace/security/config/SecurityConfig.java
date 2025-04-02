@@ -45,8 +45,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
                         //Auth Controller
                         .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register","/auth/logout").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/auth//refresh").permitAll()
-
+                        .requestMatchers(HttpMethod.GET, "/auth/refresh").permitAll()
+                        // Product controller
+                        .requestMatchers(HttpMethod.GET, "/products").hasAnyRole(ADMIN_ROLE, USER_ROLE)
                         //User Controller
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
 
@@ -58,14 +59,13 @@ public class SecurityConfig {
                                 "/swagger-ui/index.html",
                                 "/swagger-ui/**").permitAll()
 
-                        // Product controller
-                        .requestMatchers(HttpMethod.GET, "/products").permitAll()
 
                         .anyRequest().authenticated())
 
                 .sessionManagement(x ->
                         x.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
+                //ставим фильтр
                 .addFilterBefore(jwtAuthenticationFilter,
                         org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class)
 

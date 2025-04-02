@@ -40,17 +40,15 @@ public class Cart {
     }
 
     public void addProduct(Product product) {
-        //ToDo isActive in product
-       // if (product.isActive()) {
+        if ("active".equalsIgnoreCase(product.getStatus())) {
             products.add(product);
-        //}
+        }
     }
 
     public List<Product> getAllActiveProducts() {
         return products
                 .stream()
-                //ToDo isActive in product
-              //  .filter(Product::isActive)
+                .filter(product -> "active".equalsIgnoreCase(product.getStatus()))
                 .toList();
     }
 
@@ -71,23 +69,20 @@ public class Cart {
     public BigDecimal getActiveProductsTotalCost() {
         return products
                 .stream()
-                //ToDo isActive in product
-               // .filter(Product::isActive)
+                .filter(product -> "active".equalsIgnoreCase(product.getStatus()))
                 .map(Product::getPrice)
                 .reduce(BigDecimal::add)
                 .orElse(new BigDecimal(0));
     }
 
     public Long getId() {
-        //ToDo getId
         return id;
     }
 
     public BigDecimal getActiveProductsAveragePrice() {
         long productCount = products
                 .stream()
-                //ToDo isActive in product
-               // .filter(Product::isActive)
+                .filter(product -> "active".equalsIgnoreCase(product.getStatus()))
                 .count();
 
         if (productCount == 0) {
