@@ -1,5 +1,7 @@
 package de.aittr.bio_marketplace.service;
 
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.entity.Product;
@@ -78,20 +80,59 @@ public class ProductServiceImpl implements ProductService {
             String search,
             Long categoryId,
             BigDecimal minPrice,
-            BigDecimal maxPrice
+            BigDecimal maxPrice,
+            Long sellerID,
+            Double ratingMin,
+            Boolean inStock,
+            Boolean discounted,
+            String sortBy,
+            String sortOrder
     ) {
         Predicate predicate =ProductQueryPredicateBuilder.builder()
                 .andStatusActive()
                 .byNameOrDescription(search)
                 .byCategoryId(categoryId)
                 .byPriceRange(minPrice, maxPrice)
+                .bySellerId(sellerID)
+                .byMinRating(ratingMin)
+                .byInStock(inStock)
+                .byDiscounted(discounted)
                 .build();
 
-        List<Product> products = (List<Product>) repository.findAll(predicate);
+        // Creating a sorting
+        OrderSpecifier<?> orderSpecifier = createOrderSpecifier(sortBy, sortOrder);
+
+        // Executing a query with a predicate and sorting
+        List<Product> products;
+        if (orderSpecifier != null) {
+            products = (List<Product>) repository.findAll(predicate, orderSpecifier);
+        } else {
+            products = (List<Product>) repository.findAll(predicate);
+        }
 
         return products.stream()
                 .map(mappingService::mapEntityToDto)
                 .toList();
+    }
+
+    private OrderSpecifier<?> createOrderSpecifier(String sortBy, String sortOrder) {
+        if (sortBy == null || sortBy.isBlank()) {
+            return null;
+        }
+
+        Order direction = "desc".equalsIgnoreCase(sortOrder) ? Order.DESC : Order.ASC;
+
+        QProduct qProduct = QProduct.product;
+        switch (sortBy.toLowerCase()) {
+            case "title":
+                return new OrderSpecifier<>(direction, qProduct.title);
+            case "price":
+                return new OrderSpecifier<>(direction, qProduct.price);
+            case "rating":
+                return new OrderSpecifier<>(direction, qProduct.rating);
+            default:
+                return null;
+        }
     }
 
     // --- Delete ---

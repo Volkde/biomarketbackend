@@ -19,7 +19,13 @@ public interface ProductService {
             String search,
             Long categoryId,
             BigDecimal minPrice,
-            BigDecimal maxPrice
+            BigDecimal maxPrice,
+            Long sellerID,
+            Double ratingMin,
+            Boolean inStock,
+            Boolean discounted,
+            String sortBy,
+            String sortOrder
             );
 
     // Return active product by id

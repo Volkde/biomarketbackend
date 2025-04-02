@@ -33,8 +33,20 @@ public class ProductDto {
     @Schema(description = "Product price", example = "190.00")
     private BigDecimal price;
 
+    @Schema(description = "Indicates whether the product has a discount", example = "false")
+    private boolean discounted;
+
+    @Schema(description = "Indicates whether the product is currently in stock", example = "true")
+    private boolean inStock;
+
     @Schema(description = "Category identifier", example = "1")
     private Long categoryId;
+
+    @Schema(description = "Seller identifier", example = "1")
+    private Long sellerId;
+
+    @Schema(description = "Product rating", example = "4.30")
+    private Double rating;
 
     // --- METHODS ---
 
@@ -88,23 +100,49 @@ public class ProductDto {
         this.categoryId = categoryId;
     }
 
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
+
+    public boolean isDiscounted() {
+        return discounted;
+    }
+
+    public void setDiscounted(boolean discounted) {
+        this.discounted = discounted;
+    }
+
+    public boolean isInStock() {
+        return inStock;
+    }
+
+    public void setInStock(boolean inStock) {
+        this.inStock = inStock;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
     // --- Equals and hashcode ---
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         ProductDto that = (ProductDto) o;
-        return Objects.equals(id, that.id) &&
-                Objects.equals(title, that.title) &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(image, that.image) &&
-                Objects.equals(price, that.price) &&
-                Objects.equals(categoryId, that.categoryId);
+        return discounted == that.discounted && inStock == that.inStock && Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(description, that.description) && Objects.equals(image, that.image) && Objects.equals(price, that.price) && Objects.equals(categoryId, that.categoryId) && Objects.equals(sellerId, that.sellerId) && Objects.equals(rating, that.rating);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, image, price, categoryId);
+        return Objects.hash(id, title, description, image, price, discounted, inStock, categoryId, sellerId, rating);
     }
-
 }
