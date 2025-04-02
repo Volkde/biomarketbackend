@@ -7,8 +7,6 @@ import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
 import de.aittr.bio_marketplace.security.service.JwtTokenService;
 import de.aittr.bio_marketplace.service.CookieService;
 import de.aittr.bio_marketplace.service.interfaces.UserService;
-import de.aittr.bio_marketplace.service.mapping.RegisterUserMapper;
-import de.aittr.bio_marketplace.service.mapping.UserMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpHeaders;
@@ -23,13 +21,11 @@ public class AuthController {
     private final UserService service;
     private final CookieService cookieService;
     private final JwtTokenService jwtTokenService;
-    private final RegisterUserMapper userMapper;
 
-    public AuthController(UserService service, CookieService cookieService, JwtTokenService jwtTokenService, RegisterUserMapper userMapper) {
+    public AuthController(UserService service, CookieService cookieService, JwtTokenService jwtTokenService) {
         this.service = service;
         this.cookieService = cookieService;
         this.jwtTokenService = jwtTokenService;
-        this.userMapper = userMapper;
     }
 
     @PostMapping("/register")
@@ -90,6 +86,7 @@ public class AuthController {
                 .header(HttpHeaders.SET_COOKIE, cleanRefresh.toString())
                 .build();
     }
+
     @GetMapping("/profile")
     public RegisterUserResponseDto profile() {
         //1 Берём пустые куки
