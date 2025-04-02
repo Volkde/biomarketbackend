@@ -1,12 +1,7 @@
 package de.aittr.bio_marketplace.controller;
 
 
-import de.aittr.bio_marketplace.domain.dto.auth.LoginRequestDto;
-import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
-import de.aittr.bio_marketplace.domain.entity.User;
-import de.aittr.bio_marketplace.security.service.JwtTokenService;
-import de.aittr.bio_marketplace.service.CookieService;
-import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserDto;
+import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.dto.UserDto;
 import de.aittr.bio_marketplace.service.interfaces.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
-
-import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/users")
@@ -39,6 +32,10 @@ public class UserController {
         return service.getAllActiveUsers();
     }
 
+    @Operation(
+            summary = "Get user by id",
+            description = "Getting user from database by id"
+    )
     @GetMapping("/{id}")
     public UserDto getById(@PathVariable
                            @Parameter(description = "User unique identifier")
@@ -47,48 +44,102 @@ public class UserController {
         return service.getById(id);
     }
 
+    @Operation(
+            summary = "Update user by id",
+            description = "Updating user from database by id"
+    )
     @PutMapping
     public void update(@RequestBody UserDto user) {
         service.update(user);
     }
 
+    @Operation(
+            summary = "Get user quantity",
+            description = "Getting user quantity from database"
+    )
     @GetMapping("/quantity")
     public long getUserQuantity() {
         return service.getAllActiveUsersCount();
     }
 
+    @Operation(
+            summary = "Deactivate user by id",
+            description = "Deactivating user from database by id"
+    )
+    @DeleteMapping("/deactivate-user/{id}")
+    public void deactivateUserById(@PathVariable Long id) {
+        service.deactivateUserById(id);
+    }
+
+    @Operation(
+            summary = "Delete user by id",
+            description = "Deletion user from database by id"
+    )
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         service.deleteById(id);
     }
 
+    @Operation(
+            summary = "Delete user by username",
+            description = "Deletion user from database by username"
+    )
     @DeleteMapping("/by-username/{username}")
     public void deleteByUsername(@PathVariable String username) {
         service.deleteByUsername(username);
     }
 
+    @Operation(
+            summary = "Save product to user cart",
+            description = "Saving product to user cart with given parameters"
+    )
     @PutMapping("/{id}/product/{productId}")
     public void addProduct(@PathVariable Long id, @PathVariable Long productId) {
         service.addProductToUserCart(id, productId);
     }
 
+    @Operation(
+            summary = "Get total cost by user id",
+            description = "Getting the total cost of the cart from database by user id"
+    )
     @GetMapping("/total-cost/{userId}")
-    public BigDecimal getUserCartTotalCost(Long userId) {
+    public BigDecimal getUserCartTotalCost(@PathVariable Long userId) {
         return service.getUsersCartTotalCost(userId);
     }
 
-    @DeleteMapping("/remove-user/{userId}/product/{id}")
-    public void removeProductFromUserCart(Long userId, Long productId) {
+    @Operation(
+            summary = "Get all products by user id",
+            description = "Getting all products from the cart from database by user id"
+    )
+    @GetMapping("/all-products-by-user-id/{id}")
+    public List<ProductDto> getAllProductsByUserId(@PathVariable Long id){
+        return service.getAllProductsByUserId(id);
+    }
+
+    @Operation(
+            summary = "Delete the product from user cart by id",
+            description = "Deletion the product from user cart from database by user and cart id"
+    )
+    @DeleteMapping("/remove-user/{userId}/product/{productId}")
+    public void removeProductFromUserCart(@PathVariable Long userId,@PathVariable  Long productId) {
         service.removeProductFromUserCart(userId, productId);
     }
 
-    @DeleteMapping("/clear-cart")
-    public void clearUserCart(Long userId) {
-        service.clearUserCart(userId);
+    @Operation(
+            summary = "Delete all products from user cart by id",
+            description = "Deletion all products from user cart from database by user id"
+    )
+    @DeleteMapping("/clear-cart/{id}")
+    public void clearUserCart(@PathVariable Long id) {
+        service.clearUserCart(id);
     }
 
-    @GetMapping("/product-average-price")
-    public BigDecimal getUserProductsAveragePrice(Long userId) {
-        return service.getUserProductsAveragePrice(userId);
+    @Operation(
+            summary = "Get average price by user id",
+            description = "Getting the average price of the cart from database by user id"
+    )
+    @GetMapping("/product-average-price/{id}")
+    public BigDecimal getUserProductsAveragePrice(@PathVariable Long id) {
+        return service.getUserProductsAveragePrice(id);
     }
 }

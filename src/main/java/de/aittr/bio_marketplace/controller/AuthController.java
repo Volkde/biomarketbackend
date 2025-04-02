@@ -7,8 +7,8 @@ import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
 import de.aittr.bio_marketplace.security.service.JwtTokenService;
 import de.aittr.bio_marketplace.service.CookieService;
 import de.aittr.bio_marketplace.service.interfaces.UserService;
-import de.aittr.bio_marketplace.service.mapping.RegisterUserMapper;
-import de.aittr.bio_marketplace.service.mapping.UserMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpHeaders;
@@ -18,20 +18,23 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Auth controller", description = "Controller for various operations with Auth")
 public class AuthController {
 
     private final UserService service;
     private final CookieService cookieService;
     private final JwtTokenService jwtTokenService;
-    private final RegisterUserMapper userMapper;
 
-    public AuthController(UserService service, CookieService cookieService, JwtTokenService jwtTokenService, RegisterUserMapper userMapper) {
+    public AuthController(UserService service, CookieService cookieService, JwtTokenService jwtTokenService) {
         this.service = service;
         this.cookieService = cookieService;
         this.jwtTokenService = jwtTokenService;
-        this.userMapper = userMapper;
     }
 
+    @Operation(
+            summary = "Register new user",
+            description = "Registration new user with given parameters"
+    )
     @PostMapping("/register")
     public RegisterUserResponseDto register(
             @RequestBody
@@ -41,6 +44,10 @@ public class AuthController {
         return service.registerUser(registerUserDto);
     }
 
+    @Operation(
+            summary = "Login user",
+            description = "Login user with given parameters"
+    )
     @PostMapping("/login")
     public ResponseEntity<Void> login(@RequestBody LoginRequestDto loginDto, HttpServletResponse response) {
         service.loginUser(loginDto.email(), loginDto.password());
@@ -54,6 +61,10 @@ public class AuthController {
                 .build();
     }
 
+    @Operation(
+            summary = "Refresh user token",
+            description = "Refreshing user token"
+    )
     @GetMapping("/refresh")
     public ResponseEntity<Void> refreshToken(HttpServletRequest request, HttpServletResponse response) {
         String refreshToken = cookieService.getJwtRefreshFromCookies(request);
@@ -79,6 +90,10 @@ public class AuthController {
                 .build();
     }
 
+    @Operation(
+            summary = "Logout user",
+            description = "Logout user"
+    )
     @PostMapping("/logout")
     public ResponseEntity<Void> logout() {
         //1 Берём пустые куки
@@ -90,11 +105,14 @@ public class AuthController {
                 .header(HttpHeaders.SET_COOKIE, cleanRefresh.toString())
                 .build();
     }
+
+    @Operation(
+            summary = "Get current user",
+            description = "Get current registered user"
+    )
     @GetMapping("/profile")
     public RegisterUserResponseDto profile() {
-        //1 Берём пустые куки
-
-        return service.getCurrentUser();
+         return service.getCurrentUser();
     }
 
 

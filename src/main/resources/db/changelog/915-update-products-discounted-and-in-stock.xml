@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="915-update-products-discounted-and-in-stock" author="team46">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="product"/>
+            <columnExists tableName="product" columnName="discounted"/>
+            <columnExists tableName="product" columnName="in_stock"/>
+        </preConditions>
+
+        <update tableName="product">
+            <column name="discounted" valueBoolean="true"/>
+            <column name="price" valueNumeric="3.36"/>
+            <where>id = 4</where>
+        </update>
+        <update tableName="product">
+            <column name="discounted" valueBoolean="true"/>
+            <column name="price" valueNumeric="3.04"/>
+            <where>id = 6</where>
+        </update>
+        <update tableName="product">
+            <column name="discounted" valueBoolean="true"/>
+            <column name="price" valueNumeric="7.12"/>
+            <where>id = 11</where>
+        </update>
+        <update tableName="product">
+            <column name="discounted" valueBoolean="true"/>
+            <column name="price" valueNumeric="9.60"/>
+            <where>id = 13</where>
+        </update>
+        <update tableName="product">
+            <column name="discounted" valueBoolean="true"/>
+            <column name="price" valueNumeric="2.56"/>
+            <where>id = 19</where>
+        </update>
+        <update tableName="product">
+            <column name="discounted" valueBoolean="true"/>
+            <column name="price" valueNumeric="2.80"/>
+            <where>id = 29</where>
+        </update>
+        <update tableName="product">
+            <column name="discounted" valueBoolean="true"/>
+            <column name="price" valueNumeric="3.20"/>
+            <where>id = 30</where>
+        </update>
+        <update tableName="product">
+            <column name="discounted" valueBoolean="true"/>
+            <column name="price" valueNumeric="3.20"/>
+            <where>id = 37</where>
+        </update>
+
+        <update tableName="product">
+            <column name="in_stock" valueBoolean="false"/>
+            <where>id = 6</where>
+        </update>
+        <update tableName="product">
+            <column name="in_stock" valueBoolean="false"/>
+            <where>id = 15</where>
+        </update>
+        <update tableName="product">
+            <column name="in_stock" valueBoolean="false"/>
+            <where>id = 19</where>
+        </update>
+        <update tableName="product">
+            <column name="in_stock" valueBoolean="false"/>
+            <where>id = 31</where>
+        </update>
+        <update tableName="product">
+            <column name="in_stock" valueBoolean="false"/>
+            <where>id = 37</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>

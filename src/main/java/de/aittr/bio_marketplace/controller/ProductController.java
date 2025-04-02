@@ -63,11 +63,40 @@ public class ProductController {
             Double minPriceDouble,
             @RequestParam(value = "max_price", required = false)
             @Parameter(description = "Maximal price to filter products")
-            Double maxPriceDouble
-    ) {
+            Double maxPriceDouble,
+            @RequestParam(value = "seller_id", required = false)
+            @Parameter(description = "Seller ID to filter products")
+            Long sellerId,
+            @RequestParam(value = "rating_min", required = false)
+            @Parameter(description = "Minimum rating to filter products (between 1.00 and 5.00)")
+            Double ratingMin,
+            @RequestParam(value = "in_stock", required = false)
+            @Parameter(description = "Filter products by stock availability: true (in stock) or false (out of stock)")
+            Boolean inStock,
+            @RequestParam(value = "discounted", required = false)
+            @Parameter(description = "Filter products by discount status: 'true' to show only discounted products, 'false' to show only non-discounted products")
+            Boolean discounted,
+            @RequestParam(value = "sort_by", required = false)
+            @Parameter(description = "Field to sort by: 'title' or 'price'")
+            String sortBy,
+            @RequestParam(value = "sort_order", required = false, defaultValue = "asc")
+            @Parameter(description = "Sort order: 'asc' (ascending) or 'desc' (descending)")
+            String sortOrder
+            ) {
         BigDecimal minPrice = (minPriceDouble != null) ? BigDecimal.valueOf(minPriceDouble) : null;
         BigDecimal maxPrice = (maxPriceDouble != null) ? BigDecimal.valueOf(maxPriceDouble) : null;
-        return service.getAllActiveProductsFiltered(search, categoryId, minPrice, maxPrice);
+        return service.getAllActiveProductsFiltered(
+                search,
+                categoryId,
+                minPrice,
+                maxPrice,
+                sellerId,
+                ratingMin,
+                inStock,
+                discounted,
+                sortBy,
+                sortOrder
+        );
     }
 
     // Returns product by id
@@ -94,4 +123,7 @@ public class ProductController {
 
 }
 
-// TODO: add sending exceptions description
+/* TODO:
+- add sending exceptions description
+- add new options of sorting: by rating, popularity, new
+*/

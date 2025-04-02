@@ -1,5 +1,7 @@
 package de.aittr.bio_marketplace.domain.dto;
 
+import de.aittr.bio_marketplace.domain.entity.Address;
+
 import java.util.Objects;
 
 public class AddressDto {
@@ -8,7 +10,7 @@ public class AddressDto {
     private String country;
     private String city;
     private String street;
-    private int zipCode;
+    private String zipCode;
 
     public Long getId() {
         return id;
@@ -42,11 +44,11 @@ public class AddressDto {
         this.street = street;
     }
 
-    public int getZipCode() {
+    public String getZipCode() {
         return zipCode;
     }
 
-    public void setZipCode(int zipCode) {
+    public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
     }
 
@@ -54,7 +56,7 @@ public class AddressDto {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         AddressDto that = (AddressDto) o;
-        return zipCode == that.zipCode && Objects.equals(id, that.id) && Objects.equals(country, that.country) && Objects.equals(city, that.city) && Objects.equals(street, that.street);
+        return Objects.equals(id, that.id) && Objects.equals(country, that.country) && Objects.equals(city, that.city) && Objects.equals(street, that.street) && Objects.equals(zipCode, that.zipCode);
     }
 
     @Override
@@ -64,6 +66,6 @@ public class AddressDto {
 
     @Override
     public String toString() {
-        return String.format("Address: Id - %d, Country - %s, City - %s, Street - %s, zipCode - %d.", id, country, city, street, zipCode);
+        return String.format("Address: Id - %d, Country - %s, City - %s, Street - %s, zipCode - %s.", id, country, city, street, zipCode);
     }
 }
