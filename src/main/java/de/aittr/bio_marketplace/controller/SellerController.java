@@ -21,7 +21,10 @@ public class SellerController {
         this.service = service;
     }
 
-
+    @Operation(
+            summary = "Save seller with given parameters",
+            description = "Getting all sellers that exist in the database"
+    )
     @PostMapping
     public Seller save(
             @RequestBody
@@ -41,7 +44,10 @@ public class SellerController {
         return service.getAllActiveSellers();
     }
 
-
+    @Operation(
+            summary = "Get seller by id",
+            description = "Getting seller from database by id"
+    )
     @GetMapping("/{id}")
     public Seller getById(@PathVariable
                                @Parameter(description = "Seller unique identifier")
@@ -50,17 +56,29 @@ public class SellerController {
         return service.getById(id);
     }
 
+    @Operation(
+            summary = "Update seller by id",
+            description = "Updating seller from database by id"
+    )
     @PutMapping
     public void update(@RequestBody Seller seller) {
         service.update(seller);
 
     }
 
+    @Operation(
+            summary = "Delete seller by id",
+            description = "Deletion seller from database by id"
+    )
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         service.deleteById(id);
     }
 
+    @Operation(
+            summary = "Delete seller by storeName",
+            description = "Deletion seller from database by storeName"
+    )
     @DeleteMapping("/by-storeName/{storeName}")
     public void deleteByTitle(@PathVariable String storeName) {
         service.deleteByStoreName(storeName);

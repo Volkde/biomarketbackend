@@ -29,6 +29,8 @@ public interface UserService {
 
     User getActiveUserEntityById(Long id);
 
+    void deactivateUserById(Long id);
+
     void deleteById(Long id);
 
     void deleteByUsername(String username);

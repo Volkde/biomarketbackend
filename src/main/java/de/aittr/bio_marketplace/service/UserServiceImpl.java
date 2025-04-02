@@ -145,6 +145,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void deactivateUserById(Long id) {
+        User findUser = getActiveUserEntityById(id);
+        findUser.setIsActive(false);
+    }
+
+    @Override
     public void deleteById(Long id) {
         getActiveUserEntityById(id);
         repository.deleteById(id);

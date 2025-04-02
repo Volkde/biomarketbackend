@@ -32,6 +32,10 @@ public class UserController {
         return service.getAllActiveUsers();
     }
 
+    @Operation(
+            summary = "Get user by id",
+            description = "Getting user from database by id"
+    )
     @GetMapping("/{id}")
     public UserDto getById(@PathVariable
                            @Parameter(description = "User unique identifier")
@@ -40,51 +44,100 @@ public class UserController {
         return service.getById(id);
     }
 
+    @Operation(
+            summary = "Update user by id",
+            description = "Updating user from database by id"
+    )
     @PutMapping
     public void update(@RequestBody UserDto user) {
         service.update(user);
     }
 
+    @Operation(
+            summary = "Get user quantity",
+            description = "Getting user quantity from database"
+    )
     @GetMapping("/quantity")
     public long getUserQuantity() {
         return service.getAllActiveUsersCount();
     }
 
+    @Operation(
+            summary = "Deactivate user by id",
+            description = "Deactivating user from database by id"
+    )
+    @DeleteMapping("/{id}")
+    public void deactivateUserById(@PathVariable Long id) {
+        service.deactivateUserById(id);
+    }
+
+    @Operation(
+            summary = "Delete user by id",
+            description = "Deletion user from database by id"
+    )
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Long id) {
         service.deleteById(id);
     }
 
+    @Operation(
+            summary = "Delete user by username",
+            description = "Deletion user from database by username"
+    )
     @DeleteMapping("/by-username/{username}")
     public void deleteByUsername(@PathVariable String username) {
         service.deleteByUsername(username);
     }
 
+    @Operation(
+            summary = "Save product to user cart",
+            description = "Saving product to user cart with given parameters"
+    )
     @PutMapping("/{id}/product/{productId}")
     public void addProduct(@PathVariable Long id, @PathVariable Long productId) {
         service.addProductToUserCart(id, productId);
     }
 
+    @Operation(
+            summary = "Get total cost by user id",
+            description = "Getting the total cost of the cart from database by user id"
+    )
     @GetMapping("/total-cost/{userId}")
     public BigDecimal getUserCartTotalCost(@PathVariable Long userId) {
         return service.getUsersCartTotalCost(userId);
     }
 
+    @Operation(
+            summary = "Get all products by user id",
+            description = "Getting all products from the cart from database by user id"
+    )
     @GetMapping("/all-products-by-user-id/{id}")
     public List<ProductDto> getAllProductsByUserId(@PathVariable Long id){
         return service.getAllProductsByUserId(id);
     }
 
+    @Operation(
+            summary = "Delete the product from user cart by id",
+            description = "Deletion the product from user cart from database by user and cart id"
+    )
     @DeleteMapping("/remove-user/{userId}/product/{productId}")
     public void removeProductFromUserCart(@PathVariable Long userId,@PathVariable  Long productId) {
         service.removeProductFromUserCart(userId, productId);
     }
 
+    @Operation(
+            summary = "Delete all products from user cart by id",
+            description = "Deletion all products from user cart from database by user id"
+    )
     @DeleteMapping("/clear-cart/{id}")
     public void clearUserCart(@PathVariable Long id) {
         service.clearUserCart(id);
     }
 
+    @Operation(
+            summary = "Get average price by user id",
+            description = "Getting the average price of the cart from database by user id"
+    )
     @GetMapping("/product-average-price/{id}")
     public BigDecimal getUserProductsAveragePrice(@PathVariable Long id) {
         return service.getUserProductsAveragePrice(id);
