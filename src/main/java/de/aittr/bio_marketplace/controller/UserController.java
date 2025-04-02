@@ -66,7 +66,7 @@ public class UserController {
             summary = "Deactivate user by id",
             description = "Deactivating user from database by id"
     )
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deactivate-user/{id}")
     public void deactivateUserById(@PathVariable Long id) {
         service.deactivateUserById(id);
     }
