@@ -83,6 +83,17 @@ public class ProductQueryPredicateBuilder {
         return this;
     }
 
+    // Filter by minimum rating
+    public ProductQueryPredicateBuilder byMinRating(Double ratingMin) {
+        if (ratingMin != null) {
+            if (ratingMin < 1.00 || ratingMin > 5.00) {
+                throw new IllegalArgumentException("Minimum rating must be between 1.00 and 5.00: " + ratingMin);
+            }
+            this.predicate.and(this.product.rating.goe(ratingMin));
+        }
+        return this;
+    }
+
     public Predicate build() {
         return this.predicate;
     }

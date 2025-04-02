@@ -82,6 +82,7 @@ public class ProductServiceImpl implements ProductService {
             BigDecimal minPrice,
             BigDecimal maxPrice,
             Long sellerID,
+            Double ratingMin,
             String sortBy,
             String sortOrder
     ) {
@@ -91,12 +92,13 @@ public class ProductServiceImpl implements ProductService {
                 .byCategoryId(categoryId)
                 .byPriceRange(minPrice, maxPrice)
                 .bySellerId(sellerID)
+                .byMinRating(ratingMin)
                 .build();
 
-        // Создаём сортировку
+        // Creating a sorting
         OrderSpecifier<?> orderSpecifier = createOrderSpecifier(sortBy, sortOrder);
 
-        // Выполняем запрос с предикатом и сортировкой
+        // Executing a query with a predicate and sorting
         List<Product> products;
         if (orderSpecifier != null) {
             products = (List<Product>) repository.findAll(predicate, orderSpecifier);

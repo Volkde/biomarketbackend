@@ -67,6 +67,9 @@ public class ProductController {
             @RequestParam(value = "seller_id", required = false)
             @Parameter(description = "Seller ID to filter products")
             Long sellerId,
+            @RequestParam(value = "rating_min", required = false)
+            @Parameter(description = "Minimum rating to filter products (between 1.00 and 5.00)")
+            Double ratingMin,
             @RequestParam(value = "sort_by", required = false)
             @Parameter(description = "Field to sort by: 'title' or 'price'")
             String sortBy,
@@ -82,6 +85,7 @@ public class ProductController {
                 minPrice,
                 maxPrice,
                 sellerId,
+                ratingMin,
                 sortBy,
                 sortOrder
         );
