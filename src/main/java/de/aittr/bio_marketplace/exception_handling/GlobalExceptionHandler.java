@@ -69,4 +69,17 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
+
+    @ExceptionHandler(SellerNotFoundException.class)
+    public ResponseEntity<Response> handleException(SellerNotFoundException e) {
+        Response response = new Response(e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+
+    @ExceptionHandler(SellerValidationException.class)
+    public ResponseEntity<Response> handleException(SellerValidationException e) {
+        Response response = new Response(e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 }

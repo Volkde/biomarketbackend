@@ -1,7 +1,8 @@
 package de.aittr.bio_marketplace.controller;
 
 
-import de.aittr.bio_marketplace.domain.entity.Seller;
+import de.aittr.bio_marketplace.controller.responses.SellerResponse;
+import de.aittr.bio_marketplace.domain.dto.SellerDto;
 import de.aittr.bio_marketplace.service.interfaces.SellerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -22,16 +23,16 @@ public class SellerController {
     }
 
     @Operation(
-            summary = "Save seller with given parameters",
-            description = "Getting all sellers that exist in the database"
+            summary = "Add seller with given parameters",
+            description = "Adding new seller in the database"
     )
     @PostMapping
-    public Seller save(
+    public SellerResponse save(
             @RequestBody
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Instance of a Seller")
-            Seller seller
+            SellerDto seller
     ) {
-        return service.saveSeller(seller);
+        return new SellerResponse(service.saveSeller(seller));
     }
 
 
@@ -40,7 +41,7 @@ public class SellerController {
             summary = "Get all sellers",
             description = "Getting all sellers that exist in the database"
     )
-    public List<Seller> getAll() {
+    public List<SellerDto> getAll() {
         return service.getAllActiveSellers();
     }
 
@@ -49,11 +50,11 @@ public class SellerController {
             description = "Getting seller from database by id"
     )
     @GetMapping("/{id}")
-    public Seller getById(@PathVariable
+    public SellerResponse getById(@PathVariable
                                @Parameter(description = "Seller unique identifier")
                                Long id
     ) {
-        return service.getById(id);
+        return new SellerResponse(service.getById(id));
     }
 
     @Operation(
@@ -61,8 +62,8 @@ public class SellerController {
             description = "Updating seller from database by id"
     )
     @PutMapping
-    public void update(@RequestBody Seller seller) {
-        service.update(seller);
+    public SellerResponse update(@RequestBody SellerDto seller) {
+        return new SellerResponse(service.update(seller));
 
     }
 
@@ -71,8 +72,8 @@ public class SellerController {
             description = "Deletion seller from database by id"
     )
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id) {
-        service.deleteById(id);
+    public SellerResponse deleteById(@PathVariable Long id) {
+        return new SellerResponse(service.deleteById(id));
     }
 
     @Operation(
@@ -80,7 +81,7 @@ public class SellerController {
             description = "Deletion seller from database by storeName"
     )
     @DeleteMapping("/by-storeName/{storeName}")
-    public void deleteByTitle(@PathVariable String storeName) {
-        service.deleteByStoreName(storeName);
+    public SellerResponse deleteByTitle(@PathVariable String storeName) {
+        return new SellerResponse(service.deleteByStoreName(storeName));
     }
 }

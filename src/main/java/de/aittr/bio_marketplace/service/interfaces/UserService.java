@@ -13,7 +13,7 @@ public interface UserService {
 
     RegisterUserResponseDto registerUser(RegisterUserDto registerUserDto);
 
-    void loginUser(String email, String password);
+    RegisterUserResponseDto loginUser(String email, String password);
 
     RegisterUserResponseDto getCurrentUser();
 
@@ -21,19 +21,19 @@ public interface UserService {
 
     UserDto getById(Long id);
 
-    void update(UserDto user);
+    UserDto update(UserDto user);
 
     long getAllActiveUsersCount();
 
-    boolean activateUser(String confirmationCode);
+    UserDto activateUser(Long id);
 
     User getActiveUserEntityById(Long id);
 
-    void deactivateUserById(Long id);
+    UserDto deactivateUserById(Long id);
 
-    void deleteById(Long id);
+    UserDto deleteById(Long id);
 
-    void deleteByUsername(String username);
+    UserDto deleteByUsername(String username);
 
     BigDecimal getUsersCartTotalCost(Long userId);
 
