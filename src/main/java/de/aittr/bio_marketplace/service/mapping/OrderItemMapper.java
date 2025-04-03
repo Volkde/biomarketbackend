@@ -18,5 +18,6 @@ public interface OrderItemMapper {
 
     //обратное преобразование
     @Mapping(source = "productId", target = "product.id")
+    @Mapping(target = "order", ignore = true)
     OrderItem toEntity(OrderItemDto dto);
 }

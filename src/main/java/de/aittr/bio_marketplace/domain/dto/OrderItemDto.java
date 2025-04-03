@@ -1,5 +1,7 @@
 package de.aittr.bio_marketplace.domain.dto;
 
+import de.aittr.bio_marketplace.domain.entity.Order;
+
 import java.math.BigDecimal;
 
 public class OrderItemDto {
@@ -7,6 +9,7 @@ public class OrderItemDto {
     private Long productId;
     private int quantity;
     private BigDecimal price;
+    private Order order;
 
     public Long getId() {
         return id;
@@ -34,5 +37,12 @@ public class OrderItemDto {
     }
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }
