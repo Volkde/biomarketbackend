@@ -1,5 +1,6 @@
 package de.aittr.bio_marketplace.controller;
 
+import de.aittr.bio_marketplace.controller.responses.ProductResponse;
 import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.entity.Product;
 import de.aittr.bio_marketplace.service.interfaces.ProductService;
@@ -102,15 +103,16 @@ public class ProductController {
     // Returns product by id
     @Operation(
             summary = "Get product by id",
-            description = "Getting product from database by id"
+            description = "Getting product from database by id, wrapped in a 'product' object"
     )
     @GetMapping("/{id}")
-    public ProductDto getById(
+    public ProductResponse getById(
             @PathVariable
             @Parameter(description = "Product unique identifier")
             Long id
     ) {
-        return service.getById(id);
+        ProductDto productDto = service.getById(id);
+        return new ProductResponse(productDto);
     }
 
     // --- Delete ---
