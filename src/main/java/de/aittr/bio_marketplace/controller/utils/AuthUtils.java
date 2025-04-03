@@ -16,7 +16,7 @@ public class AuthUtils {
         ResponseCookie cookie = ResponseCookie.from(name, value)
                 .path("/")
                 .httpOnly(true)
-                .secure(true)
+                .secure(false)
                 .sameSite("Strict")
                 .maxAge(maxAgeInSeconds)
                 .build();
@@ -27,7 +27,7 @@ public class AuthUtils {
         ResponseCookie cookieAccess = ResponseCookie.from(COOKIE_NAME_AT, "")
                 .path("/")
                 .httpOnly(true)
-                .secure(true)
+                .secure(false)
                 .maxAge(0)
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE, cookieAccess.toString());
@@ -35,7 +35,7 @@ public class AuthUtils {
         ResponseCookie cookieRefresh = ResponseCookie.from(COOKIE_NAME_RT, "")
                 .path("/")
                 .httpOnly(true)
-                .secure(true)
+                .secure(false)
                 .maxAge(0)
                 .build();
         response.addHeader(HttpHeaders.SET_COOKIE, cookieRefresh.toString());

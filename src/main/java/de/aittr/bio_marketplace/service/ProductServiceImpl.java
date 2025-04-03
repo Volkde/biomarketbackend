@@ -5,7 +5,6 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.entity.Product;
-import de.aittr.bio_marketplace.domain.entity.QProduct;
 import de.aittr.bio_marketplace.exception_handling.exceptions.ProductNotFoundException;
 import de.aittr.bio_marketplace.exception_handling.exceptions.ProductValidationException;
 import de.aittr.bio_marketplace.repository.ProductRepository;
