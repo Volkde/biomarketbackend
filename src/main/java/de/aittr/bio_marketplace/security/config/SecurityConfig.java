@@ -48,6 +48,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/auth/refresh").permitAll()
                         // Product controller
                         .requestMatchers(HttpMethod.GET, "/products").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
                         // User Controller
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
 
