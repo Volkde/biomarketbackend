@@ -35,6 +35,6 @@ public interface ProductService {
     Product getActiveProductEntityById(Long id);
 
     // Delete product by id
-    void deleteById(Long id);
+    ProductDto deleteById(Long id);
 
 }

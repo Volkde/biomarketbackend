@@ -119,10 +119,20 @@ public class ProductController {
 
     // --- Delete ---
 
-    // Deletes product from DB by ID
+    // Deletes product from DB by ID and returns the deleted product
+    @Operation(
+            summary = "Delete product by id",
+            description = "Deletes a product from the database by its id and returns the deleted product," +
+                    "wrapped in a 'product' object"
+    )
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.deleteById(id);
+    public ProductResponse delete(
+            @PathVariable
+            @Parameter(description = "Product unique identifier")
+            Long id
+    ) {
+        ProductDto deletedProduct = service.deleteById(id);
+        return new ProductResponse(deletedProduct);
     }
 
 }
