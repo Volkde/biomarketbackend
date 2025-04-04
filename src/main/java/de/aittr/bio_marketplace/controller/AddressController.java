@@ -1,5 +1,6 @@
 package de.aittr.bio_marketplace.controller;
 
+import de.aittr.bio_marketplace.controller.responses.AddressResponse;
 import de.aittr.bio_marketplace.domain.dto.AddressDto;
 import de.aittr.bio_marketplace.service.interfaces.AddressService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,11 +26,11 @@ public class AddressController {
             description = "Saving address with given parameters"
     )
     @PostMapping
-    public AddressDto save(
+    public AddressResponse save(
             @RequestBody
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Instance of a Address")
             AddressDto address) {
-        return service.save(address);
+        return new AddressResponse(service.save(address));
     }
 
     @GetMapping
@@ -46,19 +47,19 @@ public class AddressController {
             summary = "Get address by id",
             description = "Getting address from database by id"
     )
-    public AddressDto getAddressById(
+    public AddressResponse getAddressById(
             @PathVariable
             @Parameter(description = "Address unique identifier")
             Long id
     ) {
-        return service.getAddressById(id);
+        return new AddressResponse(service.getAddressById(id));
     }
 
     @Operation(
             summary = "Get all addresses by user id",
             description = "Getting addresses from database by user id"
     )
-    @GetMapping("/all-addresses-by-user-id/{id}")
+    @GetMapping("/all-addresses-by-user/{id}")
     public List<AddressDto> getAllAddressesByUserId(@PathVariable Long id) {
         return service.getAllAddressesByUserId(id);
     }
@@ -67,7 +68,7 @@ public class AddressController {
             summary = "Get all addresses by seller id",
             description = "Getting addresses from database by seller id"
     )
-    @GetMapping("/all-addresses-by-seller-id/{id}")
+    @GetMapping("/all-addresses-by-seller/{id}")
     public List<AddressDto> getAllAddressesBySellerId(@PathVariable Long id) {
         return service.getAllAddressesBySellerId(id);
     }
@@ -77,8 +78,8 @@ public class AddressController {
             description = "Updating address from database by id"
     )
     @PutMapping
-    public void update(@RequestBody AddressDto address) {
-        service.update(address);
+    public AddressResponse update(@RequestBody AddressDto address) {
+        return new AddressResponse(service.update(address));
     }
 
     @Operation(
@@ -86,8 +87,8 @@ public class AddressController {
             description = "Deletion address from database by id"
     )
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id) {
-        service.deleteById(id);
+    public AddressResponse deleteById(@PathVariable Long id) {
+        return new AddressResponse(service.deleteById(id));
     }
 
     @Operation(

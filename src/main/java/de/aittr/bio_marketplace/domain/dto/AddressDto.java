@@ -1,7 +1,5 @@
 package de.aittr.bio_marketplace.domain.dto;
 
-import de.aittr.bio_marketplace.domain.entity.Address;
-
 import java.util.Objects;
 
 public class AddressDto {

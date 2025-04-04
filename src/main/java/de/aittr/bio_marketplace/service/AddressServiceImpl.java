@@ -2,15 +2,11 @@ package de.aittr.bio_marketplace.service;
 
 import de.aittr.bio_marketplace.domain.dto.AddressDto;
 import de.aittr.bio_marketplace.domain.entity.Address;
-import de.aittr.bio_marketplace.domain.entity.User;
 import de.aittr.bio_marketplace.exception_handling.exceptions.*;
 import de.aittr.bio_marketplace.repository.AddressRepository;
-import de.aittr.bio_marketplace.repository.UserRepository;
 import de.aittr.bio_marketplace.service.interfaces.AddressService;
-import de.aittr.bio_marketplace.service.interfaces.UserService;
 import de.aittr.bio_marketplace.service.mapping.AddressMapper;
-import de.aittr.bio_marketplace.service.mapping.UserMapper;
-import org.springframework.context.annotation.Bean;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -81,21 +77,22 @@ public class AddressServiceImpl implements AddressService {
 
 
     @Override
-    public void update(AddressDto address) {
+    @Transactional
+    public AddressDto update(AddressDto address) {
         Long id = address.getId();
         Address findAddress = getAddressEntityById(id);
         findAddress.setCity(address.getCity());
         findAddress.setCountry(address.getCountry());
         findAddress.setStreet(address.getStreet());
         findAddress.setZipCode(address.getZipCode());
-
+        return mapper.mapEntityToDto(findAddress);
     }
 
     @Override
-    public void deleteById(Long id) {
-        getAddressEntityById(id);
+    public AddressDto deleteById(Long id) {
+        Address findAddress = getAddressEntityById(id);
         repository.deleteById(id);
-
+        return mapper.mapEntityToDto(findAddress);
     }
 
     @Override

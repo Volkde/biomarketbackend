@@ -16,9 +16,9 @@ public interface AddressService {
 
     List<AddressDto>getAllAddressesBySellerId(Long sellerId);
 
-    void update(AddressDto user);
+    AddressDto update(AddressDto user);
 
-    void deleteById(Long id);
+    AddressDto deleteById(Long id);
 
     void deleteAll();
 
