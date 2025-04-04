@@ -13,7 +13,6 @@
             <column name="id" valueNumeric="1"/>
             <column name="email" value="seller1@example.com"/>
             <column name="password" value="$2a$10$XURP2fZ0uT1Z/lP.9.5tluF0e2gY0H4gP2gq4Z2X9.5tluF0e2gY0"/>
-            <column name="role_id" valueNumeric="1"/>
             <column name="first_name" value="John"/>
             <column name="last_name" value="Doe"/>
             <column name="avatar" value="https://example.com/avatar.jpg"/>
@@ -24,8 +23,7 @@
         <insert tableName="user">
             <column name="id" valueNumeric="2"/>
             <column name="email" value="john@gmail.com"/>
-            <column name="password" value="John123@!"/>
-            <column name="role_id" valueNumeric="2"/>
+            <column name="password" value="J$2a$10$3FB6AI7kjByx5Gq.pKDGouKXb.Aa9FObvvUSCl6275PmAEkB2qjh2"/>
             <column name="first_name" value="Jan"/>
             <column name="last_name" value="Markwiz"/>
             <column name="avatar" value="https://example.com/avatar.jpg"/>
