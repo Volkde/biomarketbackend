@@ -69,13 +69,16 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        //Auth Controller
+                        // Auth Controller
                         .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register", "/auth/logout").permitAll()
                         .requestMatchers(HttpMethod.GET, "/auth/refresh").permitAll()
 
+                        // Product Controller   
                         .requestMatchers(HttpMethod.GET, "/products").permitAll()
                         .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
-                        //User Controller
+                        .requestMatchers(HttpMethod.DELETE, "/products/**").hasRole(ADMIN_ROLE)
+
+                        // User Controller
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/users").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()

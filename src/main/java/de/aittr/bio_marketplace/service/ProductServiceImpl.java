@@ -140,8 +140,10 @@ public class ProductServiceImpl implements ProductService {
     // Deletes product by id
 
     @Override
-    public void deleteById(Long id) {
+    public ProductDto deleteById(Long id) {
+        ProductDto productDto = getById(id);
         repository.deleteById(id);
+        return productDto;
     }
 }
 

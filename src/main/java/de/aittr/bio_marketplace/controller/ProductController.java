@@ -1,6 +1,7 @@
 package de.aittr.bio_marketplace.controller;
 
 import de.aittr.bio_marketplace.controller.responses.ProductResponse;
+import de.aittr.bio_marketplace.controller.responses.ProductsResponse;
 import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.entity.Product;
 import de.aittr.bio_marketplace.service.interfaces.ProductService;
@@ -52,7 +53,7 @@ public class ProductController {
             description = "Getting all active products that exist in the database, optionally filtered by search term in title or description and/or by category ID"
     )
     @GetMapping()
-    public List<ProductDto> getAll(
+    public ProductsResponse getAll(
             @RequestParam(value = "search_term", required = false)
             @Parameter(description = "Search term to filter products by title or description (case-insensitive, minimum 2 characters)")
             String search,
@@ -86,7 +87,7 @@ public class ProductController {
             ) {
         BigDecimal minPrice = (minPriceDouble != null) ? BigDecimal.valueOf(minPriceDouble) : null;
         BigDecimal maxPrice = (maxPriceDouble != null) ? BigDecimal.valueOf(maxPriceDouble) : null;
-        return service.getAllActiveProductsFiltered(
+        List<ProductDto> products = service.getAllActiveProductsFiltered(
                 search,
                 categoryId,
                 minPrice,
@@ -98,6 +99,7 @@ public class ProductController {
                 sortBy,
                 sortOrder
         );
+        return new ProductsResponse(products);
     }
 
     // Returns product by id
@@ -117,10 +119,20 @@ public class ProductController {
 
     // --- Delete ---
 
-    // Deletes product from DB by ID
+    // Deletes product from DB by ID and returns the deleted product
+    @Operation(
+            summary = "Delete product by id",
+            description = "Deletes a product from the database by its id and returns the deleted product," +
+                    "wrapped in a 'product' object"
+    )
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.deleteById(id);
+    public ProductResponse delete(
+            @PathVariable
+            @Parameter(description = "Product unique identifier")
+            Long id
+    ) {
+        ProductDto deletedProduct = service.deleteById(id);
+        return new ProductResponse(deletedProduct);
     }
 
 }
