@@ -14,7 +14,7 @@
             <column name="role_id" valueNumeric="1"/>
         </insert>
         <insert tableName="user_role">
-            <column name="user_id" valueNumeric="1"/>
+            <column name="user_id" valueNumeric="2"/>
             <column name="role_id" valueNumeric="2"/>
         </insert>
         <insert tableName="user_role">
