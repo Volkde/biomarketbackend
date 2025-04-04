@@ -8,6 +8,7 @@ import de.aittr.bio_marketplace.service.interfaces.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -126,6 +127,7 @@ public class ProductController {
                     "wrapped in a 'product' object"
     )
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ProductResponse delete(
             @PathVariable
             @Parameter(description = "Product unique identifier")

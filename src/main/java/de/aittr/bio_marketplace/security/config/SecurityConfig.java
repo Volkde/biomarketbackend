@@ -76,7 +76,6 @@ public class SecurityConfig {
                         // Product Controller   
                         .requestMatchers(HttpMethod.GET, "/products").permitAll()
                         .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
-                        .requestMatchers(HttpMethod.DELETE, "/products/**").hasRole(ADMIN_ROLE)
 
                         // User Controller
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()

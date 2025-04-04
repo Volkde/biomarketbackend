@@ -24,7 +24,7 @@
         <insert tableName="user">
             <column name="id" valueNumeric="2"/>
             <column name="email" value="john@gmail.com"/>
-            <column name="password" value="John123@!"/>
+            <column name="password" value="$2a$10$3FB6AI7kjByx5Gq.pKDGouKXb.Aa9FObvvUSCl6275PmAEkB2qjh2"/>
             <column name="role_id" valueNumeric="2"/>
             <column name="first_name" value="Jan"/>
             <column name="last_name" value="Markwiz"/>
