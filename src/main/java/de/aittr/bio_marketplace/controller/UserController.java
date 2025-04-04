@@ -1,6 +1,7 @@
 package de.aittr.bio_marketplace.controller;
 
 
+import de.aittr.bio_marketplace.controller.responses.UserResponse;
 import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.dto.UserDto;
 import de.aittr.bio_marketplace.service.interfaces.UserService;
@@ -37,11 +38,11 @@ public class UserController {
             description = "Getting user from database by id"
     )
     @GetMapping("/{id}")
-    public UserDto getById(@PathVariable
+    public UserResponse getById(@PathVariable
                            @Parameter(description = "User unique identifier")
                            Long id
     ) {
-        return service.getById(id);
+        return new UserResponse (service.getById(id));
     }
 
     @Operation(
@@ -49,8 +50,8 @@ public class UserController {
             description = "Updating user from database by id"
     )
     @PutMapping
-    public void update(@RequestBody UserDto user) {
-        service.update(user);
+    public UserResponse update(@RequestBody UserDto user) {
+        return new UserResponse(service.update(user));
     }
 
     @Operation(
@@ -63,12 +64,21 @@ public class UserController {
     }
 
     @Operation(
+            summary = "Activate user by id",
+            description = "Activating user from database by id"
+    )
+    @PutMapping("/activate/{id}")
+    public UserResponse activateUserById(@PathVariable Long id) {
+        return new UserResponse(service.activateUser(id));
+    }
+
+    @Operation(
             summary = "Deactivate user by id",
             description = "Deactivating user from database by id"
     )
-    @DeleteMapping("/deactivate-user/{id}")
-    public void deactivateUserById(@PathVariable Long id) {
-        service.deactivateUserById(id);
+    @PutMapping("/deactivate/{id}")
+    public UserResponse deactivateUserById(@PathVariable Long id) {
+        return new UserResponse(service.deactivateUserById(id));
     }
 
     @Operation(
@@ -76,8 +86,8 @@ public class UserController {
             description = "Deletion user from database by id"
     )
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id) {
-        service.deleteById(id);
+    public UserResponse deleteById(@PathVariable Long id) {
+        return new UserResponse(service.deleteById(id));
     }
 
     @Operation(
@@ -85,8 +95,8 @@ public class UserController {
             description = "Deletion user from database by username"
     )
     @DeleteMapping("/by-username/{username}")
-    public void deleteByUsername(@PathVariable String username) {
-        service.deleteByUsername(username);
+    public UserResponse deleteByUsername(@PathVariable String username) {
+        return new UserResponse(service.deleteByUsername(username));
     }
 
     @Operation(

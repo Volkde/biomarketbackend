@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void loginUser(String email, String password) {
+    public RegisterUserResponseDto loginUser(String email, String password) {
         User user = repository.findUserByEmail(email)
                 .orElseThrow(() -> new AuthenticationException(PASSWORD_OR_EMAIL_IS_INCORRECT));
         boolean isMatch = encoder.matches(password, user.getPassword());
@@ -92,6 +92,9 @@ public class UserServiceImpl implements UserService {
         try {
             Authentication authenticated = authenticationManager.authenticate(authenticationToken);
             SecurityContextHolder.getContext().setAuthentication(authenticated);
+
+            return mappingRegisterService.mapEntityToRegisterResponseDto(user);
+
         } catch (DisabledException | LockedException | BadCredentialsException ex) {
             throw new AuthenticationException(PASSWORD_OR_EMAIL_IS_INCORRECT);
         }
@@ -121,7 +124,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void update(UserDto user) {
+    public UserDto update(UserDto user) {
         Long id = user.getId();
         User findUser = getActiveUserEntityById(id);
         findUser.setFirstName(user.getFirstName());
@@ -129,12 +132,15 @@ public class UserServiceImpl implements UserService {
         findUser.setUsername(user.getUsername());
         findUser.setPhoneNumber(user.getPhoneNumber());
         findUser.setAvatar(user.getAvatar());
+        return mappingService.mapEntityToDto(findUser);
     }
 
 
     @Override
-    public boolean activateUser(String confirmationCode) {
-        return false;
+    public UserDto activateUser(Long id) {
+        User findUser = getActiveUserEntityById(id);
+        findUser.setIsActive(true);
+        return mappingService.mapEntityToDto(findUser);
     }
 
     @Override
@@ -145,20 +151,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deactivateUserById(Long id) {
+    public UserDto deactivateUserById(Long id) {
         User findUser = getActiveUserEntityById(id);
         findUser.setIsActive(false);
+        return mappingService.mapEntityToDto(findUser);
     }
 
     @Override
-    public void deleteById(Long id) {
-        getActiveUserEntityById(id);
+    public UserDto deleteById(Long id) {
+        User findUser = getActiveUserEntityById(id);
         repository.deleteById(id);
+        return mappingService.mapEntityToDto(findUser);
     }
 
     @Override
-    public void deleteByUsername(String username) {
+    @Transactional
+    public UserDto deleteByUsername(String username) {
+        User findUser = repository.findUserByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
         repository.deleteByUsername(username);
+        return mappingService.mapEntityToDto(findUser);
     }
 
     @Override

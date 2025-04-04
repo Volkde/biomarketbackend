@@ -8,7 +8,6 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -73,6 +72,10 @@ public class Seller {
         return rating;
     }
 
+    public User getUser() {
+        return user;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -97,14 +100,12 @@ public class Seller {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Seller seller = (Seller) o;
-        return Objects.equals(id, seller.id) && Objects.equals(storeName, seller.storeName)
-                && Objects.equals(storeDescription, seller.storeDescription)
-                && Objects.equals(storeLogo, seller.storeLogo) && Objects.equals(rating, seller.rating);
+        return Objects.equals(id, seller.id) && Objects.equals(storeName, seller.storeName) && Objects.equals(storeDescription, seller.storeDescription) && Objects.equals(storeLogo, seller.storeLogo) && Objects.equals(rating, seller.rating) && Objects.equals(user, seller.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, storeName, storeDescription, storeLogo, rating);
+        return Objects.hash(id, storeName, storeDescription, storeLogo, rating, user);
     }
 
     @Override

@@ -1,24 +1,23 @@
 package de.aittr.bio_marketplace.service.interfaces;
 
-import de.aittr.bio_marketplace.domain.entity.Role;
+import de.aittr.bio_marketplace.domain.dto.SellerDto;
 import de.aittr.bio_marketplace.domain.entity.Seller;
-import de.aittr.bio_marketplace.domain.entity.User;
 
 import java.util.List;
 
 public interface SellerService {
 
-    Seller saveSeller(Seller seller);
+    SellerDto saveSeller(SellerDto seller);
 
-    List<Seller> getAllActiveSellers();
+    List<SellerDto> getAllActiveSellers();
 
-    Seller getById(Long id);
+    SellerDto getById(Long id);
 
-    void update(Seller seller);
+    SellerDto update(SellerDto seller);
 
     Seller getActiveSellersEntityById(Long id);
 
-    void deleteById(Long id);
+    SellerDto deleteById(Long id);
 
-    void deleteByStoreName(String storeName);
+    SellerDto deleteByStoreName(String storeName);
 }

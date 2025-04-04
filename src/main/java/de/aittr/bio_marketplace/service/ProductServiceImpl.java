@@ -26,9 +26,9 @@ public class ProductServiceImpl implements ProductService {
 
     // --- CONSTRUCTOR ---
 
-    public ProductServiceImpl(ProductRepository repository, ProductMapper mappingService) {
+    public ProductServiceImpl(ProductRepository repository, ProductMapper productMapper) {
         this.repository = repository;
-        this.mappingService = mappingService;
+        this.mappingService = productMapper;
     }
 
 
