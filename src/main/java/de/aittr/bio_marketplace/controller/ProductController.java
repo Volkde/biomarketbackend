@@ -3,12 +3,10 @@ package de.aittr.bio_marketplace.controller;
 import de.aittr.bio_marketplace.controller.responses.ProductResponse;
 import de.aittr.bio_marketplace.controller.responses.ProductsResponse;
 import de.aittr.bio_marketplace.domain.dto.ProductDto;
-import de.aittr.bio_marketplace.domain.entity.Product;
 import de.aittr.bio_marketplace.service.interfaces.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -85,7 +83,7 @@ public class ProductController {
             @RequestParam(value = "sort_order", required = false, defaultValue = "asc")
             @Parameter(description = "Sort order: 'asc' (ascending) or 'desc' (descending)")
             String sortOrder
-            ) {
+    ) {
         BigDecimal minPrice = (minPriceDouble != null) ? BigDecimal.valueOf(minPriceDouble) : null;
         BigDecimal maxPrice = (maxPriceDouble != null) ? BigDecimal.valueOf(maxPriceDouble) : null;
         List<ProductDto> products = service.getAllActiveProductsFiltered(
@@ -127,7 +125,6 @@ public class ProductController {
                     "wrapped in a 'product' object"
     )
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
     public ProductResponse delete(
             @PathVariable
             @Parameter(description = "Product unique identifier")
