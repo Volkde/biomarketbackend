@@ -4,17 +4,17 @@ import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
 
 public class AuthResponse {
 
-    private RegisterUserResponseDto responseDto;
+    private RegisterUserResponseDto user;
 
     public AuthResponse(RegisterUserResponseDto responseDto) {
-        this.responseDto = responseDto;
+        this.user = responseDto;
     }
 
-    public RegisterUserResponseDto getResponseDto() {
-        return responseDto;
+    public RegisterUserResponseDto getUser() {
+        return user;
     }
 
-    public void setResponseDto(RegisterUserResponseDto responseDto) {
-        this.responseDto = responseDto;
+    public void setUser(RegisterUserResponseDto user) {
+        this.user = user;
     }
 }
