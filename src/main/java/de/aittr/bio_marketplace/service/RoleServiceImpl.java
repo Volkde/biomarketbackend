@@ -1,6 +1,7 @@
 package de.aittr.bio_marketplace.service;
 
 import de.aittr.bio_marketplace.domain.entity.Role;
+import de.aittr.bio_marketplace.exception_handling.exceptions.RoleNotFoundException;
 import de.aittr.bio_marketplace.repository.RoleRepository;
 import de.aittr.bio_marketplace.service.interfaces.RoleService;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,15 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role getRoleUser() {
         return repository.findByTitle("ROLE_USER").orElseThrow(
-                () -> new RuntimeException("ROLE_USER doesn't exist in DB")
+                () -> new RoleNotFoundException("ROLE_USER")
         );
     }
+
+    @Override
+    public Role getRoleAdmin() {
+        return repository.findByTitle("ROLE_ADMIN").orElseThrow(
+                () -> new RoleNotFoundException("ROLE_ADMIN")
+        );
+    }
+
 }

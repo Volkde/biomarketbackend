@@ -2,6 +2,7 @@ package de.aittr.bio_marketplace.controller;
 
 
 import de.aittr.bio_marketplace.controller.responses.SellerResponse;
+import de.aittr.bio_marketplace.controller.responses.UserResponse;
 import de.aittr.bio_marketplace.domain.dto.SellerDto;
 import de.aittr.bio_marketplace.service.interfaces.SellerService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -65,6 +66,15 @@ public class SellerController {
     public SellerResponse update(@RequestBody SellerDto seller) {
         return new SellerResponse(service.update(seller));
 
+    }
+
+    @Operation(
+            summary = "Get shop owner by seller id",
+            description = "Getting shop owner from database by user id"
+    )
+    @GetMapping("/user-by-seller-id/{id}")
+    public UserResponse getUserBySellerId(@PathVariable Long id){
+        return new UserResponse(service.getUserBySellerId(id));
     }
 
     @Operation(

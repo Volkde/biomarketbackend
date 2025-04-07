@@ -1,8 +1,10 @@
 package de.aittr.bio_marketplace.controller;
 
 
+import de.aittr.bio_marketplace.controller.responses.AuthResponse;
 import de.aittr.bio_marketplace.controller.responses.UserResponse;
 import de.aittr.bio_marketplace.domain.dto.ProductDto;
+import de.aittr.bio_marketplace.domain.dto.SellerDto;
 import de.aittr.bio_marketplace.domain.dto.UserDto;
 import de.aittr.bio_marketplace.service.interfaces.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -127,6 +129,15 @@ public class UserController {
     }
 
     @Operation(
+            summary = "Get all sellers by user id",
+            description = "Getting all sellers from database by user id"
+    )
+    @GetMapping("/all-sellers-by-user-id/{id}")
+    public List<SellerDto> getAllSellers(@PathVariable Long id){
+        return service.getAllSellers(id);
+    }
+
+    @Operation(
             summary = "Delete the product from user cart by id",
             description = "Deletion the product from user cart from database by user and cart id"
     )
@@ -152,4 +163,34 @@ public class UserController {
     public BigDecimal getUserProductsAveragePrice(@PathVariable Long id) {
         return service.getUserProductsAveragePrice(id);
     }
+
+    @Operation(
+            summary = "Change user to admin by id",
+            description = "Changing user to admin in database by id"
+    )
+    @PutMapping("/give-admin/{id}")
+    public AuthResponse giveAdmin(@PathVariable Long id) {
+        return new AuthResponse(service.giveAdmin(id));
+    }
+
+
+    @Operation(
+            summary = "Change admin to user by id",
+            description = "Changing admin to user in database by id"
+    )
+    @PutMapping("/remove-admin/{id}")
+    public AuthResponse removeAdmin(@PathVariable Long id) {
+        return new AuthResponse(service.removeAdmin(id));
+    }
+
+  @Operation(
+            summary = "Change password by user id",
+            description = "Changing password in database by user id"
+    )
+    @PutMapping("/change-password/{password}/by-id/{id}")
+    public UserResponse changePassword(@PathVariable String password,@PathVariable Long id) {
+        return new UserResponse(service.changePassword(password, id));
+    }
+
+
 }
