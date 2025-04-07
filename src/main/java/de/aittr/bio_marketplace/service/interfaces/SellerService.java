@@ -1,6 +1,7 @@
 package de.aittr.bio_marketplace.service.interfaces;
 
 import de.aittr.bio_marketplace.domain.dto.SellerDto;
+import de.aittr.bio_marketplace.domain.dto.UserDto;
 import de.aittr.bio_marketplace.domain.entity.Seller;
 
 import java.util.List;
@@ -14,6 +15,8 @@ public interface SellerService {
     SellerDto getById(Long id);
 
     SellerDto update(SellerDto seller);
+
+    UserDto getUserBySellerId(Long id);
 
     Seller getActiveSellersEntityById(Long id);
 

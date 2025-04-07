@@ -25,6 +25,7 @@
     <include file="903-insert-users.xml" relativeToChangelogFile="true"/>
     <include file="904-insert-products.xml" relativeToChangelogFile="true"/>
     <include file="905-insert-user-role.xml" relativeToChangelogFile="true"/>
+    <include file="906-insert-carts.xml" relativeToChangelogFile="true"/>
     <include file="915-update-products-discounted-and-in-stock.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

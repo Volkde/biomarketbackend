@@ -1,12 +1,14 @@
 package de.aittr.bio_marketplace.service;
 
 import de.aittr.bio_marketplace.domain.dto.SellerDto;
+import de.aittr.bio_marketplace.domain.dto.UserDto;
 import de.aittr.bio_marketplace.domain.entity.Seller;
 import de.aittr.bio_marketplace.exception_handling.exceptions.SellerNotFoundException;
 import de.aittr.bio_marketplace.exception_handling.exceptions.SellerValidationException;
 import de.aittr.bio_marketplace.repository.SellerRepository;
 import de.aittr.bio_marketplace.service.interfaces.SellerService;
 import de.aittr.bio_marketplace.service.mapping.SellerMapper;
+import de.aittr.bio_marketplace.service.mapping.UserMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +19,12 @@ public class SellerServiceImpl implements SellerService {
 
     private final SellerRepository repository;
     private final SellerMapper mapper;
+    private final UserMapper userMapper;
 
-    public SellerServiceImpl(SellerRepository repository, SellerMapper sellerMapper) {
+    public SellerServiceImpl(SellerRepository repository, SellerMapper sellerMapper, UserMapper userMapper) {
         this.repository = repository;
         this.mapper = sellerMapper;
+        this.userMapper = userMapper;
     }
 
     @Override
@@ -57,6 +61,12 @@ public class SellerServiceImpl implements SellerService {
         findSeller.setStoreDescription(seller.getStoreDescription());
         findSeller.setStoreLogo(seller.getStoreLogo());
         return mapper.mapEntityToDto(findSeller);
+    }
+
+    @Override
+    public UserDto getUserBySellerId(Long id) {
+        Seller findSeller = getActiveSellersEntityById(id);
+        return userMapper.mapEntityToDto(findSeller.getUser());
     }
 
     @Override
