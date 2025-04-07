@@ -5,6 +5,7 @@ import de.aittr.bio_marketplace.domain.dto.UserDto;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserDto;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
 import de.aittr.bio_marketplace.domain.entity.Cart;
+import de.aittr.bio_marketplace.domain.entity.CartItem;
 import de.aittr.bio_marketplace.domain.entity.Product;
 import de.aittr.bio_marketplace.domain.entity.User;
 import de.aittr.bio_marketplace.exceptions.AuthenticationException;
@@ -43,7 +44,8 @@ public class UserServiceImpl implements UserService {
     private final AuthenticationManager authenticationManager;
 
     public UserServiceImpl(RegisterUserMapper registerUserMapper,
-                           UserMapper userMapper, ProductMapper productMapper,
+                           UserMapper userMapper,
+                           ProductMapper productMapper,
                            ProductService productService,
                            UserRepository repository,
                            RoleService roleService,
@@ -62,18 +64,19 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public RegisterUserResponseDto registerUser(RegisterUserDto registerDto) {
-
         if (registerDto.userName() == null || registerDto.userName().isBlank()) {
             throw new IllegalArgumentException("Username cannot be null or empty");
         }
         User entity = mappingRegisterService.mapRegisterDtoToEntity(registerDto);
-
         entity.setId(null);
         entity.setPassword(encoder.encode(registerDto.password()));
         entity.setIsActive(true);
         entity.setRoles(Set.of(roleService.getRoleUser()));
+
+
         Cart cart = new Cart(entity);
         entity.setCart(cart);
+
         entity = repository.save(entity);
         return mappingRegisterService.mapEntityToRegisterResponseDto(entity);
     }
@@ -83,7 +86,6 @@ public class UserServiceImpl implements UserService {
         User user = repository.findUserByEmail(email)
                 .orElseThrow(() -> new AuthenticationException(PASSWORD_OR_EMAIL_IS_INCORRECT));
         boolean isMatch = encoder.matches(password, user.getPassword());
-
         if (!isMatch) {
             throw new AuthenticationException(PASSWORD_OR_EMAIL_IS_INCORRECT);
         }
@@ -92,9 +94,7 @@ public class UserServiceImpl implements UserService {
         try {
             Authentication authenticated = authenticationManager.authenticate(authenticationToken);
             SecurityContextHolder.getContext().setAuthentication(authenticated);
-
             return mappingRegisterService.mapEntityToRegisterResponseDto(user);
-
         } catch (DisabledException | LockedException | BadCredentialsException ex) {
             throw new AuthenticationException(PASSWORD_OR_EMAIL_IS_INCORRECT);
         }
@@ -104,8 +104,9 @@ public class UserServiceImpl implements UserService {
     public RegisterUserResponseDto getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getPrincipal().toString();
-        return mappingRegisterService.mapEntityToRegisterResponseDto(repository.findUserByEmail(email)
-                .orElseThrow(() -> new AuthenticationException(COOKIE_IS_INCORRECT)));
+        User user = repository.findUserByEmail(email)
+                .orElseThrow(() -> new AuthenticationException(COOKIE_IS_INCORRECT));
+        return mappingRegisterService.mapEntityToRegisterResponseDto(user);
     }
 
     @Override
@@ -134,7 +135,6 @@ public class UserServiceImpl implements UserService {
         findUser.setAvatar(user.getAvatar());
         return mappingService.mapEntityToDto(findUser);
     }
-
 
     @Override
     public UserDto activateUser(Long id) {
@@ -167,22 +167,26 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserDto deleteByUsername(String username) {
-        User findUser = repository.findUserByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+        User findUser = repository.findUserByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(username));
         repository.deleteByUsername(username);
         return mappingService.mapEntityToDto(findUser);
     }
 
+
     @Override
     public BigDecimal getUsersCartTotalCost(Long userId) {
         User user = getActiveUserEntityById(userId);
+        // теперь вызываем user.getCart().getActiveProductsTotalCost()
         return user.getCart().getActiveProductsTotalCost();
     }
 
     @Override
     public List<ProductDto> getAllProductsByUserId(Long userId) {
         User user = getActiveUserEntityById(userId);
-        return user.getCart().getProducts()
-                .stream()
+
+        return user.getCart().getItems().stream()
+                .map(CartItem::getProduct)
                 .map(mappingProductService::mapEntityToDto)
                 .toList();
     }
@@ -219,5 +223,4 @@ public class UserServiceImpl implements UserService {
         User user = getActiveUserEntityById(userId);
         return user.getCart().getActiveProductsAveragePrice();
     }
-
 }

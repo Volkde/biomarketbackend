@@ -1,14 +1,15 @@
 package de.aittr.bio_marketplace.domain.entity;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+
 
 @Entity
 @Table(name = "cart")
@@ -24,13 +25,8 @@ public class Cart {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToMany
-    @JoinTable(
-            name = "cart_product",
-            joinColumns = @JoinColumn(name = "cart_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private List<Product> products;
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CartItem> items = new ArrayList<>();
 
     public Cart() {
     }
@@ -39,93 +35,106 @@ public class Cart {
         this.user = user;
     }
 
-    public void addProduct(Product product) {
-        if ("active".equalsIgnoreCase(product.getStatus())) {
-            products.add(product);
-        }
-    }
-
-    public List<Product> getAllActiveProducts() {
-        return products
-                .stream()
-                .filter(product -> "active".equalsIgnoreCase(product.getStatus()))
-                .toList();
-    }
-
-    public void removeProductById(Long id) {
-        Iterator<Product> iterator = products.iterator();
-        while (iterator.hasNext()) {
-            if (iterator.next().getId().equals(id)) {
-                iterator.remove();
-                break;
-            }
-        }
-    }
-
-    public void clear() {
-        products.clear();
-    }
-
-    public BigDecimal getActiveProductsTotalCost() {
-        return products
-                .stream()
-                .filter(product -> "active".equalsIgnoreCase(product.getStatus()))
-                .map(Product::getPrice)
-                .reduce(BigDecimal::add)
-                .orElse(new BigDecimal(0));
-    }
-
     public Long getId() {
         return id;
-    }
-
-    public BigDecimal getActiveProductsAveragePrice() {
-        long productCount = products
-                .stream()
-                .filter(product -> "active".equalsIgnoreCase(product.getStatus()))
-                .count();
-
-        if (productCount == 0) {
-            return new BigDecimal(0);
-        }
-
-        return getActiveProductsTotalCost().divide(new BigDecimal(productCount), RoundingMode.CEILING);
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public User getUser() {
         return user;
     }
 
+    public List<CartItem> getItems() {
+        return items;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setUser(User user) {
         this.user = user;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public void setItems(List<CartItem> items) {
+        this.items = items;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+
+    public void addProduct(Product product) {
+        addProduct(product, 1);
+    }
+
+
+    public void addProduct(Product product, int quantity) {
+
+        for (CartItem ci : items) {
+            if (ci.getProduct().getId().equals(product.getId())) {
+                ci.setQuantity(ci.getQuantity() + quantity);
+                return;
+            }
+        }
+        CartItem newItem = new CartItem(this, product, quantity);
+        items.add(newItem);
+    }
+
+
+    public void removeProductById(Long productId) {
+        Iterator<CartItem> iter = items.iterator();
+        while (iter.hasNext()) {
+            CartItem ci = iter.next();
+            if (ci.getProduct().getId().equals(productId)) {
+                iter.remove();
+                break;
+            }
+        }
+    }
+
+
+    public void clear() {
+        items.clear();
+    }
+
+
+    public BigDecimal getActiveProductsTotalCost() {
+        BigDecimal total = BigDecimal.ZERO;
+        for (CartItem ci : items) {
+            if ("active".equalsIgnoreCase(ci.getProduct().getStatus())) {
+                BigDecimal itemCost = ci.getProduct().getPrice()
+                        .multiply(BigDecimal.valueOf(ci.getQuantity()));
+                total = total.add(itemCost);
+            }
+        }
+        return total;
+    }
+
+
+    public BigDecimal getActiveProductsAveragePrice() {
+        long count = 0;
+        BigDecimal sum = BigDecimal.ZERO;
+
+        for (CartItem ci : items) {
+            if ("active".equalsIgnoreCase(ci.getProduct().getStatus())) {
+                sum = sum.add(ci.getProduct().getPrice()
+                        .multiply(BigDecimal.valueOf(ci.getQuantity())));
+                count += ci.getQuantity();
+            }
+        }
+        if (count == 0) {
+            return BigDecimal.ZERO;
+        }
+        return sum.divide(BigDecimal.valueOf(count), RoundingMode.CEILING);
     }
 
     @Override
     public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) return true;
+        if (!(o instanceof Cart)) return false;
         Cart cart = (Cart) o;
-        return Objects.equals(id, cart.id) && Objects.equals(user, cart.user) && Objects.equals(products, cart.products);
+        return Objects.equals(id, cart.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, products);
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Cart: Id - %d.", id);
+        return Objects.hash(id);
     }
 }

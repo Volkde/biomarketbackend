@@ -6,38 +6,43 @@ import java.util.Objects;
 public class CartDto {
 
     private Long id;
-    private List<ProductDto> products;
+    private List<CartItemDto> items;
+
+    public CartDto() {
+    }
+
+    public CartDto(Long id, List<CartItemDto> items) {
+        this.id = id;
+        this.items = items;
+    }
 
     public Long getId() {
         return id;
+    }
+
+    public List<CartItemDto> getItems() {
+        return items;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
-    public List<ProductDto> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<ProductDto> products) {
-        this.products = products;
+    public void setItems(List<CartItemDto> items) {
+        this.items = items;
     }
 
     @Override
     public boolean equals(Object o) {
+        if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CartDto cartDto = (CartDto) o;
-        return Objects.equals(id, cartDto.id) && Objects.equals(products, cartDto.products);
+        return Objects.equals(id, cartDto.id) &&
+                Objects.equals(items, cartDto.items);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, products);
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Cart: Id - %d.", id);
+        return Objects.hash(id, items);
     }
 }

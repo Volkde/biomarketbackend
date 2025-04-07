@@ -22,6 +22,7 @@ public class OrderController {
     private final OrderService orderService;
     private final OrderMapper orderMapper;
 
+
     public OrderController(OrderService orderService,
                            OrderMapper orderMapper) {
         this.orderService = orderService;
@@ -65,6 +66,16 @@ public class OrderController {
         Order order = orderService.getOrderByIdAndUser(id, principal.getName());
         return ResponseEntity.ok(orderMapper.toDto(order));
     }
+
+
+    @PostMapping("/from-cart")
+    public ResponseEntity<OrderDto> createOrderFromCart(Principal principal) {
+        //Вызываем сервисный метод
+        Order order = orderService.createOrderFromCart(principal.getName());
+        OrderDto savedDto = orderMapper.toDto(order);
+        return ResponseEntity.ok(savedDto);
+    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOrder(@PathVariable Long id, Principal principal) {
