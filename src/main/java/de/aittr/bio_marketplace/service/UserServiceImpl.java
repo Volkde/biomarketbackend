@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public RegisterUserResponseDto registerUser(RegisterUserDto registerDto) {
 
-        if (registerDto.userName() == null || registerDto.userName().isBlank()) {
+        if (registerDto.username() == null || registerDto.username().isBlank()) {
             throw new IllegalArgumentException("Username cannot be null or empty");
         }
         User entity = mappingRegisterService.mapRegisterDtoToEntity(registerDto);

@@ -1,8 +1,5 @@
 package de.aittr.bio_marketplace.domain.dto.auth;
 
-import de.aittr.bio_marketplace.domain.entity.Role;
-import de.aittr.bio_marketplace.domain.entity.User;
-
 import java.util.List;
 
 public record RegisterUserResponseDto(
@@ -10,7 +7,7 @@ public record RegisterUserResponseDto(
         String email,
         String firstName,
         String lastName,
-        String userName,
+        String username,
         List<String> roles
 ) {
 
