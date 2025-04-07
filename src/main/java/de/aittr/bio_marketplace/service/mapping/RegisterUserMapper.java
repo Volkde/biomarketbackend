@@ -11,10 +11,10 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = {CartMapper.class, RoleToStringConverter.class})
 public interface RegisterUserMapper {
 
-    @Mapping(source = "username", target = "userName")
+    @Mapping(source = "username", target = "username")
     RegisterUserResponseDto mapEntityToRegisterResponseDto(User entity);
 
-    @Mapping(target = "username", source = "userName")
+    @Mapping(target = "username", source = "username")
     @Mapping(target = "seller", ignore = true)
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "cart", ignore = true)
