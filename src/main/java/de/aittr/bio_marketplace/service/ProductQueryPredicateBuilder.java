@@ -2,6 +2,7 @@ package de.aittr.bio_marketplace.service;
 
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
+import de.aittr.bio_marketplace.domain.entity.ProductStatus;
 import de.aittr.bio_marketplace.domain.entity.QProduct;
 import org.apache.commons.lang3.StringUtils;
 
@@ -37,7 +38,7 @@ public class ProductQueryPredicateBuilder {
     // Filter by active status
     public ProductQueryPredicateBuilder andStatusActive() {
         this.predicate
-                .and(this.product.status.equalsIgnoreCase("active"));
+                .and(this.product.status.eq(ProductStatus.ACTIVE));
         return this;
     }
 

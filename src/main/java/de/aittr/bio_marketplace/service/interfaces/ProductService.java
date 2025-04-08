@@ -37,7 +37,10 @@ public interface ProductService {
     // Update product
     ProductDto update(ProductDto product);
 
+    ProductDto deactivateById(Long id);
+
     // Delete product by id
     ProductDto deleteById(Long id);
+
 
 }

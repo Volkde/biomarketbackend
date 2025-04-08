@@ -29,8 +29,7 @@ public class ProductDto {
     @Size(max = 500, message = "Description cannot exceed 500 characters")
     private String description;
 
-    @Schema(description = "Product image URL", example = "...")
-    // TODO: add example of URL
+    @Schema(description = "Product image URL", example = "https://example.com/images/banana.jpg")
     private String image;
 
     @Schema(description = "Product price", example = "190.00")
@@ -143,11 +142,12 @@ public class ProductDto {
 
     // --- Equals and hashcode ---
 
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         ProductDto that = (ProductDto) o;
-        return discounted == that.discounted && inStock == that.inStock && Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(description, that.description) && Objects.equals(image, that.image) && Objects.equals(price, that.price) && Objects.equals(categoryId, that.categoryId) && Objects.equals(sellerId, that.sellerId) && Objects.equals(rating, that.rating);
+        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(description, that.description) && Objects.equals(image, that.image) && Objects.equals(price, that.price) && Objects.equals(discounted, that.discounted) && Objects.equals(inStock, that.inStock) && Objects.equals(categoryId, that.categoryId) && Objects.equals(sellerId, that.sellerId) && Objects.equals(rating, that.rating);
     }
 
     @Override

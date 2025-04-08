@@ -5,6 +5,7 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.entity.Product;
+import de.aittr.bio_marketplace.domain.entity.ProductStatus;
 import de.aittr.bio_marketplace.domain.entity.QProduct;
 import de.aittr.bio_marketplace.exception_handling.exceptions.ProductNotFoundException;
 import de.aittr.bio_marketplace.exception_handling.exceptions.ProductValidationException;
@@ -12,6 +13,8 @@ import de.aittr.bio_marketplace.repository.ProductRepository;
 import de.aittr.bio_marketplace.service.interfaces.ProductService;
 import de.aittr.bio_marketplace.service.mapping.ProductMapper;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -24,6 +27,7 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository repository;
     private final ProductMapper mappingService;
+    private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     // --- CONSTRUCTOR ---
 
@@ -57,7 +61,7 @@ public class ProductServiceImpl implements ProductService {
     public List<ProductDto> getAllActiveProducts() {
         return repository.findAll()
                 .stream()
-                .filter(product -> "active".equalsIgnoreCase(product.getStatus()))
+                .filter(product -> product.getStatus() == ProductStatus.ACTIVE)
                 .map(mappingService::mapEntityToDto)
                 .toList();
     }
@@ -71,7 +75,7 @@ public class ProductServiceImpl implements ProductService {
     // Returns active product entity by id
     public Product getActiveProductEntityById(Long id) {
         return repository.findById(id)
-                .filter(product -> "active".equalsIgnoreCase(product.getStatus()))
+                .filter(product -> product.getStatus() == ProductStatus.ACTIVE)
                 .orElseThrow(() -> new ProductNotFoundException(id));
     }
 
@@ -140,11 +144,13 @@ public class ProductServiceImpl implements ProductService {
     public ProductDto update(ProductDto product) {
         Long id = product.getId();
         if (id == null) {
+            logger.error("Attempted to update a null product");
             throw new IllegalArgumentException("Product ID cannot be null");
         }
 
+        logger.info("Updating product with ID: {}", id);
         Product existentProduct = repository.findById(id)
-                .filter(p -> "active".equalsIgnoreCase(p.getStatus()))
+                .filter(p -> p.getStatus() == ProductStatus.ACTIVE)
                 .orElseThrow(() -> new ProductNotFoundException(id));
 
         if (product.getTitle() != null) {
@@ -176,10 +182,35 @@ public class ProductServiceImpl implements ProductService {
         }
 
         Product updatedProduct = repository.save(existentProduct);
+        logger.info("Successfully updated product with ID: {}", id);
+
         return mappingService.mapEntityToDto(updatedProduct);
     }
 
+
+
     // --- Delete ---
+
+    @Override
+    @Transactional
+    public ProductDto deactivateById(Long id) {
+        if (id == null) {
+            logger.error("Attempted to deactivate a product with null ID");
+            throw new IllegalArgumentException("Product ID cannot be null");
+        }
+
+        logger.info("Deactivating product with ID: {}", id);
+        Product existentProduct = repository.findById(id)
+                .filter(p -> p.getStatus() == ProductStatus.ACTIVE)
+                .orElseThrow(() -> new ProductNotFoundException(id));
+
+        existentProduct.setStatus(ProductStatus.DELETED);
+
+        Product deactivatedProduct = repository.save(existentProduct);
+        logger.info("Successfully deactivated product with ID: {}", id);
+
+        return mappingService.mapEntityToDto(deactivatedProduct);
+    }
 
     // Deletes product by id
     @Override

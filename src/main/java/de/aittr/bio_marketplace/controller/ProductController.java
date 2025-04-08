@@ -2,6 +2,7 @@ package de.aittr.bio_marketplace.controller;
 
 import de.aittr.bio_marketplace.controller.responses.ProductResponse;
 import de.aittr.bio_marketplace.controller.responses.ProductsResponse;
+import de.aittr.bio_marketplace.controller.responses.UserResponse;
 import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.entity.Product;
 import de.aittr.bio_marketplace.service.interfaces.ProductService;
@@ -135,6 +136,20 @@ public class ProductController {
     }
 
     // --- Delete ---
+
+    @Operation(
+            summary = "Deactivate product by id",
+            description = "Changes the status of a product to 'deleted' by its id, making it inactive without removing" +
+                    "it from the database, and returns the deactivated product wrapped in a 'product' object"
+    )
+    @PutMapping("/deactivate/{id}")
+    public ProductResponse deactivate(
+            @PathVariable
+            @Parameter(description = "Product unique identifier")
+            Long id
+    ) {
+        return new ProductResponse(service.deactivateById(id));
+    }
 
     @Operation(
             summary = "Delete product by id",
