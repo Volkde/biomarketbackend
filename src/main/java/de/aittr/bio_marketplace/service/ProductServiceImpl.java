@@ -162,6 +162,9 @@ public class ProductServiceImpl implements ProductService {
         if (product.getImage() != null) {
             existentProduct.setImage(product.getImage());
         }
+        if (product.getUnitOfMeasure() != null) {
+            existentProduct.setUnitOfMeasure(product.getUnitOfMeasure());
+        }
         if (product.getPrice() != null) {
             existentProduct.setPrice(product.getPrice());
         }

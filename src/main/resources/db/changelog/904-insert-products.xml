@@ -25,7 +25,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="2"/>
             <column name="title" value="Quark Cheese"/>
-            <column name="price" valueNumeric="2.50"/>
+            <column name="price" valueNumeric="12.50"/>
             <column name="category_id" valueNumeric="1"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -37,7 +37,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="3"/>
             <column name="title" value="Black Forest Butter"/>
-            <column name="price" valueNumeric="3.00"/>
+            <column name="price" valueNumeric="15.00"/>
             <column name="category_id" valueNumeric="1"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -49,7 +49,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="4"/>
             <column name="title" value="Gouda Cheese"/>
-            <column name="price" valueNumeric="4.20"/>
+            <column name="price" valueNumeric="18.00"/>
             <column name="category_id" valueNumeric="1"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -73,7 +73,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="6"/>
             <column name="title" value="Tilsiter Cheese"/>
-            <column name="price" valueNumeric="3.80"/>
+            <column name="price" valueNumeric="16.00"/>
             <column name="category_id" valueNumeric="1"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -133,7 +133,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="11"/>
             <column name="title" value="Black Forest Ham"/>
-            <column name="price" valueNumeric="8.90"/>
+            <column name="price" valueNumeric="25.00"/>
             <column name="category_id" valueNumeric="2"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -181,7 +181,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="15"/>
             <column name="title" value="Speck"/>
-            <column name="price" valueNumeric="7.50"/>
+            <column name="price" valueNumeric="20.00"/>
             <column name="category_id" valueNumeric="2"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -193,7 +193,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="16"/>
             <column name="title" value="Rinderbraten"/>
-            <column name="price" valueNumeric="14.00"/>
+            <column name="price" valueNumeric="28.00"/>
             <column name="category_id" valueNumeric="2"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -205,7 +205,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="17"/>
             <column name="title" value="Kartoffeln"/>
-            <column name="price" valueNumeric="0.80"/>
+            <column name="price" valueNumeric="1.50"/>
             <column name="category_id" valueNumeric="3"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -229,7 +229,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="19"/>
             <column name="title" value="Spargel"/>
-            <column name="price" valueNumeric="3.20"/>
+            <column name="price" valueNumeric="7.00"/>
             <column name="category_id" valueNumeric="3"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -265,7 +265,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="22"/>
             <column name="title" value="Zwiebeln"/>
-            <column name="price" valueNumeric="0.90"/>
+            <column name="price" valueNumeric="1.20"/>
             <column name="category_id" valueNumeric="3"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -301,7 +301,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="25"/>
             <column name="title" value="Äpfel"/>
-            <column name="price" valueNumeric="1.20"/>
+            <column name="price" valueNumeric="2.50"/>
             <column name="category_id" valueNumeric="4"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -313,7 +313,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="26"/>
             <column name="title" value="Birnen"/>
-            <column name="price" valueNumeric="1.50"/>
+            <column name="price" valueNumeric="2.80"/>
             <column name="category_id" valueNumeric="4"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -325,7 +325,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="27"/>
             <column name="title" value="Kirschen"/>
-            <column name="price" valueNumeric="3.00"/>
+            <column name="price" valueNumeric="6.00"/>
             <column name="category_id" valueNumeric="4"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -349,7 +349,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="29"/>
             <column name="title" value="Erdbeeren"/>
-            <column name="price" valueNumeric="3.50"/>
+            <column name="price" valueNumeric="6.50"/>
             <column name="category_id" valueNumeric="4"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -361,7 +361,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="30"/>
             <column name="title" value="Himbeeren"/>
-            <column name="price" valueNumeric="4.00"/>
+            <column name="price" valueNumeric="9.00"/>
             <column name="category_id" valueNumeric="4"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -373,7 +373,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="31"/>
             <column name="title" value="Johannisbeeren"/>
-            <column name="price" valueNumeric="3.20"/>
+            <column name="price" valueNumeric="6.00"/>
             <column name="category_id" valueNumeric="4"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -385,7 +385,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="32"/>
             <column name="title" value="Trauben"/>
-            <column name="price" valueNumeric="2.80"/>
+            <column name="price" valueNumeric="3.00"/>
             <column name="category_id" valueNumeric="4"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -421,7 +421,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="35"/>
             <column name="title" value="Brezeln"/>
-            <column name="price" valueNumeric="1.50"/>
+            <column name="price" valueNumeric="0.80"/>
             <column name="category_id" valueNumeric="5"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -457,7 +457,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="38"/>
             <column name="title" value="Laugenstangen"/>
-            <column name="price" valueNumeric="2.00"/>
+            <column name="price" valueNumeric="1.00"/>
             <column name="category_id" valueNumeric="5"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>

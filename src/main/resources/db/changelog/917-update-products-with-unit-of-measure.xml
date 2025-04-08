@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet id="917-update-products-with-unit-of-measure" author="team46">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="product"/>
+            <columnExists tableName="product" columnName="unit_of_measure"/>
+        </preConditions>
+
+        <update tableName="product">
+            <column name="unit_of_measure" value="LITER"/>
+            <where>id IN (1, 8) AND title IN ('Bavarian Milk', 'Alpine Milk')</where>
+        </update>
+        <update tableName="product">
+            <column name="unit_of_measure" value="KILOGRAM"/>
+            <where>id IN (2, 3, 4, 6) AND title IN ('Quark Cheese', 'Black Forest Butter', 'Gouda Cheese', 'Tilsiter Cheese')</where>
+        </update>
+        <update tableName="product">
+            <column name="unit_of_measure" value="PIECE"/>
+            <where>id = 5 AND title = 'Yogurt Natural'</where>
+        </update>
+        <update tableName="product">
+            <column name="unit_of_measure" value="LITER"/>
+            <where>id = 7 AND title = 'Cream Fresh'</where>
+        </update>
+
+        <update tableName="product">
+            <column name="unit_of_measure" value="PIECE"/>
+            <where>id IN (9, 10, 12, 13, 14) AND title IN ('Bratwurst', 'Weisswurst', 'Leberwurst', 'Schweinshaxe', 'Currywurst')</where>
+        </update>
+        <update tableName="product">
+            <column name="unit_of_measure" value="KILOGRAM"/>
+            <where>id IN (11, 15, 16) AND title IN ('Black Forest Ham', 'Speck', 'Rinderbraten')</where>
+        </update>
+
+        <update tableName="product">
+            <column name="unit_of_measure" value="KILOGRAM"/>
+            <where>id IN (17, 18, 19, 20, 21, 22, 23, 24) AND title IN ('Kartoffeln', 'Rotkohl', 'Spargel', 'Sauerkraut', 'Karotten', 'Zwiebeln', 'Rote Beete', 'Grünkohl')</where>
+        </update>
+
+        <update tableName="product">
+            <column name="unit_of_measure" value="KILOGRAM"/>
+            <where>id IN (25, 26, 27, 28, 29, 30, 31, 32) AND title IN ('Äpfel', 'Birnen', 'Kirschen', 'Pflaumen', 'Erdbeeren', 'Himbeeren', 'Johannisbeeren', 'Trauben')</where>
+        </update>
+
+        <update tableName="product">
+            <column name="unit_of_measure" value="PIECE"/>
+            <where>id IN (33, 34, 35, 36, 37, 38, 39, 40) AND title IN ('Bauernbrot', 'Roggenbrot', 'Brezeln', 'Vollkornbrot', 'Pumpernickel', 'Laugenstangen', 'Sauerteigbrot', 'Brötchen')</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>
