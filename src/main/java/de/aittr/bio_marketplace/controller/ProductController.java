@@ -135,6 +135,20 @@ public class ProductController {
         return new ProductResponse(updatedProduct);
     }
 
+    @Operation(
+            summary = "Activate product by id",
+            description = "Changes the status of a product to 'active' by its id, making it active," +
+                    "and returns the deactivated product wrapped in a 'product' object"
+    )
+    @PutMapping("/activate/{id}")
+    public ProductResponse activate(
+            @PathVariable
+            @Parameter(description = "Product unique identifier")
+            Long id
+    ) {
+        return new ProductResponse(service.activateById(id));
+    }
+
     // --- Delete ---
 
     @Operation(

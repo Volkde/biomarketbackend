@@ -187,7 +187,26 @@ public class ProductServiceImpl implements ProductService {
         return mappingService.mapEntityToDto(updatedProduct);
     }
 
+    @Override
+    @Transactional
+    public ProductDto activateById(Long id) {
+        if (id == null) {
+            logger.error("Attempted to activate a product with null ID");
+            throw new IllegalArgumentException("Product ID cannot be null");
+        }
 
+        logger.info("Activating product with ID: {}", id);
+        Product existentProduct = repository.findById(id)
+//                .filter(p -> p.getStatus() == ProductStatus.ACTIVE)
+                .orElseThrow(() -> new ProductNotFoundException(id));
+
+        existentProduct.setStatus(ProductStatus.ACTIVE);
+
+        Product activatedProduct = repository.save(existentProduct);
+        logger.info("Successfully activated product with ID: {}", id);
+
+        return mappingService.mapEntityToDto(activatedProduct);
+    }
 
     // --- Delete ---
 
