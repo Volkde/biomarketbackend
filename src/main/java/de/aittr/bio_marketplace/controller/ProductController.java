@@ -35,14 +35,15 @@ public class ProductController {
     // Saves product in DB
     @Operation(
             summary = "Save product",
-            description = "Saving product with given parameters"
+            description = "Saving product with given parameters, wrapped in a 'product' object"
     )
     @PostMapping
-    public ProductDto save(
+    public ProductResponse save(
             @RequestBody
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Instance of a Product")
             ProductDto product) {
-        return service.save(product);
+        ProductDto savedProduct = service.save(product);
+        return new ProductResponse(savedProduct);
     }
 
     // --- Read ---
