@@ -2,6 +2,7 @@ package de.aittr.bio_marketplace.controller;
 
 import de.aittr.bio_marketplace.controller.responses.ProductResponse;
 import de.aittr.bio_marketplace.controller.responses.ProductsResponse;
+import de.aittr.bio_marketplace.controller.responses.UserResponse;
 import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.entity.Product;
 import de.aittr.bio_marketplace.service.interfaces.ProductService;
@@ -32,22 +33,21 @@ public class ProductController {
 
     // --- Create ---
 
-    // Saves product in DB
     @Operation(
             summary = "Save product",
-            description = "Saving product with given parameters"
+            description = "Saving product with given parameters, wrapped in a 'product' object"
     )
     @PostMapping
-    public ProductDto save(
+    public ProductResponse save(
             @RequestBody
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Instance of a Product")
             ProductDto product) {
-        return service.save(product);
+        ProductDto savedProduct = service.save(product);
+        return new ProductResponse(savedProduct);
     }
 
     // --- Read ---
 
-    // Returns all active products
     @Operation(
             summary = "Get all products",
             description = "Getting all active products that exist in the database, optionally filtered by search term in title or description and/or by category ID"
@@ -102,7 +102,6 @@ public class ProductController {
         return new ProductsResponse(products);
     }
 
-    // Returns product by id
     @Operation(
             summary = "Get product by id",
             description = "Getting product from database by id, wrapped in a 'product' object"
@@ -117,9 +116,55 @@ public class ProductController {
         return new ProductResponse(productDto);
     }
 
+    // --- Update ---
+
+    @Operation(
+            summary = "Update product by id",
+            description = "Updates a product in the database by its id with given parameters, wrapped in a 'product' object"
+    )
+    @PutMapping("/{id}")
+    public ProductResponse update(
+            @PathVariable
+            @Parameter(description = "Product unique identifier")
+            Long id,
+            @RequestBody
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Instance of a Product to update")
+            ProductDto product) {
+        product.setId(id);
+        ProductDto updatedProduct = service.update(product);
+        return new ProductResponse(updatedProduct);
+    }
+
+    @Operation(
+            summary = "Activate product by id",
+            description = "Changes the status of a product to 'active' by its id, making it active," +
+                    "and returns the deactivated product wrapped in a 'product' object"
+    )
+    @PutMapping("/activate/{id}")
+    public ProductResponse activate(
+            @PathVariable
+            @Parameter(description = "Product unique identifier")
+            Long id
+    ) {
+        return new ProductResponse(service.activateById(id));
+    }
+
     // --- Delete ---
 
-    // Deletes product from DB by ID and returns the deleted product
+    @Operation(
+            summary = "Deactivate product by id",
+            description = "Changes the status of a product to 'deleted' by its id, making it inactive without removing" +
+                    "it from the database, and returns the deactivated product wrapped in a 'product' object"
+    )
+    @PutMapping("/deactivate/{id}")
+    public ProductResponse deactivate(
+            @PathVariable
+            @Parameter(description = "Product unique identifier")
+            Long id
+    ) {
+        return new ProductResponse(service.deactivateById(id));
+    }
+
     @Operation(
             summary = "Delete product by id",
             description = "Deletes a product from the database by its id and returns the deleted product," +

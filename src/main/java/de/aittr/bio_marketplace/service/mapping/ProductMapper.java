@@ -11,7 +11,7 @@ public interface ProductMapper {
     ProductDto mapEntityToDto(Product entity);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "status", constant = "active")
+    @Mapping(target = "status", expression = "java(de.aittr.bio_marketplace.domain.entity.ProductStatus.ACTIVE)")
     Product mapDtoToEntity(ProductDto dto);
 
 }

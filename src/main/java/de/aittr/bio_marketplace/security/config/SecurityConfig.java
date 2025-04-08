@@ -73,9 +73,13 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register", "/auth/logout").permitAll()
                         .requestMatchers(HttpMethod.GET, "/auth/refresh").permitAll()
 
-                        // Product Controller   
+                        // Product Controller
+                        .requestMatchers(HttpMethod.POST, "/products").hasRole(USER_ROLE)
                         .requestMatchers(HttpMethod.GET, "/products").permitAll()
                         .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/products/**").hasRole(USER_ROLE)
+                        .requestMatchers(HttpMethod.PUT, "/products/deactivate/**").hasRole(USER_ROLE)
+                        .requestMatchers(HttpMethod.PUT, "/products/activate/**").hasRole(USER_ROLE)
                         .requestMatchers(HttpMethod.DELETE, "/products/**").hasRole(ADMIN_ROLE)
 
                         // User Controller

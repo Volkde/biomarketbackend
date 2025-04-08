@@ -16,7 +16,7 @@
             <column name="price" valueNumeric="1.20"/>
             <column name="category_id" valueNumeric="1"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.20"/>
             <column name="description" value="Fresh cow milk from Bavaria"/>
@@ -28,7 +28,7 @@
             <column name="price" valueNumeric="2.50"/>
             <column name="category_id" valueNumeric="1"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.70"/>
             <column name="description" value="Creamy German quark"/>
@@ -40,7 +40,7 @@
             <column name="price" valueNumeric="3.00"/>
             <column name="category_id" valueNumeric="1"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.90"/>
             <column name="description" value="Rich butter from the Black Forest"/>
@@ -52,7 +52,7 @@
             <column name="price" valueNumeric="4.20"/>
             <column name="category_id" valueNumeric="1"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.30"/>
             <column name="description" value="Aged Gouda from local farms"/>
@@ -64,7 +64,7 @@
             <column name="price" valueNumeric="1.80"/>
             <column name="category_id" valueNumeric="1"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.40"/>
             <column name="description" value="Organic plain yogurt"/>
@@ -76,7 +76,7 @@
             <column name="price" valueNumeric="3.80"/>
             <column name="category_id" valueNumeric="1"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.10"/>
             <column name="description" value="Spicy Tilsiter from northern Germany"/>
@@ -88,7 +88,7 @@
             <column name="price" valueNumeric="2.10"/>
             <column name="category_id" valueNumeric="1"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.50"/>
             <column name="description" value="Fresh cream for cooking"/>
@@ -100,7 +100,7 @@
             <column name="price" valueNumeric="1.30"/>
             <column name="category_id" valueNumeric="1"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.30"/>
             <column name="description" value="Milk from Alpine cows"/>
@@ -112,7 +112,7 @@
             <column name="price" valueNumeric="5.50"/>
             <column name="category_id" valueNumeric="2"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.50"/>
             <column name="description" value="Traditional German sausage"/>
@@ -124,7 +124,7 @@
             <column name="price" valueNumeric="6.00"/>
             <column name="category_id" valueNumeric="2"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.90"/>
             <column name="description" value="Bavarian white sausage"/>
@@ -136,7 +136,7 @@
             <column name="price" valueNumeric="8.90"/>
             <column name="category_id" valueNumeric="2"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.30"/>
             <column name="description" value="Smoked ham from the Black Forest"/>
@@ -148,7 +148,7 @@
             <column name="price" valueNumeric="4.20"/>
             <column name="category_id" valueNumeric="2"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.30"/>
             <column name="description" value="German liver sausage"/>
@@ -160,7 +160,7 @@
             <column name="price" valueNumeric="12.00"/>
             <column name="category_id" valueNumeric="2"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.50"/>
             <column name="description" value="Roasted pork knuckle"/>
@@ -172,7 +172,7 @@
             <column name="price" valueNumeric="5.80"/>
             <column name="category_id" valueNumeric="2"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.70"/>
             <column name="description" value="Sausage with curry sauce"/>
@@ -184,7 +184,7 @@
             <column name="price" valueNumeric="7.50"/>
             <column name="category_id" valueNumeric="2"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.10"/>
             <column name="description" value="Cured pork fat"/>
@@ -196,7 +196,7 @@
             <column name="price" valueNumeric="14.00"/>
             <column name="category_id" valueNumeric="2"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.70"/>
             <column name="description" value="German beef roast"/>
@@ -208,7 +208,7 @@
             <column name="price" valueNumeric="0.80"/>
             <column name="category_id" valueNumeric="3"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.10"/>
             <column name="description" value="Fresh German potatoes"/>
@@ -220,7 +220,7 @@
             <column name="price" valueNumeric="1.50"/>
             <column name="category_id" valueNumeric="3"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.50"/>
             <column name="description" value="Red cabbage"/>
@@ -232,7 +232,7 @@
             <column name="price" valueNumeric="3.20"/>
             <column name="category_id" valueNumeric="3"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.80"/>
             <column name="description" value="White asparagus"/>
@@ -244,7 +244,7 @@
             <column name="price" valueNumeric="2.00"/>
             <column name="category_id" valueNumeric="3"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.60"/>
             <column name="description" value="Fermented cabbage"/>
@@ -256,7 +256,7 @@
             <column name="price" valueNumeric="1.00"/>
             <column name="category_id" valueNumeric="3"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.30"/>
             <column name="description" value="Organic carrots"/>
@@ -268,7 +268,7 @@
             <column name="price" valueNumeric="0.90"/>
             <column name="category_id" valueNumeric="3"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.20"/>
             <column name="description" value="Fresh onions"/>
@@ -280,7 +280,7 @@
             <column name="price" valueNumeric="1.40"/>
             <column name="category_id" valueNumeric="3"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.40"/>
             <column name="description" value="Red beets"/>
@@ -292,7 +292,7 @@
             <column name="price" valueNumeric="2.50"/>
             <column name="category_id" valueNumeric="3"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.70"/>
             <column name="description" value="Kale from northern Germany"/>
@@ -304,7 +304,7 @@
             <column name="price" valueNumeric="1.20"/>
             <column name="category_id" valueNumeric="4"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.20"/>
             <column name="description" value="German apples"/>
@@ -316,7 +316,7 @@
             <column name="price" valueNumeric="1.50"/>
             <column name="category_id" valueNumeric="4"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.40"/>
             <column name="description" value="Fresh pears"/>
@@ -328,7 +328,7 @@
             <column name="price" valueNumeric="3.00"/>
             <column name="category_id" valueNumeric="4"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.00"/>
             <column name="description" value="Sweet cherries"/>
@@ -340,7 +340,7 @@
             <column name="price" valueNumeric="2.20"/>
             <column name="category_id" valueNumeric="4"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.60"/>
             <column name="description" value="Plums from German orchards"/>
@@ -352,7 +352,7 @@
             <column name="price" valueNumeric="3.50"/>
             <column name="category_id" valueNumeric="4"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.40"/>
             <column name="description" value="Organic strawberries"/>
@@ -364,7 +364,7 @@
             <column name="price" valueNumeric="4.00"/>
             <column name="category_id" valueNumeric="4"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.60"/>
             <column name="description" value="Fresh raspberries"/>
@@ -376,7 +376,7 @@
             <column name="price" valueNumeric="3.20"/>
             <column name="category_id" valueNumeric="4"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.20"/>
             <column name="description" value="Red currants"/>
@@ -388,7 +388,7 @@
             <column name="price" valueNumeric="2.80"/>
             <column name="category_id" valueNumeric="4"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.80"/>
             <column name="description" value="Grapes from German vineyards"/>
@@ -400,7 +400,7 @@
             <column name="price" valueNumeric="3.50"/>
             <column name="category_id" valueNumeric="5"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.90"/>
             <column name="description" value="German farmer’s bread"/>
@@ -412,7 +412,7 @@
             <column name="price" valueNumeric="3.20"/>
             <column name="category_id" valueNumeric="5"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.70"/>
             <column name="description" value="Rye bread"/>
@@ -424,7 +424,7 @@
             <column name="price" valueNumeric="1.50"/>
             <column name="category_id" valueNumeric="5"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.30"/>
             <column name="description" value="Traditional pretzels"/>
@@ -436,7 +436,7 @@
             <column name="price" valueNumeric="3.80"/>
             <column name="category_id" valueNumeric="5"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.10"/>
             <column name="description" value="Whole grain bread"/>
@@ -448,7 +448,7 @@
             <column name="price" valueNumeric="4.00"/>
             <column name="category_id" valueNumeric="5"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.50"/>
             <column name="description" value="Traditional pumpernickel bread"/>
@@ -460,7 +460,7 @@
             <column name="price" valueNumeric="2.00"/>
             <column name="category_id" valueNumeric="5"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.50"/>
             <column name="description" value="Lye bread sticks"/>
@@ -472,7 +472,7 @@
             <column name="price" valueNumeric="3.90"/>
             <column name="category_id" valueNumeric="5"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.30"/>
             <column name="description" value="Sourdough bread"/>
@@ -484,7 +484,7 @@
             <column name="price" valueNumeric="0.50"/>
             <column name="category_id" valueNumeric="5"/>
             <column name="seller_id" valueNumeric="1"/>
-            <column name="status" value="active"/>
+            <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.10"/>
             <column name="description" value="Fresh bread rolls"/>

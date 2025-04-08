@@ -21,31 +21,39 @@ public class ProductDto {
     private Long id;
 
     @Schema(description = "Product title", example = "Banana")
+    @NotNull(message = "Title cannot be null")
+    @Size(min = 2, max = 100, message = "Title must be between 2 and 100 characters")
     private String title;
 
     @Schema(description = "Product description", example = "Juicy natural banana")
+    @Size(max = 500, message = "Description cannot exceed 500 characters")
     private String description;
 
-    @Schema(description = "Product image URL", example = "...")
-    // TODO: add example of URL
+    @Schema(description = "Product image URL", example = "https://example.com/images/banana.jpg")
     private String image;
 
     @Schema(description = "Product price", example = "190.00")
+    @NotNull(message = "Price cannot be null")
+    @DecimalMin(value = "0.0", inclusive = true, message = "Price must be greater than or equal to 0")
     private BigDecimal price;
 
     @Schema(description = "Indicates whether the product has a discount", example = "false")
-    private boolean discounted;
+    private Boolean discounted;
 
     @Schema(description = "Indicates whether the product is currently in stock", example = "true")
-    private boolean inStock;
+    private Boolean inStock;
 
     @Schema(description = "Category identifier", example = "1")
+    @NotNull(message = "Category ID cannot be null")
     private Long categoryId;
 
     @Schema(description = "Seller identifier", example = "1")
+    @NotNull(message = "Seller ID cannot be null")
     private Long sellerId;
 
     @Schema(description = "Product rating", example = "4.30")
+    @DecimalMin(value = "0.0", message = "Rating must be between 0 and 5")
+    @DecimalMax(value = "5.0", message = "Rating must be between 0 and 5")
     private Double rating;
 
     // --- METHODS ---
@@ -108,7 +116,7 @@ public class ProductDto {
         this.sellerId = sellerId;
     }
 
-    public boolean isDiscounted() {
+    public Boolean isDiscounted() {
         return discounted;
     }
 
@@ -116,7 +124,7 @@ public class ProductDto {
         this.discounted = discounted;
     }
 
-    public boolean isInStock() {
+    public Boolean isInStock() {
         return inStock;
     }
 
@@ -134,11 +142,12 @@ public class ProductDto {
 
     // --- Equals and hashcode ---
 
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         ProductDto that = (ProductDto) o;
-        return discounted == that.discounted && inStock == that.inStock && Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(description, that.description) && Objects.equals(image, that.image) && Objects.equals(price, that.price) && Objects.equals(categoryId, that.categoryId) && Objects.equals(sellerId, that.sellerId) && Objects.equals(rating, that.rating);
+        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(description, that.description) && Objects.equals(image, that.image) && Objects.equals(price, that.price) && Objects.equals(discounted, that.discounted) && Objects.equals(inStock, that.inStock) && Objects.equals(categoryId, that.categoryId) && Objects.equals(sellerId, that.sellerId) && Objects.equals(rating, that.rating);
     }
 
     @Override
