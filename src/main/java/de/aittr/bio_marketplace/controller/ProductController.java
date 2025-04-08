@@ -32,7 +32,6 @@ public class ProductController {
 
     // --- Create ---
 
-    // Saves product in DB
     @Operation(
             summary = "Save product",
             description = "Saving product with given parameters, wrapped in a 'product' object"
@@ -48,7 +47,6 @@ public class ProductController {
 
     // --- Read ---
 
-    // Returns all active products
     @Operation(
             summary = "Get all products",
             description = "Getting all active products that exist in the database, optionally filtered by search term in title or description and/or by category ID"
@@ -103,7 +101,6 @@ public class ProductController {
         return new ProductsResponse(products);
     }
 
-    // Returns product by id
     @Operation(
             summary = "Get product by id",
             description = "Getting product from database by id, wrapped in a 'product' object"
@@ -118,9 +115,27 @@ public class ProductController {
         return new ProductResponse(productDto);
     }
 
+    // --- Update ---
+
+    @Operation(
+            summary = "Update product by id",
+            description = "Updates a product in the database by its id with given parameters, wrapped in a 'product' object"
+    )
+    @PutMapping("/{id}")
+    public ProductResponse update(
+            @PathVariable
+            @Parameter(description = "Product unique identifier")
+            Long id,
+            @RequestBody
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Instance of a Product to update")
+            ProductDto product) {
+        product.setId(id);
+        ProductDto updatedProduct = service.update(product);
+        return new ProductResponse(updatedProduct);
+    }
+
     // --- Delete ---
 
-    // Deletes product from DB by ID and returns the deleted product
     @Operation(
             summary = "Delete product by id",
             description = "Deletes a product from the database by its id and returns the deleted product," +

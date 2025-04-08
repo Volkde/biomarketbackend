@@ -34,6 +34,9 @@ public interface ProductService {
     // Return active product entity by id
     Product getActiveProductEntityById(Long id);
 
+    // Update product
+    ProductDto update(ProductDto product);
+
     // Delete product by id
     ProductDto deleteById(Long id);
 

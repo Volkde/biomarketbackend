@@ -11,6 +11,7 @@ import de.aittr.bio_marketplace.exception_handling.exceptions.ProductValidationE
 import de.aittr.bio_marketplace.repository.ProductRepository;
 import de.aittr.bio_marketplace.service.interfaces.ProductService;
 import de.aittr.bio_marketplace.service.mapping.ProductMapper;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -123,22 +124,64 @@ public class ProductServiceImpl implements ProductService {
         Order direction = "desc".equalsIgnoreCase(sortOrder) ? Order.DESC : Order.ASC;
 
         QProduct qProduct = QProduct.product;
-        switch (sortBy.toLowerCase()) {
-            case "title":
-                return new OrderSpecifier<>(direction, qProduct.title);
-            case "price":
-                return new OrderSpecifier<>(direction, qProduct.price);
-            case "rating":
-                return new OrderSpecifier<>(direction, qProduct.rating);
-            default:
-                return null;
+
+        return switch (sortBy.toLowerCase()) {
+            case "title" -> new OrderSpecifier<>(direction, qProduct.title);
+            case "price" -> new OrderSpecifier<>(direction, qProduct.price);
+            case "rating" -> new OrderSpecifier<>(direction, qProduct.rating);
+            default -> null;
+        };
+    }
+
+    // --- Update ---
+
+    @Override
+    @Transactional
+    public ProductDto update(ProductDto product) {
+        Long id = product.getId();
+        if (id == null) {
+            throw new IllegalArgumentException("Product ID cannot be null");
         }
+
+        Product existentProduct = repository.findById(id)
+                .filter(p -> "active".equalsIgnoreCase(p.getStatus()))
+                .orElseThrow(() -> new ProductNotFoundException(id));
+
+        if (product.getTitle() != null) {
+            existentProduct.setTitle(product.getTitle());
+        }
+        if (product.getDescription() != null) {
+            existentProduct.setDescription(product.getDescription());
+        }
+        if (product.getImage() != null) {
+            existentProduct.setImage(product.getImage());
+        }
+        if (product.getPrice() != null) {
+            existentProduct.setPrice(product.getPrice());
+        }
+        if (product.isDiscounted() != null) {
+            existentProduct.setDiscounted(product.isDiscounted());
+        }
+        if (product.isInStock() != null) {
+            existentProduct.setInStock(product.isInStock());
+        }
+        if (product.getCategoryId() != null) {
+            existentProduct.setCategoryId(product.getCategoryId());
+        }
+        if (product.getSellerId() != null) {
+            existentProduct.setSellerId(product.getSellerId());
+        }
+        if (product.getRating() != null) {
+            existentProduct.setRating(product.getRating());
+        }
+
+        Product updatedProduct = repository.save(existentProduct);
+        return mappingService.mapEntityToDto(updatedProduct);
     }
 
     // --- Delete ---
 
     // Deletes product by id
-
     @Override
     public ProductDto deleteById(Long id) {
         ProductDto productDto = getById(id);
@@ -146,7 +189,3 @@ public class ProductServiceImpl implements ProductService {
         return productDto;
     }
 }
-
-/* TODO:
-- write function getById when ProductDto class is ready;
- */
