@@ -1,12 +1,18 @@
 package de.aittr.bio_marketplace.service;
 
+import de.aittr.bio_marketplace.controller.responses.SellerResponse;
 import de.aittr.bio_marketplace.domain.dto.SellerDto;
 import de.aittr.bio_marketplace.domain.dto.UserDto;
 import de.aittr.bio_marketplace.domain.entity.Seller;
+import de.aittr.bio_marketplace.domain.entity.User;
 import de.aittr.bio_marketplace.exception_handling.exceptions.SellerNotFoundException;
 import de.aittr.bio_marketplace.exception_handling.exceptions.SellerValidationException;
+import de.aittr.bio_marketplace.exception_handling.exceptions.UsernameValidateException;
+import de.aittr.bio_marketplace.exception_handling.utils.StringValidator;
 import de.aittr.bio_marketplace.repository.SellerRepository;
+import de.aittr.bio_marketplace.service.interfaces.RoleService;
 import de.aittr.bio_marketplace.service.interfaces.SellerService;
+import de.aittr.bio_marketplace.service.interfaces.UserService;
 import de.aittr.bio_marketplace.service.mapping.SellerMapper;
 import de.aittr.bio_marketplace.service.mapping.UserMapper;
 import jakarta.transaction.Transactional;
@@ -20,20 +26,37 @@ public class SellerServiceImpl implements SellerService {
     private final SellerRepository repository;
     private final SellerMapper mapper;
     private final UserMapper userMapper;
+    private final UserService userService;
+    private final RoleService roleService;
 
-    public SellerServiceImpl(SellerRepository repository, SellerMapper sellerMapper, UserMapper userMapper) {
+    public SellerServiceImpl(SellerRepository repository, SellerMapper sellerMapper, UserMapper userMapper, UserService userService, RoleService roleService) {
         this.repository = repository;
         this.mapper = sellerMapper;
         this.userMapper = userMapper;
+        this.userService = userService;
+        this.roleService = roleService;
     }
 
     @Override
     @Transactional
-    public SellerDto saveSeller(SellerDto seller) {
+    public SellerResponse saveSeller(SellerDto seller, Long user_id) {
         try {
             Seller entity = mapper.mapDtoToEntity(seller);
+            entity.setId(null);
+            entity.setRating(null);
+            StringValidator.isValidName(entity.getStoreName());
+            if (repository.findByStoreName(entity.getStoreName()).isPresent()) {
+                throw new UsernameValidateException("This Store Name already exists");
+            }
+            User user = userService.getActiveUserEntityById(user_id);
+            if(user.getSeller()!= null){
+                throw new UsernameValidateException("This user already has a store");
+            }
             entity = repository.save(entity);
-            return mapper.mapEntityToDto(entity);
+            user.getRoles().add(roleService.getRoleSeller());
+            user.setSeller(entity);
+            entity.setUser(user);
+            return new SellerResponse(mapper.mapEntityToDto(entity), userMapper.mapEntityToDto(user));
         }  catch (Exception e) {
             throw new SellerValidationException(e);
         }
@@ -57,13 +80,43 @@ public class SellerServiceImpl implements SellerService {
     public SellerDto update(SellerDto seller) {
         Long id = seller.getId();
         Seller findSeller = getActiveSellersEntityById(id);
+
+        if (seller.getStoreName() == null){
+            seller.setStoreName(findSeller.getStoreName());
+        }
+        StringValidator.isValidName(seller.getStoreName());
         findSeller.setStoreName(seller.getStoreName());
+
+        if (seller.getStoreDescription() == null){
+            seller.setStoreDescription(findSeller.getStoreDescription());
+        }
         findSeller.setStoreDescription(seller.getStoreDescription());
+
+        if (seller.getStoreLogo() == null){
+            seller.setStoreLogo(findSeller.getStoreLogo());
+        }
         findSeller.setStoreLogo(seller.getStoreLogo());
         return mapper.mapEntityToDto(findSeller);
     }
 
     @Override
+    @Transactional
+    public SellerDto changeUser(Long user_id, Long seller_id) {
+        User user = userService.getActiveUserEntityById(user_id);
+        if(user.getSeller()!= null){
+            throw new UsernameValidateException("This user already has a store");
+        }
+        Seller findSeller = getActiveSellersEntityById(seller_id);
+        findSeller.getUser().getRoles().remove(roleService.getRoleSeller());
+        findSeller.getUser().setSeller(null);
+        user.getRoles().add(roleService.getRoleSeller());
+        user.setSeller(findSeller);
+        findSeller.setUser(user);
+        return mapper.mapEntityToDto(findSeller);
+    }
+
+    @Override
+    @Transactional
     public UserDto getUserBySellerId(Long id) {
         Seller findSeller = getActiveSellersEntityById(id);
         return userMapper.mapEntityToDto(findSeller.getUser());
@@ -78,6 +131,8 @@ public class SellerServiceImpl implements SellerService {
     @Override
     public SellerDto deleteById(Long id) {
          Seller seller = getActiveSellersEntityById(id);
+         seller.getUser().getRoles().remove(roleService.getRoleSeller());
+         seller.getUser().setSeller(null);
          repository.deleteById(id);
          return mapper.mapEntityToDto(seller);
     }
@@ -86,6 +141,8 @@ public class SellerServiceImpl implements SellerService {
     @Transactional
     public SellerDto deleteByStoreName(String storeName) {
         Seller seller = repository.findByStoreName(storeName).orElseThrow(()-> new SellerNotFoundException(storeName));
+        seller.getUser().getRoles().remove(roleService.getRoleSeller());
+        seller.getUser().setSeller(null);
         repository.deleteByStoreName(storeName);
         return mapper.mapEntityToDto(seller);
     }

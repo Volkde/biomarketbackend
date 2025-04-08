@@ -22,6 +22,8 @@ public interface UserService {
 
     UserDto getById(Long id);
 
+    UserDto getByUsername(String username);
+
     UserDto update(UserDto user);
 
     long getAllActiveUsersCount();

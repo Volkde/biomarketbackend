@@ -46,6 +46,14 @@ public class UserController {
     ) {
         return new UserResponse (service.getById(id));
     }
+    @Operation(
+            summary = "Get user by username",
+            description = "Getting user from database by username"
+    )
+    @GetMapping("/get-by-username/{username}")
+    public UserResponse getByUsername(@PathVariable String username) {
+        return new UserResponse (service.getByUsername(username));
+    }
 
     @Operation(
             summary = "Update user by id",

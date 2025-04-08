@@ -28,4 +28,11 @@ public class RoleServiceImpl implements RoleService {
         );
     }
 
+    @Override
+    public Role getRoleSeller() {
+        return repository.findByTitle("ROLE_SELLER").orElseThrow(
+                () -> new RoleNotFoundException("ROLE_SELLER")
+        );
+    }
+
 }
