@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="907-insert-cart-items" author="team46">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="cart_item"/>
+        </preConditions>
+
+        <insert tableName="cart_item">
+            <column name="id" valueNumeric="1"/>
+            <column name="cart_id" valueNumeric="1"/>
+            <column name="product_id" valueNumeric="1"/>
+            <column name="quantity" valueNumeric="1.5"/>
+        </insert>
+        <insert tableName="cart_item">
+            <column name="id" valueNumeric="2"/>
+            <column name="cart_id" valueNumeric="1"/>
+            <column name="product_id" valueNumeric="5"/>
+            <column name="quantity" valueNumeric="2.25"/>
+        </insert>
+        <insert tableName="cart_item">
+            <column name="id" valueNumeric="3"/>
+            <column name="cart_id" valueNumeric="2"/>
+            <column name="product_id" valueNumeric="9"/>
+            <column name="quantity" valueNumeric="1.0"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

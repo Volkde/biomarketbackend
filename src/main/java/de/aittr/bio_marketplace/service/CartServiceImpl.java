@@ -1,6 +1,7 @@
 package de.aittr.bio_marketplace.service;
 
 import de.aittr.bio_marketplace.domain.entity.Cart;
+import de.aittr.bio_marketplace.domain.entity.CartItem;
 import de.aittr.bio_marketplace.domain.entity.Product;
 import de.aittr.bio_marketplace.repository.CartRepository;
 import de.aittr.bio_marketplace.repository.ProductRepository;
@@ -8,6 +9,7 @@ import de.aittr.bio_marketplace.service.interfaces.CartService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -35,12 +37,12 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void addProduct(Long cartId, Long productId) {
+    public void addProduct(Long cartId, Long productId, BigDecimal quantity) {
         Cart cart = getById(cartId);
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new RuntimeException("Product not found, id=" + productId));
 
-        cart.addProduct(product);
+        cart.addProduct(product, quantity);
         cartRepository.save(cart);
     }
 
@@ -59,8 +61,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<Product> getAllProducts(Long cartId) {
+    public List<CartItem> getAllItems(Long cartId) {
         Cart cart = getById(cartId);
-        return cart.getProducts();
+        return cart.getItems();
     }
 }

@@ -6,6 +6,7 @@ import de.aittr.bio_marketplace.domain.dto.UserDto;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserDto;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
 import de.aittr.bio_marketplace.domain.entity.Cart;
+import de.aittr.bio_marketplace.domain.entity.CartItem;
 import de.aittr.bio_marketplace.domain.entity.Product;
 import de.aittr.bio_marketplace.domain.entity.User;
 import de.aittr.bio_marketplace.exceptions.AuthenticationException;
@@ -182,14 +183,15 @@ public class UserServiceImpl implements UserService {
         return user.getCart().getActiveProductsTotalCost();
     }
 
-    @Override
-    public List<ProductDto> getAllProductsByUserId(Long userId) {
-        User user = getActiveUserEntityById(userId);
-        return user.getCart().getProducts()
-                .stream()
-                .map(mappingProductService::mapEntityToDto)
-                .toList();
-    }
+//    @Override
+//    public List<CartItem> getAllProductsByUserId(Long userId) {
+//        User user = getActiveUserEntityById(userId);
+//        return user.getCart().getItems()
+//                .stream()
+//                .map(mappingProductService::mapEntityToDto)
+//                .toList();
+//    }
+    // TODO: fix it later
 
     @Override
     public List<SellerDto> getAllSellers(Long userId) {
@@ -201,10 +203,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addProductToUserCart(Long userId, Long productId) {
+    @Transactional
+    public void addProductToUserCart(Long userId, Long productId, BigDecimal quantity) {
         User user = getActiveUserEntityById(userId);
         Product product = productService.getActiveProductEntityById(productId);
-        user.getCart().addProduct(product);
+        user.getCart().addProduct(product, quantity);
     }
 
     @Override
