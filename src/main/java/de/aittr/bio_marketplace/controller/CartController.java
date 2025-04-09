@@ -28,6 +28,12 @@ public class CartController {
         this.userService = userService;
     }
 
+    // --- Create ---
+
+
+
+    // --- Read ---
+
     @Operation(
             summary = "Get current user's cart",
             description = "Returns the contents of the current user's shopping cart"
@@ -61,5 +67,28 @@ public class CartController {
         return new CartResponse(cartData);
     }
 
+    // --- Delete ---
+
+    @Operation(
+            summary = "Clear cart",
+            description = "Clears all items from the current user's cart"
+    )
+    @DeleteMapping("/clear")
+    public CartResponse clearCart() {
+        RegisterUserResponseDto currentUser = userService.getCurrentUser();
+        Long userId = currentUser.id();
+        Cart cart = userService.getActiveUserEntityById(userId).getCart();
+        Long cartId = cart.getId();
+
+        cartService.clearCart(cartId);
+
+        CartResponse.CartData cartData = new CartResponse.CartData(
+                cartId,
+                userId,
+                List.of(),
+                BigDecimal.ZERO
+        );
+        return new CartResponse(cartData);
+    }
 
 }

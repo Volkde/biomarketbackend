@@ -83,6 +83,7 @@ public class SecurityConfig {
 
                         // Cart
                         .requestMatchers(HttpMethod.GET, "/api/cart").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.DELETE, "/api/cart/clear").hasAnyRole(USER_ROLE, ADMIN_ROLE)
 
                         // User Controller
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
@@ -91,7 +92,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
                                        
-                        //разрешаю POST на /orders
+                        // Order Controller
                         .requestMatchers(HttpMethod.POST, "/orders").permitAll()
 
 
