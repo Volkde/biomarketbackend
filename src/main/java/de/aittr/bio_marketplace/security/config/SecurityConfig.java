@@ -92,6 +92,11 @@ public class SecurityConfig {
                         //разрешаю POST на /orders
                         .requestMatchers(HttpMethod.POST, "/orders").permitAll()
 
+                        // Seller Controller
+                        .requestMatchers(HttpMethod.GET, "/sellers").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/sellers/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/sellers/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/sellers/**").permitAll()
 
                         .requestMatchers("/v3/api-docs",
                                 "/v3/api-docs/**",

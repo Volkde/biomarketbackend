@@ -27,17 +27,18 @@ public class SellerController {
             summary = "Add seller with given parameters",
             description = "Adding new seller in the database"
     )
-    @PostMapping
+    @PostMapping("/{user_id}")
     public SellerResponse save(
+            @PathVariable Long user_id,
             @RequestBody
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Instance of a Seller")
             SellerDto seller
     ) {
-        return new SellerResponse(service.saveSeller(seller));
+        return service.saveSeller(seller, user_id);
     }
 
 
-    @GetMapping()
+    @GetMapping
     @Operation(
             summary = "Get all sellers",
             description = "Getting all sellers that exist in the database"
@@ -65,6 +66,17 @@ public class SellerController {
     @PutMapping
     public SellerResponse update(@RequestBody SellerDto seller) {
         return new SellerResponse(service.update(seller));
+
+    }
+
+
+    @Operation(
+            summary = "Change shop owner by user and seller id",
+            description = "Changing shop owner from database by new user_id and seller id"
+    )
+    @PutMapping("/change-user/{user_id}/by-seller-id/{seller_id}")
+    public SellerResponse changeUser(@PathVariable Long user_id, @PathVariable Long seller_id) {
+        return new SellerResponse(service.changeUser(user_id, seller_id));
 
     }
 

@@ -1,6 +1,8 @@
 package de.aittr.bio_marketplace.exception_handling;
 
 import de.aittr.bio_marketplace.exception_handling.exceptions.*;
+import de.aittr.bio_marketplace.exception_handling.utils.StringValidator;
+import de.aittr.bio_marketplace.exception_handling.utils.UserValidator;
 import de.aittr.bio_marketplace.exceptions.AuthenticationException;
 import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.http.HttpStatus;
@@ -108,5 +110,39 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(UserValidator.class)
+    public ResponseEntity<Response> handleException(UserValidator e) {
+        Response response = new Response(e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 
+  @ExceptionHandler(EmailValidateException.class)
+    public ResponseEntity<Response> handleException(EmailValidateException e) {
+        Response response = new Response(e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+  @ExceptionHandler(PasswordValidateException.class)
+    public ResponseEntity<Response> handleException(PasswordValidateException e) {
+        Response response = new Response(e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+  @ExceptionHandler(UsernameValidateException.class)
+    public ResponseEntity<Response> handleException(UsernameValidateException e) {
+        Response response = new Response(e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(StringValidator.class)
+    public ResponseEntity<Response> handleException(StringValidator e) {
+        Response response = new Response(e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NumberValidateException.class)
+    public ResponseEntity<Response> handleException(NumberValidateException e) {
+        Response response = new Response(e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
 }

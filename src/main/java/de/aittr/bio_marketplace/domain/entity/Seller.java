@@ -96,6 +96,10 @@ public class Seller {
         this.rating = rating;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

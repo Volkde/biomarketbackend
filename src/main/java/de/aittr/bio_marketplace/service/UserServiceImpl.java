@@ -8,6 +8,10 @@ import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
 import de.aittr.bio_marketplace.domain.entity.Cart;
 import de.aittr.bio_marketplace.domain.entity.Product;
 import de.aittr.bio_marketplace.domain.entity.User;
+import de.aittr.bio_marketplace.exception_handling.utils.StringValidator;
+import de.aittr.bio_marketplace.exception_handling.utils.UserValidator;
+import de.aittr.bio_marketplace.exception_handling.exceptions.EmailValidateException;
+import de.aittr.bio_marketplace.exception_handling.exceptions.UsernameValidateException;
 import de.aittr.bio_marketplace.exceptions.AuthenticationException;
 import de.aittr.bio_marketplace.exception_handling.exceptions.UserNotFoundException;
 import de.aittr.bio_marketplace.repository.UserRepository;
@@ -65,11 +69,20 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public RegisterUserResponseDto registerUser(RegisterUserDto registerDto) {
+    public RegisterUserResponseDto registerUser(RegisterUserDto registerDto){
 
         if (registerDto.username() == null || registerDto.username().isBlank()) {
-            throw new IllegalArgumentException("Username cannot be null or empty");
+            throw new UsernameValidateException("Username cannot be null or empty");
         }
+        if (repository.findUserByUsername(registerDto.username()).isPresent()) {
+            throw new UsernameValidateException("This username already exists");
+        }
+        if (repository.findUserByEmail(registerDto.email()).isPresent()) {
+            throw new EmailValidateException("This email already exists");
+        }
+        UserValidator.isEmailValid(registerDto.email());
+        UserValidator.isPasswordValid(registerDto.password());
+
         User entity = mappingRegisterService.mapRegisterDtoToEntity(registerDto);
 
         entity.setId(null);
@@ -127,14 +140,50 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDto getByUsername(String username) {
+        User findUser = repository.findUserByUsername(username).orElseThrow(() -> new UserNotFoundException(username));
+        return mappingService.mapEntityToDto(findUser);
+    }
+
+    @Override
     @Transactional
     public UserDto update(UserDto user) {
         Long id = user.getId();
+
         User findUser = getActiveUserEntityById(id);
+        if (user.getFirstName() == null){
+            user.setFirstName(findUser.getFirstName());
+        }
+        StringValidator.isValidName(user.getFirstName());
         findUser.setFirstName(user.getFirstName());
+
+
+        if (user.getLastName() == null){
+            user.setLastName(findUser.getLastName());
+        }
+        StringValidator.isValidName(user.getLastName());
         findUser.setLastName(user.getLastName());
+
+
+        if (user.getUsername() == null){
+            user.setUsername(findUser.getUsername());
+        }
+        if (user.getUsername().isBlank()|| user.getUsername().isEmpty()) {
+            throw new UsernameValidateException("Username cannot be empty");
+        }
+        if (!findUser.getUsername().equals(user.getUsername()) && repository.findUserByUsername(user.getUsername()).isPresent()) {
+            throw new UsernameValidateException("This username already exists");
+        }
         findUser.setUsername(user.getUsername());
+
+        if (user.getPhoneNumber() == null){
+            user.setPhoneNumber(findUser.getPhoneNumber());
+        }
+        UserValidator.isValidPhoneNumber(user.getPhoneNumber());
         findUser.setPhoneNumber(user.getPhoneNumber());
+        if (user.getAvatar() == null){
+            user.setAvatar(findUser.getAvatar());
+        }
         findUser.setAvatar(user.getAvatar());
         return mappingService.mapEntityToDto(findUser);
     }
@@ -252,10 +301,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserDto changePassword(String password, Long userId) {
-        if (password.length() < 6){
-            //todo password check
-            return null;
-        }
+        UserValidator.isPasswordValid(password);
         User user = getActiveUserEntityById(userId);
         user.setPassword(encoder.encode(password));
         return mappingService.mapEntityToDto(user);
