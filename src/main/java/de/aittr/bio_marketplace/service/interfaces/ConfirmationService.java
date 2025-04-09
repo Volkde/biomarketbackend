@@ -12,4 +12,6 @@ public interface ConfirmationService {
     boolean isCodeExpired(String code);
 
     Optional<ConfirmationCode> findByCode(String code);
+
+    void confirmRegistration(String code);
 }

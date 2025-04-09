@@ -24,5 +24,9 @@
         <insert tableName="role">
             <column name="title" value="ROLE_SELLER"/>
         </insert>
+        <!-- Добавляем роль гостя -->
+        <insert tableName="role">
+            <column name="title" value="ROLE_GUEST"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>
