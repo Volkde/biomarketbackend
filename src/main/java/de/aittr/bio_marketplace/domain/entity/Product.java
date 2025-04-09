@@ -38,6 +38,11 @@ public class Product {
     @Schema(description = "Product image URL", example = "https://example.com/images/banana.jpg")
     private String image;
 
+    @Column(name = "unit_of_measure")
+    @Enumerated(EnumType.STRING)
+    @Schema(description = "Unit of measure for the product", example = "kg")
+    private ProductUnitOfMeasure unitOfMeasure;
+
     @Column(name = "price")
     @DecimalMin(
             value = "1.00",
@@ -98,6 +103,7 @@ public class Product {
                    String title,
                    String description,
                    String image,
+                   ProductUnitOfMeasure unitOfMeasure,
                    BigDecimal price,
                    Boolean discounted,
                    ProductStatus status,
@@ -163,6 +169,14 @@ public class Product {
         this.image = image;
     }
 
+    public ProductUnitOfMeasure getUnitOfMeasure() {
+        return unitOfMeasure;
+    }
+
+    public void setUnitOfMeasure(ProductUnitOfMeasure unitOfMeasure) {
+        this.unitOfMeasure = unitOfMeasure;
+    }
+
     public ProductStatus getStatus() {
         return status;
     }
@@ -217,17 +231,18 @@ public class Product {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return discounted == product.discounted && inStock == product.inStock && Objects.equals(id, product.id) && Objects.equals(title, product.title) && Objects.equals(description, product.description) && Objects.equals(image, product.image) && Objects.equals(price, product.price) && status == product.status && Objects.equals(categoryId, product.categoryId) && Objects.equals(sellerId, product.sellerId) && Objects.equals(rating, product.rating);
+        return isDiscounted() == product.isDiscounted() && isInStock() == product.isInStock() && Objects.equals(getId(), product.getId()) && Objects.equals(getTitle(), product.getTitle()) && Objects.equals(getDescription(), product.getDescription()) && Objects.equals(getImage(), product.getImage()) && getUnitOfMeasure() == product.getUnitOfMeasure() && Objects.equals(getPrice(), product.getPrice()) && getStatus() == product.getStatus() && Objects.equals(getCategoryId(), product.getCategoryId()) && Objects.equals(getSellerId(), product.getSellerId()) && Objects.equals(getRating(), product.getRating());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, image, price, discounted, status, inStock, categoryId, sellerId, rating);
+        return Objects.hash(getId(), getTitle(), getDescription(), getImage(), getUnitOfMeasure(), getPrice(), isDiscounted(), getStatus(), isInStock(), getCategoryId(), getSellerId(), getRating());
     }
+
+
 
     /* TODO: add the following fields:
     - images
-    - quantity
     - attributes
     - reviews
     - dateProduction

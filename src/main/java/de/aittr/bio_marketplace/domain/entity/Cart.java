@@ -29,14 +29,9 @@ public class Cart {
     @Schema(description = "User associated with the cart", accessMode = Schema.AccessMode.READ_ONLY)
     private User user;
 
-    @ManyToMany
-    @JoinTable(
-            name = "cart_product",
-            joinColumns = @JoinColumn(name = "cart_id"),
-            inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    @Schema(description = "List of products in the cart")
-    private List<Product> products;
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Schema(description = "List of items in the cart")
+    private List<CartItem> items = new ArrayList<>();
 
     // --- CONSTRUCTORS ---
 
@@ -45,34 +40,43 @@ public class Cart {
 
     public Cart(User user) {
         this.user = user;
-        this.products = new ArrayList<>();
+        this.items = new ArrayList<>();
     }
 
     // --- METHODS ---
 
-    public void addProduct(Product product) {
+    public void addProduct(Product product, BigDecimal quantity) {
         if (product == null) {
             throw new IllegalArgumentException("Product cannot be null");
         }
+        if (quantity == null || quantity.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new IllegalArgumentException("Quantity must be greater than zero");
+        }
         if (product.getStatus() == ProductStatus.ACTIVE) {
-            products.add(product);
+            for (CartItem item : items) {
+                if (item.getProduct().getId().equals(product.getId())) {
+                    item.setQuantity(item.getQuantity().add(quantity));
+                    return;
+                }
+            }
+            items.add(new CartItem(this, product, quantity));
         }
     }
 
-    public List<Product> getAllActiveProducts() {
-        return products
+    public List<CartItem> getAllActiveItems() {
+        return items
                 .stream()
-                .filter(product -> product.getStatus() == ProductStatus.ACTIVE)
+                .filter(item -> item.getProduct().getStatus() == ProductStatus.ACTIVE)
                 .toList();
     }
 
-    public void removeProductById(Long id) {
-        if (id == null) {
+    public void removeProductById(Long productId) {
+        if (productId == null) {
             throw new IllegalArgumentException("Product ID cannot be null");
         }
-        Iterator<Product> iterator = products.iterator();
+        Iterator<CartItem> iterator = items.iterator();
         while (iterator.hasNext()) {
-            if (iterator.next().getId().equals(id)) {
+            if (iterator.next().getProduct().getId().equals(productId)) {
                 iterator.remove();
                 break;
             }
@@ -80,29 +84,29 @@ public class Cart {
     }
 
     public void clear() {
-        products.clear();
+        items.clear();
     }
 
     public BigDecimal getActiveProductsTotalCost() {
-        return products
+        return items
                 .stream()
-                .filter(product -> product.getStatus() == ProductStatus.ACTIVE)
-                .map(Product::getPrice)
-                .reduce(BigDecimal::add)
-                .orElse(new BigDecimal(0));
+                .filter(item -> item.getProduct().getStatus() == ProductStatus.ACTIVE)
+                .map(item -> item.getProduct().getPrice().multiply(item.getQuantity()))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public BigDecimal getActiveProductsAveragePrice() {
-        long productCount = products
+        BigDecimal totalQuantity = items
                 .stream()
-                .filter(product -> product.getStatus() == ProductStatus.ACTIVE)
-                .count();
+                .filter(item -> item.getProduct().getStatus() == ProductStatus.ACTIVE)
+                .map(CartItem::getQuantity)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        if (productCount == 0) {
-            return new BigDecimal(0);
+        if (totalQuantity.compareTo(BigDecimal.ZERO) == 0) {
+            return BigDecimal.ZERO;
         }
 
-        return getActiveProductsTotalCost().divide(new BigDecimal(productCount), RoundingMode.CEILING);
+        return getActiveProductsTotalCost().divide(totalQuantity, RoundingMode.CEILING);
     }
 
     // --- Getters and setters ---
@@ -123,28 +127,27 @@ public class Cart {
         this.user = user;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<CartItem> getItems() {
+        return items;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setItems(List<CartItem> items) {
+        this.items = items;
     }
+
 
     // --- Equals and hashCode ---
+
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Cart cart = (Cart) o;
-        return Objects.equals(id, cart.id) &&
-                Objects.equals(user, cart.user) &&
-                Objects.equals(products, cart.products);
+        return Objects.equals(getId(), cart.getId()) && Objects.equals(getUser(), cart.getUser()) && Objects.equals(getItems(), cart.getItems());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, user, products);
+        return Objects.hash(getId(), getUser(), getItems());
     }
-
 }

@@ -1,6 +1,7 @@
 package de.aittr.bio_marketplace.domain.dto;
 
 import de.aittr.bio_marketplace.domain.entity.Product;
+import de.aittr.bio_marketplace.domain.entity.ProductUnitOfMeasure;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -31,6 +32,9 @@ public class ProductDto {
 
     @Schema(description = "Product image URL", example = "https://example.com/images/banana.jpg")
     private String image;
+
+    @Schema(description = "Unit of measure for the product", example = "kg")
+    private ProductUnitOfMeasure unitOfMeasure;
 
     @Schema(description = "Product price", example = "190.00")
     @NotNull(message = "Price cannot be null")
@@ -92,12 +96,36 @@ public class ProductDto {
         this.image = image;
     }
 
+    public ProductUnitOfMeasure getUnitOfMeasure() {
+        return unitOfMeasure;
+    }
+
+    public void setUnitOfMeasure(ProductUnitOfMeasure unitOfMeasure) {
+        this.unitOfMeasure = unitOfMeasure;
+    }
+
     public BigDecimal getPrice() {
         return price;
     }
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Boolean getDiscounted() {
+        return discounted;
+    }
+
+    public void setDiscounted(Boolean discounted) {
+        this.discounted = discounted;
+    }
+
+    public Boolean getInStock() {
+        return inStock;
+    }
+
+    public void setInStock(Boolean inStock) {
+        this.inStock = inStock;
     }
 
     public Long getCategoryId() {
@@ -147,11 +175,11 @@ public class ProductDto {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         ProductDto that = (ProductDto) o;
-        return Objects.equals(id, that.id) && Objects.equals(title, that.title) && Objects.equals(description, that.description) && Objects.equals(image, that.image) && Objects.equals(price, that.price) && Objects.equals(discounted, that.discounted) && Objects.equals(inStock, that.inStock) && Objects.equals(categoryId, that.categoryId) && Objects.equals(sellerId, that.sellerId) && Objects.equals(rating, that.rating);
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getTitle(), that.getTitle()) && Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getImage(), that.getImage()) && getUnitOfMeasure() == that.getUnitOfMeasure() && Objects.equals(getPrice(), that.getPrice()) && Objects.equals(getDiscounted(), that.getDiscounted()) && Objects.equals(getInStock(), that.getInStock()) && Objects.equals(getCategoryId(), that.getCategoryId()) && Objects.equals(getSellerId(), that.getSellerId()) && Objects.equals(getRating(), that.getRating());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, image, price, discounted, inStock, categoryId, sellerId, rating);
+        return Objects.hash(getId(), getTitle(), getDescription(), getImage(), getUnitOfMeasure(), getPrice(), getDiscounted(), getInStock(), getCategoryId(), getSellerId(), getRating());
     }
 }

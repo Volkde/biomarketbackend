@@ -1,9 +1,11 @@
 package de.aittr.bio_marketplace.service.interfaces;
 
+import de.aittr.bio_marketplace.domain.dto.CartItemDto;
 import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.dto.SellerDto;
 import de.aittr.bio_marketplace.domain.dto.UserDto;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
+import de.aittr.bio_marketplace.domain.entity.CartItem;
 import de.aittr.bio_marketplace.domain.entity.User;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserDto;
 
@@ -40,11 +42,12 @@ public interface UserService {
 
     BigDecimal getUsersCartTotalCost(Long userId);
 
-    List<ProductDto> getAllProductsByUserId(Long userId);
+//    List<CartItemDto> getAllProductsByUserId(Long userId);
+    // TODO: fix it later
 
     List<SellerDto> getAllSellers(Long userId);
 
-    void addProductToUserCart(Long userId, Long productId);
+    void addProductToUserCart(Long userId, Long productId, BigDecimal quantity);
 
     void removeProductFromUserCart(Long userId, Long productId);
 
