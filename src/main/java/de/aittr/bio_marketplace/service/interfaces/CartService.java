@@ -9,15 +9,20 @@ import java.util.List;
 
 public interface CartService {
 
-    Cart getById(Long cartId);
-
+    // --- Create ---
     Cart save(Cart cart);
-
     void addProduct(Long cartId, Long productId, BigDecimal quantity);
 
-    void removeProduct(Long cartId, Long productId);
+    // --- Read ---
+    Cart getById(Long cartId);
+    List<CartItem> getAllItems(Long cartId);
 
+    // --- Update ---
+    void updateProductQuantity(Long cartId, Long productId, BigDecimal quantity);
+
+    // --- Delete ---
+    void removeProduct(Long cartId, Long productId);
     void clearCart(Long cartId);
 
-    List<CartItem> getAllItems(Long cartId);
+
 }

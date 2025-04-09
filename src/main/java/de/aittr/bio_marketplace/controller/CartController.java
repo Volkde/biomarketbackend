@@ -1,6 +1,7 @@
 package de.aittr.bio_marketplace.controller;
 
 import de.aittr.bio_marketplace.controller.requests.AddProductRequest;
+import de.aittr.bio_marketplace.controller.requests.UpdateCartRequest;
 import de.aittr.bio_marketplace.controller.responses.CartResponse;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
 import de.aittr.bio_marketplace.domain.entity.Cart;
@@ -108,6 +109,50 @@ public class CartController {
 
         CartResponse.CartData cartData = new CartResponse.CartData(
                 cart.getId(),
+                userId,
+                items,
+                totalCartPrice
+        );
+
+        return new CartResponse(cartData);
+    }
+
+    // --- Update ---
+
+    @Operation(
+            summary = "Update product quantity in cart",
+            description = "Updates the quantity of a specific product in the current user's cart and returns the updated cart"
+    )
+    @PutMapping("/update")
+    public CartResponse updateProductQuantity(
+            @Valid @RequestBody UpdateCartRequest request) {
+        RegisterUserResponseDto currentUser = userService.getCurrentUser();
+        Long userId = currentUser.id();
+        Cart cart = userService.getActiveUserEntityById(userId).getCart();
+        Long cartId = cart.getId();
+
+        Product product = productService.getActiveProductEntityById(request.getProductId());
+        if (product.getStatus() != ProductStatus.ACTIVE) {
+            throw new IllegalArgumentException("Product with ID " + request.getProductId() + " is not active");
+        }
+
+        cartService.updateProductQuantity(cartId, request.getProductId(), request.getQuantity());
+
+        List<CartResponse.CartItemResponse> items = cart.getItems().stream()
+                .map(item -> new CartResponse.CartItemResponse(
+                        item.getProduct().getId(),
+                        item.getProduct().getTitle(),
+                        item.getProduct().getImage(),
+                        item.getQuantity(),
+                        item.getProduct().getUnitOfMeasure().getValue(),
+                        item.getProduct().getPrice().multiply(item.getQuantity())
+                ))
+                .collect(Collectors.toList());
+
+        BigDecimal totalCartPrice = cart.getActiveProductsTotalCost();
+
+        CartResponse.CartData cartData = new CartResponse.CartData(
+                cartId,
                 userId,
                 items,
                 totalCartPrice
