@@ -85,6 +85,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/cart/add").hasAnyRole(USER_ROLE, ADMIN_ROLE)
                         .requestMatchers(HttpMethod.GET, "/cart").hasAnyRole(USER_ROLE, ADMIN_ROLE)
                         .requestMatchers(HttpMethod.PUT, "/cart/update").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.DELETE, "/cart/remove/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
                         .requestMatchers(HttpMethod.DELETE, "/cart/clear").hasAnyRole(USER_ROLE, ADMIN_ROLE)
 
                         // User controller

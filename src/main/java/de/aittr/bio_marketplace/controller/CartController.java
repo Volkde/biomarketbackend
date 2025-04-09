@@ -164,6 +164,43 @@ public class CartController {
     // --- Delete ---
 
     @Operation(
+            summary = "Remove product from cart",
+            description = "Removes a specific product from the current user's cart and returns the updated cart"
+    )
+    @DeleteMapping("/remove/{productId}")
+    public CartResponse removeProductFromCart(
+            @PathVariable Long productId) {
+        RegisterUserResponseDto currentUser = userService.getCurrentUser();
+        Long userId = currentUser.id();
+        Cart cart = userService.getActiveUserEntityById(userId).getCart();
+        Long cartId = cart.getId();
+
+        cartService.removeProduct(cartId, productId);
+
+        List<CartResponse.CartItemResponse> items = cart.getItems().stream()
+                .map(item -> new CartResponse.CartItemResponse(
+                        item.getProduct().getId(),
+                        item.getProduct().getTitle(),
+                        item.getProduct().getImage(),
+                        item.getQuantity(),
+                        item.getProduct().getUnitOfMeasure().getValue(),
+                        item.getProduct().getPrice().multiply(item.getQuantity())
+                ))
+                .collect(Collectors.toList());
+
+        BigDecimal totalCartPrice = cart.getActiveProductsTotalCost();
+
+        CartResponse.CartData cartData = new CartResponse.CartData(
+                cartId,
+                userId,
+                items,
+                totalCartPrice
+        );
+
+        return new CartResponse(cartData);
+    }
+
+    @Operation(
             summary = "Clear cart",
             description = "Clears all items from the current user's cart"
     )
