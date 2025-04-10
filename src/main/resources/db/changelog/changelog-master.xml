@@ -20,7 +20,7 @@
     <include file="013-add-foreign-keys-to-seller-user.xml" relativeToChangelogFile="true"/>
     <include file="014-create-address-table.xml" relativeToChangelogFile="true"/>
     <include file="015-add-columns-discounted-and-in-stock-to-product.xml" relativeToChangelogFile="true"/>
-    <include file="016-create-order-tables.xml" relativeToChangelogFile="true"/>
+    <include file="016-create-orders-order-item-delivery-tables.xml" relativeToChangelogFile="true"/>
     <include file="017-add-unit-of-measure-to-product.xml" relativeToChangelogFile="true"/>
     <include file="018-create-reviews-table.xml" relativeToChangelogFile="true"/>
     <include file="019-insert-role-guest.xml" relativeToChangelogFile="true"/>

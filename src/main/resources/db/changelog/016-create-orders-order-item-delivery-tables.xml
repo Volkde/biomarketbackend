@@ -5,30 +5,54 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
 
-    <!-- Создание таблицы заказов -->
-    <changeSet id="014-create-order-table" author="YourName">
+    <changeSet id="016-create-order-tables" author="YourName">
         <createTable tableName="orders">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="status" type="BOOLEAN" defaultValueBoolean="false">
+            <column name="status" type="VARCHAR(50)" defaultValue="CREATED">
                 <constraints nullable="false"/>
             </column>
-            <column name="total_price" type="DECIMAL(10,2)"/>
-            <column name="date_created" type="DATETIME"/>
-            <column name="user_id" type="BIGINT">
+            <column name="seller_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="seller_address_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="buyer_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="buyer_address_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_created" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total_price" type="DECIMAL(10,2)">
                 <constraints nullable="false"/>
             </column>
         </createTable>
         <addForeignKeyConstraint baseTableName="orders"
-                                 baseColumnNames="user_id"
+                                 baseColumnNames="seller_id"
                                  referencedTableName="user"
                                  referencedColumnNames="id"
-                                 constraintName="fk_order_user"/>
-    </changeSet>
+                                 constraintName="fk_order_seller"/>
+        <addForeignKeyConstraint baseTableName="orders"
+                                 baseColumnNames="seller_address_id"
+                                 referencedTableName="address"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_order_seller_address"/>
+        <addForeignKeyConstraint baseTableName="orders"
+                                 baseColumnNames="buyer_id"
+                                 referencedTableName="user"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_order_buyer"/>
+        <addForeignKeyConstraint baseTableName="orders"
+                                 baseColumnNames="buyer_address_id"
+                                 referencedTableName="address"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_order_buyer_address"/>
 
-    <!-- Создание таблицы позиций заказа -->
-    <changeSet id="015-create-order-item-table" author="YourName">
         <createTable tableName="order_item">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -36,10 +60,13 @@
             <column name="product_id" type="BIGINT">
                 <constraints nullable="false"/>
             </column>
-            <column name="quantity" type="INT">
+            <column name="product_name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="price" type="DECIMAL(10,2)">
+            <column name="quantity" type="DECIMAL(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="unit_price" type="DECIMAL(10,2)">
                 <constraints nullable="false"/>
             </column>
             <column name="order_id" type="BIGINT">
@@ -56,10 +83,7 @@
                                  referencedTableName="product"
                                  referencedColumnNames="id"
                                  constraintName="fk_orderitem_product"/>
-    </changeSet>
 
-    <!-- Создание таблицы доставки -->
-    <changeSet id="016-create-delivery-table" author="YourName">
         <createTable tableName="delivery">
             <column name="id" type="BIGINT" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -80,6 +104,7 @@
                                  referencedTableName="orders"
                                  referencedColumnNames="id"
                                  constraintName="fk_delivery_order"/>
+
     </changeSet>
 
 </databaseChangeLog>
