@@ -22,15 +22,27 @@ public class AddressController {
     }
 
     @Operation(
-            summary = "Save address",
-            description = "Saving address with given parameters"
+            summary = "Save user address",
+            description = "Saving user address with given parameters"
     )
-    @PostMapping
-    public AddressResponse save(
+    @PostMapping("/save-user-address/{user_id}")
+    public AddressResponse saveUserAddress(
             @RequestBody
-            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Instance of a Address")
-            AddressDto address) {
-        return new AddressResponse(service.save(address));
+            AddressDto address,
+            @PathVariable Long user_id) {
+        return new AddressResponse(service.saveUserAddress(address, user_id));
+    }
+
+    @Operation(
+            summary = "Save seller address",
+            description = "Saving seller address with given parameters"
+    )
+    @PostMapping("/save-seller-address/{seller_id}")
+    public AddressResponse saveSellerAddress(
+            @RequestBody
+            AddressDto address,
+            @PathVariable Long seller_id) {
+        return new AddressResponse(service.saveSellerAddress(address, seller_id));
     }
 
     @GetMapping

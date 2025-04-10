@@ -2,9 +2,14 @@ package de.aittr.bio_marketplace.service;
 
 import de.aittr.bio_marketplace.domain.dto.AddressDto;
 import de.aittr.bio_marketplace.domain.entity.Address;
+import de.aittr.bio_marketplace.domain.entity.Seller;
+import de.aittr.bio_marketplace.domain.entity.User;
 import de.aittr.bio_marketplace.exception_handling.exceptions.*;
+import de.aittr.bio_marketplace.exception_handling.utils.StringValidator;
 import de.aittr.bio_marketplace.repository.AddressRepository;
 import de.aittr.bio_marketplace.service.interfaces.AddressService;
+import de.aittr.bio_marketplace.service.interfaces.SellerService;
+import de.aittr.bio_marketplace.service.interfaces.UserService;
 import de.aittr.bio_marketplace.service.mapping.AddressMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -14,23 +19,40 @@ import java.util.List;
 @Service
 public class AddressServiceImpl implements AddressService {
 
+    private final SellerService sellerService;
+    private final UserService userService;
     private final AddressRepository repository;
     private final AddressMapper mapper;
 
-    public AddressServiceImpl(AddressRepository repository, AddressMapper addressMapper) {
+    public AddressServiceImpl(SellerService sellerService, UserService userService, AddressRepository repository, AddressMapper addressMapper) {
+        this.sellerService = sellerService;
+        this.userService = userService;
         this.repository = repository;
         this.mapper = addressMapper;
     }
 
     @Override
-    public AddressDto save(AddressDto address) {
-        try {
-            Address entity = mapper.mapDtoToEntity(address);
-            entity = repository.save(entity);
-            return mapper.mapEntityToDto(entity);
-        }  catch (Exception e) {
-            throw new AddressValidationException(e);
-        }
+    public AddressDto saveUserAddress(AddressDto address, Long user_id) {
+        Address entity = mapper.mapDtoToEntity(address);
+        entity.setId(null);
+        StringValidator.isValidCountry(entity.getCountry());
+        StringValidator.isValidZipCode(entity.getZipCode());
+        User user = userService.getActiveUserEntityById(user_id);
+        entity.setUser(user);
+        entity = repository.save(entity);
+        return mapper.mapEntityToDto(entity);
+    }
+
+    @Override
+    public AddressDto saveSellerAddress(AddressDto address, Long seller_id) {
+        Address entity = mapper.mapDtoToEntity(address);
+        entity.setId(null);
+        StringValidator.isValidCountry(entity.getCountry());
+        StringValidator.isValidZipCode(entity.getZipCode());
+        Seller seller = sellerService.getActiveSellersEntityById(seller_id);
+        entity.setSeller(seller);
+        entity = repository.save(entity);
+        return mapper.mapEntityToDto(entity);
     }
 
     @Override
