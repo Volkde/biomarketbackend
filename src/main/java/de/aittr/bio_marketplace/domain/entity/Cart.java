@@ -17,6 +17,8 @@ import java.util.Objects;
 @Schema(description = "Class that describes a shopping cart entity")
 public class Cart {
 
+    // --- FIELDS ---
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")

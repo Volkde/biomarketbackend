@@ -125,7 +125,7 @@ public class Product {
         this.rating = rating;
     }
 
-// --- METHODS ---
+    // --- METHODS ---
 
     // --- Getters and setters ---
 

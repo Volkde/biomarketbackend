@@ -6,99 +6,121 @@ import jakarta.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.util.Objects;
 
-
 @Entity
 @Table(name = "order_item")
 public class OrderItem {
+
+    // --- FIELDS ---
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    //связь с продуктом продукт должен быть не null
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "product_id", nullable = false)
-    @NotNull(message = "Product must not be null")
-    private Product product;
+    @Column(name = "product_id", nullable = false)
+    private Long productId;
 
-    //Кол-во единиц товара в позиции
+    @Column(name = "product_name", nullable = false)
+    private String productName;
+
     @Column(name = "quantity", nullable = false)
-    private int quantity;
+    private BigDecimal quantity;
 
-    //цена позиции product.price * quantity
-    @Column(name = "price", nullable = false)
-    private BigDecimal price;
+    @Column(name = "unit_price", nullable = false)
+    private BigDecimal unitPrice;
 
-    //связь с заказом позиция принадлежит одному заказу
     @ManyToOne(optional = false)
     @JoinColumn(name = "order_id", nullable = false)
+    @NotNull(message = "Order must not be null")
     private Order order;
+
+    // --- CONSTRUCTORS ---
 
     public OrderItem() {
     }
 
-    public OrderItem(Product product, int quantity, BigDecimal price, Order order) {
-        this.product = product;
+    public OrderItem(Long id, Long productId, String productName, BigDecimal quantity, BigDecimal unitPrice, Order order) {
+        this.id = id;
+        this.productId = productId;
+        this.productName = productName;
         this.quantity = quantity;
-        this.price = price;
+        this.unitPrice = unitPrice;
         this.order = order;
     }
+
+    // --- METHODS ---
+
+    // --- Getters and setters ---
 
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-    public void setProduct(Product product) {
-        this.product = product;
+    public Long getProductId() {
+        return productId;
     }
 
-    public int getQuantity() {
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public BigDecimal getQuantity() {
         return quantity;
     }
-    public void setQuantity(int quantity) {
+
+    public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
     }
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+
+    public void setUnitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
     }
 
     public Order getOrder() {
         return order;
     }
+
     public void setOrder(Order order) {
         this.order = order;
     }
 
+    // Calculates the total price for this order item (unitPrice * quantity).
+    public BigDecimal getTotalItemPrice() {
+        return unitPrice.multiply(quantity);
+    }
+
+    // --- Equals and HashCode ---
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof OrderItem)) return false;
-        OrderItem that = (OrderItem) o;
-        return quantity == that.quantity &&
-                Objects.equals(id, that.id) &&
-                Objects.equals(product, that.product) &&
-                Objects.equals(price, that.price);
+        if (o == null || getClass() != o.getClass()) return false;
+        OrderItem orderItem = (OrderItem) o;
+        return Objects.equals(id, orderItem.id) &&
+                Objects.equals(productId, orderItem.productId) &&
+                Objects.equals(productName, orderItem.productName) &&
+                Objects.equals(quantity, orderItem.quantity) &&
+                Objects.equals(unitPrice, orderItem.unitPrice);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, product, quantity, price);
-    }
-
-    @Override
-    public String toString() {
-        return String.format("OrderItem: ID=%d, Product=%s, Quantity=%d, Price=%s",
-                id, product, quantity, price);
+        return Objects.hash(id, productId, productName, quantity, unitPrice);
     }
 }

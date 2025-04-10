@@ -5,15 +5,22 @@ import de.aittr.bio_marketplace.domain.entity.Order;
 import java.math.BigDecimal;
 
 public class OrderItemDto {
+
+    // --- FIELDS ---
     private Long id;
     private Long productId;
-    private int quantity;
-    private BigDecimal price;
-    private Order order;
+    private String productName;
+    private BigDecimal quantity;
+    private BigDecimal unitPrice;
+
+    // --- METHODS ---
+
+    // --- Getters and setters ---
 
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -21,28 +28,32 @@ public class OrderItemDto {
     public Long getProductId() {
         return productId;
     }
+
     public void setProductId(Long productId) {
         this.productId = productId;
     }
 
-    public int getQuantity() {
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public BigDecimal getQuantity() {
         return quantity;
     }
-    public void setQuantity(int quantity) {
+
+    public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public BigDecimal getUnitPrice() {
+        return unitPrice;
     }
 
-    public Order getOrder() {
-        return order;
-    }
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setUnitPrice(BigDecimal unitPrice) {
+        this.unitPrice = unitPrice;
     }
 }

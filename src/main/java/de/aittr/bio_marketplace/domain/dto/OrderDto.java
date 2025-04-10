@@ -1,64 +1,96 @@
 package de.aittr.bio_marketplace.domain.dto;
 
+import de.aittr.bio_marketplace.domain.entity.OrderStatus;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class OrderDto {
-    private Long id;
-    private boolean status;
-    private BigDecimal totalPrice;
-    private LocalDateTime dateCreated;
-    private Long userId;
-    private List<OrderItemDto> items;
-    private DeliveryDto delivery;
 
+    // --- FIELDS ---
+    private Long id;
+    private OrderStatus status;
+    private List<OrderItemDto> items;
+    private Long sellerId;
+    private AddressDto sellerAddress;
+    private Long buyerId;
+    private AddressDto buyerAddress;
+    private LocalDateTime dateCreated;
+    private BigDecimal totalPrice;
+
+    // --- METHODS ---
+
+    // --- Getters and setters ---
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
 
-    public boolean isStatus() {
+    public OrderStatus getStatus() {
         return status;
     }
-    public void setStatus(boolean status) {
+
+    public void setStatus(OrderStatus status) {
         this.status = status;
-    }
-
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
-    public LocalDateTime getDateCreated() {
-        return dateCreated;
-    }
-    public void setDateCreated(LocalDateTime dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public List<OrderItemDto> getItems() {
         return items;
     }
+
     public void setItems(List<OrderItemDto> items) {
         this.items = items;
     }
 
-    public DeliveryDto getDelivery() {
-        return delivery;
+    public Long getSellerId() {
+        return sellerId;
     }
-    public void setDelivery(DeliveryDto delivery) {
-        this.delivery = delivery;
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
+
+    public AddressDto getSellerAddress() {
+        return sellerAddress;
+    }
+
+    public void setSellerAddress(AddressDto sellerAddress) {
+        this.sellerAddress = sellerAddress;
+    }
+
+    public Long getBuyerId() {
+        return buyerId;
+    }
+
+    public void setBuyerId(Long buyerId) {
+        this.buyerId = buyerId;
+    }
+
+    public AddressDto getBuyerAddress() {
+        return buyerAddress;
+    }
+
+    public void setBuyerAddress(AddressDto buyerAddress) {
+        this.buyerAddress = buyerAddress;
+    }
+
+    public LocalDateTime getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(LocalDateTime dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
     }
 }

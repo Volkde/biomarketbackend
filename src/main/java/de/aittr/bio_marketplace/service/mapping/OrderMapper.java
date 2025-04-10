@@ -8,10 +8,8 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring", uses = {OrderItemMapper.class, DeliveryMapper.class})
 public interface OrderMapper {
 
-    @Mapping(source = "user.id", target = "userId")
     OrderDto toDto(Order order);
 
-    //обратное преобразование маппинг userId из DTO в поле id объекта User
-    @Mapping(source = "userId", target = "user.id")
+    @Mapping(target = "items.order", ignore = true)
     Order toEntity(OrderDto orderDto);
 }
