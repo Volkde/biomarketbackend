@@ -73,6 +73,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register", "/auth/logout").permitAll()
                         .requestMatchers(HttpMethod.GET, "/auth/refresh").permitAll()
 
+                        // Confirm controller
+                        .requestMatchers(HttpMethod.GET, "/confirm/**").permitAll()
+
                         // Product controller
                         .requestMatchers(HttpMethod.POST, "/products").hasAnyRole(USER_ROLE, ADMIN_ROLE)
                         .requestMatchers(HttpMethod.GET, "/products").permitAll()
@@ -103,6 +106,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/sellers/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/sellers/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/sellers/**").permitAll()
+
 
                         .requestMatchers("/v3/api-docs",
                                 "/v3/api-docs/**",

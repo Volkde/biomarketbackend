@@ -22,6 +22,8 @@
     <include file="015-add-columns-discounted-and-in-stock-to-product.xml" relativeToChangelogFile="true"/>
     <include file="016-create-order-tables.xml" relativeToChangelogFile="true"/>
     <include file="017-add-unit-of-measure-to-product.xml" relativeToChangelogFile="true"/>
+    <include file="019-insert-role-guest.xml" relativeToChangelogFile="true"/>
+    <include file="020-create-table-confirm-code.xml" relativeToChangelogFile="true"/>
     <include file="902-insert-categories.xml" relativeToChangelogFile="true"/>
     <include file="903-insert-users.xml" relativeToChangelogFile="true"/>
     <include file="904-insert-products.xml" relativeToChangelogFile="true"/>
