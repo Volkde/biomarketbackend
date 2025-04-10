@@ -21,7 +21,6 @@ public class EmailServiceImpl implements EmailService {
     private final JavaMailSender mailSender;
     private final Configuration freemarkerConfig;
 
-
     @Value("${app.confirm-url-prefix}")
     private String confirmUrlPrefix;
 
@@ -34,14 +33,13 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public void sendConfirmationEmail(User user, String code) {
         try {
-
             String html = generateEmailHtml(user, code);
-
 
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, "UTF-8");
 
-            helper.setFrom("noreply@bio-marketplace.de");
+
+            helper.setFrom("admin@bio-marketplacet.de");
             helper.setTo(user.getEmail());
             helper.setSubject("BioMarketplace Confirm Registration");
             helper.setText(html, true);
@@ -58,14 +56,14 @@ public class EmailServiceImpl implements EmailService {
         try {
 
             Template template = freemarkerConfig.getTemplate("confirm_email.ftlh");
-            Map<String, Object> model = new HashMap<>();
 
+
+            Map<String, Object> model = new HashMap<>();
             model.put("username", user.getUsername());
 
 
             String confirmLink = confirmUrlPrefix + code;
             model.put("confirmLink", confirmLink);
-
 
             return FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
 
