@@ -14,9 +14,26 @@ spring:
       hibernate:
         auto_quote_keyword: true
 
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username:
+    password:
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+app:
+
+  confirm-url-prefix: "https://farmvibe-app-2u9sj.ondigitalocean.app/api/confirm/"
+
 server:
   messages:
-    hello: Hello from Bio-Marketplace Digital Ocean application!
+    hello: Hello from Bio-Marketplace application!
   servlet:
     context-path: /api
 

@@ -6,6 +6,7 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,10 @@ import java.util.Map;
 public class EmailServiceImpl implements EmailService {
 
     private final JavaMailSender mailSender;
-    private final Configuration freemarkerConfig; // Freemarker
+    private final Configuration freemarkerConfig;
+
+    @Value("${app.confirm-url-prefix}")
+    private String confirmUrlPrefix;
 
     public EmailServiceImpl(JavaMailSender mailSender,
                             Configuration freemarkerConfig) {
@@ -34,10 +38,12 @@ public class EmailServiceImpl implements EmailService {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, "UTF-8");
 
-            helper.setFrom("noreply@bio-marketplace.de");
+
+            helper.setFrom("admin@bio-marketplacet.de");
             helper.setTo(user.getEmail());
             helper.setSubject("BioMarketplace Confirm Registration");
             helper.setText(html, true);
+
 
             mailSender.send(message);
 
@@ -48,13 +54,15 @@ public class EmailServiceImpl implements EmailService {
 
     private String generateEmailHtml(User user, String code) {
         try {
-            Template template = freemarkerConfig.getTemplate("confirm_email.ftlh");
-            Map<String, Object> model = new HashMap<>();
 
+            Template template = freemarkerConfig.getTemplate("confirm_email.ftlh");
+
+
+            Map<String, Object> model = new HashMap<>();
             model.put("username", user.getUsername());
 
 
-            String confirmLink = "http://localhost:8080/api/confirm/" + code;
+            String confirmLink = confirmUrlPrefix + code;
             model.put("confirmLink", confirmLink);
 
             return FreeMarkerTemplateUtils.processTemplateIntoString(template, model);

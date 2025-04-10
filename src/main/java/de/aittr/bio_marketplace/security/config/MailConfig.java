@@ -14,6 +14,7 @@ public class MailConfig {
 
         cfg.setClassForTemplateLoading(this.getClass(), "/mail/");
         cfg.setDefaultEncoding("UTF-8");
+
         cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
 
         return cfg;
