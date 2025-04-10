@@ -69,27 +69,36 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        // Auth Controller
+                        // Auth controller
                         .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register", "/auth/logout").permitAll()
                         .requestMatchers(HttpMethod.GET, "/auth/refresh").permitAll()
 
-                        // Product Controller
-                        .requestMatchers(HttpMethod.POST, "/products").hasRole(USER_ROLE)
+                        // Confirm controller
+                        .requestMatchers(HttpMethod.GET, "/confirm/**").permitAll()
+
+                        // Product controller
+                        .requestMatchers(HttpMethod.POST, "/products").hasAnyRole(USER_ROLE, ADMIN_ROLE)
                         .requestMatchers(HttpMethod.GET, "/products").permitAll()
                         .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/products/**").hasRole(USER_ROLE)
-                        .requestMatchers(HttpMethod.PUT, "/products/deactivate/**").hasRole(USER_ROLE)
-                        .requestMatchers(HttpMethod.PUT, "/products/activate/**").hasRole(USER_ROLE)
+                        .requestMatchers(HttpMethod.PUT, "/products/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.PUT, "/products/deactivate/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
                         .requestMatchers(HttpMethod.DELETE, "/products/**").hasRole(ADMIN_ROLE)
 
-                        // User Controller
+                        // Cart controller
+                        .requestMatchers(HttpMethod.POST, "/cart/add").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/cart").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.PUT, "/cart/update").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.DELETE, "/cart/remove/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.DELETE, "/cart/clear").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+
+                        // User controller
                         .requestMatchers(HttpMethod.GET, "/users").permitAll()
                         .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/users").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
                                        
-                        //разрешаю POST на /orders
+                        // Order controller
                         .requestMatchers(HttpMethod.POST, "/orders").permitAll()
 
                         // Seller Controller
@@ -106,6 +115,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/reviews").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/reviews/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/reviews/**").permitAll()
+
 
 
                         .requestMatchers("/v3/api-docs",

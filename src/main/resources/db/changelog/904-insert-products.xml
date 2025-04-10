@@ -25,7 +25,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="2"/>
             <column name="title" value="Quark Cheese"/>
-            <column name="price" valueNumeric="2.50"/>
+            <column name="price" valueNumeric="12.50"/>
             <column name="category_id" valueNumeric="1"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -37,19 +37,19 @@
         <insert tableName="product">
             <column name="id" valueNumeric="3"/>
             <column name="title" value="Black Forest Butter"/>
-            <column name="price" valueNumeric="3.00"/>
+            <column name="price" valueNumeric="15.00"/>
             <column name="category_id" valueNumeric="1"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.90"/>
             <column name="description" value="Rich butter from the Black Forest"/>
-            <column name="image" value="https://images.pexels.com/photos/236798/pexels-photo-236798.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/9fQWkPMP/Butter.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="4"/>
             <column name="title" value="Gouda Cheese"/>
-            <column name="price" valueNumeric="4.20"/>
+            <column name="price" valueNumeric="18.00"/>
             <column name="category_id" valueNumeric="1"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -73,7 +73,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="6"/>
             <column name="title" value="Tilsiter Cheese"/>
-            <column name="price" valueNumeric="3.80"/>
+            <column name="price" valueNumeric="16.00"/>
             <column name="category_id" valueNumeric="1"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -133,7 +133,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="11"/>
             <column name="title" value="Black Forest Ham"/>
-            <column name="price" valueNumeric="8.90"/>
+            <column name="price" valueNumeric="25.00"/>
             <column name="category_id" valueNumeric="2"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -181,7 +181,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="15"/>
             <column name="title" value="Speck"/>
-            <column name="price" valueNumeric="7.50"/>
+            <column name="price" valueNumeric="20.00"/>
             <column name="category_id" valueNumeric="2"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -193,7 +193,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="16"/>
             <column name="title" value="Rinderbraten"/>
-            <column name="price" valueNumeric="14.00"/>
+            <column name="price" valueNumeric="28.00"/>
             <column name="category_id" valueNumeric="2"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -205,7 +205,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="17"/>
             <column name="title" value="Kartoffeln"/>
-            <column name="price" valueNumeric="0.80"/>
+            <column name="price" valueNumeric="1.50"/>
             <column name="category_id" valueNumeric="3"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -229,7 +229,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="19"/>
             <column name="title" value="Spargel"/>
-            <column name="price" valueNumeric="3.20"/>
+            <column name="price" valueNumeric="7.00"/>
             <column name="category_id" valueNumeric="3"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -260,19 +260,19 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.30"/>
             <column name="description" value="Organic carrots"/>
-            <column name="image" value="https://images.pexels.com/photos/143133/pexels-photo-143133.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/rpTDN3D0/Carrots.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="22"/>
             <column name="title" value="Zwiebeln"/>
-            <column name="price" valueNumeric="0.90"/>
+            <column name="price" valueNumeric="1.20"/>
             <column name="category_id" valueNumeric="3"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.20"/>
             <column name="description" value="Fresh onions"/>
-            <column name="image" value="https://images.pexels.com/photos/175415/pexels-photo-175415.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/SK2PjjtF/Garlic.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="23"/>
@@ -284,7 +284,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.40"/>
             <column name="description" value="Red beets"/>
-            <column name="image" value="https://images.pexels.com/photos/533340/pexels-photo-533340.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/NMFW6p0V/Beets.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="24"/>
@@ -296,43 +296,43 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.70"/>
             <column name="description" value="Kale from northern Germany"/>
-            <column name="image" value="https://images.pexels.com/photos/1359326/pexels-photo-1359326.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/VvY49N4N/Kale.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="25"/>
             <column name="title" value="Äpfel"/>
-            <column name="price" valueNumeric="1.20"/>
+            <column name="price" valueNumeric="2.50"/>
             <column name="category_id" valueNumeric="4"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.20"/>
-            <column name="description" value="German apples"/>
-            <column name="image" value="https://images.pexels.com/photos/102104/pexels-photo-102104.jpeg"/>
+            <column name="description" value="Freshly picked organic apples with a crisp texture and sweet-tart flavor. Perfect for snacking or baking."/>
+            <column name="image" value="https://i.postimg.cc/zf8NgCKZ/Apples.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="26"/>
             <column name="title" value="Birnen"/>
-            <column name="price" valueNumeric="1.50"/>
+            <column name="price" valueNumeric="2.80"/>
             <column name="category_id" valueNumeric="4"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.40"/>
-            <column name="description" value="Fresh pears"/>
-            <column name="image" value="https://images.pexels.com/photos/209339/pexels-photo-209339.jpeg"/>
+            <column name="description" value="Sweet and juicy organic pears, perfect for snacking or salads."/>
+            <column name="image" value="https://i.postimg.cc/2SBdZvmw/Pears.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="27"/>
             <column name="title" value="Kirschen"/>
-            <column name="price" valueNumeric="3.00"/>
+            <column name="price" valueNumeric="6.00"/>
             <column name="category_id" valueNumeric="4"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.00"/>
             <column name="description" value="Sweet cherries"/>
-            <column name="image" value="https://images.pexels.com/photos/109274/pexels-photo-109274.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/6QPN1DFw/Cherries.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="28"/>
@@ -349,19 +349,19 @@
         <insert tableName="product">
             <column name="id" valueNumeric="29"/>
             <column name="title" value="Erdbeeren"/>
-            <column name="price" valueNumeric="3.50"/>
+            <column name="price" valueNumeric="6.50"/>
             <column name="category_id" valueNumeric="4"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.40"/>
             <column name="description" value="Organic strawberries"/>
-            <column name="image" value="https://images.pexels.com/photos/89778/pexels-photo-89778.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/QtMHpG13/Strawberries.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="30"/>
             <column name="title" value="Himbeeren"/>
-            <column name="price" valueNumeric="4.00"/>
+            <column name="price" valueNumeric="9.00"/>
             <column name="category_id" valueNumeric="4"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -373,7 +373,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="31"/>
             <column name="title" value="Johannisbeeren"/>
-            <column name="price" valueNumeric="3.20"/>
+            <column name="price" valueNumeric="6.00"/>
             <column name="category_id" valueNumeric="4"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -385,7 +385,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="32"/>
             <column name="title" value="Trauben"/>
-            <column name="price" valueNumeric="2.80"/>
+            <column name="price" valueNumeric="3.00"/>
             <column name="category_id" valueNumeric="4"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -415,13 +415,13 @@
             <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.70"/>
-            <column name="description" value="Rye bread"/>
-            <column name="image" value="https://images.pexels.com/photos/1586948/pexels-photo-1586948.jpeg"/>
+            <column name="description" value="Nutty and hearty organic rye bread, perfect for sandwiches."/>
+            <column name="image" value="https://i.postimg.cc/9QGR2BCv/Rye-Bread.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="35"/>
             <column name="title" value="Brezeln"/>
-            <column name="price" valueNumeric="1.50"/>
+            <column name="price" valueNumeric="0.80"/>
             <column name="category_id" valueNumeric="5"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
@@ -457,7 +457,7 @@
         <insert tableName="product">
             <column name="id" valueNumeric="38"/>
             <column name="title" value="Laugenstangen"/>
-            <column name="price" valueNumeric="2.00"/>
+            <column name="price" valueNumeric="1.00"/>
             <column name="category_id" valueNumeric="5"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>

@@ -3,6 +3,7 @@ package de.aittr.bio_marketplace.controller;
 
 import de.aittr.bio_marketplace.controller.responses.AuthResponse;
 import de.aittr.bio_marketplace.controller.responses.UserResponse;
+import de.aittr.bio_marketplace.domain.dto.CartItemDto;
 import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.dto.SellerDto;
 import de.aittr.bio_marketplace.domain.dto.UserDto;
@@ -114,8 +115,8 @@ public class UserController {
             description = "Saving product to user cart with given parameters"
     )
     @PutMapping("/{id}/product/{productId}")
-    public void addProduct(@PathVariable Long id, @PathVariable Long productId) {
-        service.addProductToUserCart(id, productId);
+    public void addProduct(@PathVariable Long userId, @PathVariable Long productId, BigDecimal quantity) {
+        service.addProductToUserCart(userId, productId, quantity);
     }
 
     @Operation(
@@ -132,8 +133,10 @@ public class UserController {
             description = "Getting all products from the cart from database by user id"
     )
     @GetMapping("/all-products-by-user-id/{id}")
-    public List<ProductDto> getAllProductsByUserId(@PathVariable Long id){
-        return service.getAllProductsByUserId(id);
+    public List<CartItemDto> getAllProductsByUserId(@PathVariable Long id){
+//        return service.getAllProductsByUserId(id);
+        return null;
+        // TODO: fix it later
     }
 
     @Operation(

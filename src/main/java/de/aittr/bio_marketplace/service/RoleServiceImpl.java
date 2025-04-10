@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class RoleServiceImpl implements RoleService {
+
     private final RoleRepository repository;
 
     public RoleServiceImpl(RoleRepository repository) {
@@ -16,23 +17,25 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role getRoleUser() {
-        return repository.findByTitle("ROLE_USER").orElseThrow(
-                () -> new RoleNotFoundException("ROLE_USER")
-        );
+        return repository.findByTitle("ROLE_USER")
+                .orElseThrow(() -> new RoleNotFoundException("ROLE_USER"));
     }
 
     @Override
     public Role getRoleAdmin() {
-        return repository.findByTitle("ROLE_ADMIN").orElseThrow(
-                () -> new RoleNotFoundException("ROLE_ADMIN")
-        );
+        return repository.findByTitle("ROLE_ADMIN")
+                .orElseThrow(() -> new RoleNotFoundException("ROLE_ADMIN"));
     }
 
     @Override
     public Role getRoleSeller() {
-        return repository.findByTitle("ROLE_SELLER").orElseThrow(
-                () -> new RoleNotFoundException("ROLE_SELLER")
-        );
+        return repository.findByTitle("ROLE_SELLER")
+                .orElseThrow(() -> new RoleNotFoundException("ROLE_SELLER"));
     }
 
+    @Override
+    public Role getRoleGuest() {
+        return repository.findByTitle("ROLE_GUEST")
+                .orElseThrow(() -> new RoleNotFoundException("ROLE_GUEST"));
+    }
 }

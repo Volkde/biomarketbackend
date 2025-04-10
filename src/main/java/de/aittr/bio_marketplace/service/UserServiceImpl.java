@@ -6,6 +6,7 @@ import de.aittr.bio_marketplace.domain.dto.UserDto;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserDto;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
 import de.aittr.bio_marketplace.domain.entity.Cart;
+import de.aittr.bio_marketplace.domain.entity.CartItem;
 import de.aittr.bio_marketplace.domain.entity.Product;
 import de.aittr.bio_marketplace.domain.entity.User;
 import de.aittr.bio_marketplace.exception_handling.utils.StringValidator;
@@ -15,9 +16,7 @@ import de.aittr.bio_marketplace.exception_handling.exceptions.UsernameValidateEx
 import de.aittr.bio_marketplace.exceptions.AuthenticationException;
 import de.aittr.bio_marketplace.exception_handling.exceptions.UserNotFoundException;
 import de.aittr.bio_marketplace.repository.UserRepository;
-import de.aittr.bio_marketplace.service.interfaces.ProductService;
-import de.aittr.bio_marketplace.service.interfaces.RoleService;
-import de.aittr.bio_marketplace.service.interfaces.UserService;
+import de.aittr.bio_marketplace.service.interfaces.*;
 import de.aittr.bio_marketplace.service.mapping.ProductMapper;
 import de.aittr.bio_marketplace.service.mapping.RegisterUserMapper;
 import de.aittr.bio_marketplace.service.mapping.SellerMapper;
@@ -49,13 +48,20 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder encoder;
     private final AuthenticationManager authenticationManager;
 
+    private final ConfirmationService confirmationService;
+    private final EmailService emailService;
+
     public UserServiceImpl(RegisterUserMapper registerUserMapper,
                            UserMapper userMapper, ProductMapper productMapper, SellerMapper sellerMapper,
                            ProductService productService,
                            UserRepository repository,
                            RoleService roleService,
                            PasswordEncoder encoder,
-                           AuthenticationManager authenticationManager) {
+                           AuthenticationManager authenticationManager,
+                           ConfirmationService confirmationService,
+                           EmailService emailService
+    )
+    {
         this.mappingRegisterService = registerUserMapper;
         this.mappingService = userMapper;
         this.mappingProductService = productMapper;
@@ -65,6 +71,8 @@ public class UserServiceImpl implements UserService {
         this.roleService = roleService;
         this.encoder = encoder;
         this.authenticationManager = authenticationManager;
+        this.confirmationService = confirmationService;
+        this.emailService = emailService;
     }
 
     @Override
@@ -87,11 +95,17 @@ public class UserServiceImpl implements UserService {
 
         entity.setId(null);
         entity.setPassword(encoder.encode(registerDto.password()));
-        entity.setIsActive(true);
-        entity.setRoles(Set.of(roleService.getRoleUser()));
+        entity.setIsActive(false);
+        entity.setRoles(Set.of(roleService.getRoleGuest()));
+
         Cart cart = new Cart(entity);
         entity.setCart(cart);
+
         entity = repository.save(entity);
+
+        String code = confirmationService.generateConfirmationCode(entity);
+        emailService.sendConfirmationEmail(entity, code);
+
         return mappingRegisterService.mapEntityToRegisterResponseDto(entity);
     }
 
@@ -231,14 +245,15 @@ public class UserServiceImpl implements UserService {
         return user.getCart().getActiveProductsTotalCost();
     }
 
-    @Override
-    public List<ProductDto> getAllProductsByUserId(Long userId) {
-        User user = getActiveUserEntityById(userId);
-        return user.getCart().getProducts()
-                .stream()
-                .map(mappingProductService::mapEntityToDto)
-                .toList();
-    }
+//    @Override
+//    public List<CartItem> getAllProductsByUserId(Long userId) {
+//        User user = getActiveUserEntityById(userId);
+//        return user.getCart().getItems()
+//                .stream()
+//                .map(mappingProductService::mapEntityToDto)
+//                .toList();
+//    }
+    // TODO: fix it later
 
     @Override
     public List<SellerDto> getAllSellers(Long userId) {
@@ -250,10 +265,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addProductToUserCart(Long userId, Long productId) {
+    @Transactional
+    public void addProductToUserCart(Long userId, Long productId, BigDecimal quantity) {
         User user = getActiveUserEntityById(userId);
         Product product = productService.getActiveProductEntityById(productId);
-        user.getCart().addProduct(product);
+        user.getCart().addProduct(product, quantity);
     }
 
     @Override
