@@ -18,16 +18,20 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
 
   mail:
+    username: farmvibe.market@gmail.com
+    password: mjjtfougppduikve
     host: smtp.gmail.com
     port: 587
-    username:
-    password:
     properties:
       mail:
+        debug: true
         smtp:
           auth: true
           starttls:
             enable: true
+          ssl:
+            protocols: TLSv1.2
+            trust: smtp.gmail.com
 
 app:
 
