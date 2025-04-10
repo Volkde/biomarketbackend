@@ -8,8 +8,9 @@ import de.aittr.bio_marketplace.service.interfaces.AddressService;
 import de.aittr.bio_marketplace.service.mapping.AddressMapper;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+
+
 @Service
 public class AddressServiceImpl implements AddressService {
 

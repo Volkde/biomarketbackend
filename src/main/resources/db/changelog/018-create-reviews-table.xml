@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <changeSet id="018-create-reviews-table" author="Kristina">
+        <createTable tableName="review">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="rating" type="DECIMAL(19,2)"> </column>
+            <column name="comment" type="TEXT"/>
+            <column name="review_date" type="TIMESTAMP"/>
+            <column name="product_id" type="BIGINT">
+                <constraints foreignKeyName="fk_review_product" references="product(id)"/>
+            </column>
+            <column name="seller_id" type="BIGINT">
+                <constraints foreignKeyName="fk_review_seller" references="seller(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

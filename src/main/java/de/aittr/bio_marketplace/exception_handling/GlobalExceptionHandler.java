@@ -145,4 +145,32 @@ public class GlobalExceptionHandler {
         Response response = new Response(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
+
+    @ExceptionHandler(ReviewNotFoundException.class)
+    public ResponseEntity<Response> handleException(ReviewNotFoundException e) {
+        Response response = new Response(e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ReviewByProductNotFoundException.class)
+    public ResponseEntity<Response> handleException(ReviewByProductNotFoundException e) {
+        Response response = new Response(e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+
+    @ExceptionHandler(ReviewBySellerNotFoundException.class)
+    public ResponseEntity<Response> handleException(ReviewBySellerNotFoundException e) {
+        Response response = new Response(e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+
+    @ExceptionHandler(ReviewValidationException.class)
+    public ResponseEntity<Response> handleException(ReviewValidationException e) {
+        Response response = new Response(e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
 }

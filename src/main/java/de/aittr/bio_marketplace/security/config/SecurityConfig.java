@@ -105,7 +105,17 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/sellers").permitAll()
                         .requestMatchers(HttpMethod.GET, "/sellers/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/sellers/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/sellers").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/sellers/**").permitAll()
+
+                        // Review Controller
+                        .requestMatchers(HttpMethod.GET, "/reviews").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/reviews/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/reviews/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/reviews").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/reviews/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/reviews/**").permitAll()
+
 
 
                         .requestMatchers("/v3/api-docs",
