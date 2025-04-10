@@ -33,17 +33,16 @@ public class EmailServiceImpl implements EmailService {
     @Override
     public void sendConfirmationEmail(User user, String code) {
         try {
+
             String html = generateEmailHtml(user, code);
 
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, "UTF-8");
 
-
-            helper.setFrom("admin@bio-marketplacet.de");
+            helper.setFrom("noreply@bio-marketplace.de");
             helper.setTo(user.getEmail());
             helper.setSubject("BioMarketplace Confirm Registration");
             helper.setText(html, true);
-
 
             mailSender.send(message);
 
@@ -60,7 +59,6 @@ public class EmailServiceImpl implements EmailService {
 
             Map<String, Object> model = new HashMap<>();
             model.put("username", user.getUsername());
-
 
             String confirmLink = confirmUrlPrefix + code;
             model.put("confirmLink", confirmLink);
