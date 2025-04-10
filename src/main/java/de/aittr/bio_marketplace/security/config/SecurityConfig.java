@@ -116,7 +116,13 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/reviews/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/reviews/**").permitAll()
 
-
+                        // Address Controller
+                        .requestMatchers(HttpMethod.GET, "/address").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/address/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/address/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/address").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/address/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/address/**").permitAll()
 
                         .requestMatchers("/v3/api-docs",
                                 "/v3/api-docs/**",

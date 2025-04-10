@@ -26,7 +26,7 @@ public class ReviewController {
             description = "Saving new review with given parameters by product id"
     )
     @PostMapping("/save-by-product/{product_id}")
-    public ReviewResponse saveByProduct(
+    public ReviewResponse saveProductReview(
             @RequestBody
             ReviewDto review,
             @PathVariable Long product_id) {
@@ -38,7 +38,7 @@ public class ReviewController {
             description = "Saving new review with given parameters by seller id"
     )
     @PostMapping("/save-by-seller/{seller_id}")
-    public ReviewResponse saveBySeller(
+    public ReviewResponse saveSellerReview(
             @RequestBody ReviewDto review,
             @PathVariable Long seller_id) {
         return new ReviewResponse(service.saveBySeller(review, seller_id));
@@ -104,8 +104,8 @@ public class ReviewController {
     }
 
     @Operation(
-            summary = "Delete all reviews",
-            description = "Deletion all reviews from database by id"
+            summary = "Delete all reviews without resetting the rating",
+            description = "Deletion all reviews without resetting the rating(seller, product) from database by id"
     )
     @DeleteMapping
     public void deleteAll() {

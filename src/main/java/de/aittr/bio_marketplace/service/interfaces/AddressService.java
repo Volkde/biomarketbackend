@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface AddressService {
 
-    AddressDto save(AddressDto address);
+    AddressDto saveUserAddress(AddressDto address, Long user_id);
+
+    AddressDto saveSellerAddress(AddressDto address, Long seller_id);
 
     List<AddressDto> getAll();
 
