@@ -19,6 +19,7 @@
             <column name="is_active" valueBoolean="true"/>
             <column name="username" value="seller1"/>
             <column name="phone_number" value="+1234567890"/>
+            <column name="seller_id" valueNumeric="1"/>
         </insert>
         <insert tableName="user">
             <column name="id" valueNumeric="2"/>
@@ -30,6 +31,43 @@
             <column name="is_active" valueBoolean="true"/>
             <column name="username" value="Markwiz"/>
             <column name="phone_number" value="+1234567890"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="user">
+            <column name="id" valueNumeric="3"/>
+            <column name="email" value="jane.doe@example.com"/>
+            <column name="password" value="$2a$10$a5gdUngpoJNy6TYF26ca.eNNAwQOTopKUWVER8rHUJsQde0mejc3K"/>  <!-- Replace with a hashed password -->
+            <column name="first_name" value="Jane"/>
+            <column name="last_name" value="Doe"/>
+            <column name="avatar" value="https://example.com/avatar2.jpg"/>
+            <column name="is_active" valueBoolean="true"/>
+            <column name="username" value="janedoe"/>
+            <column name="phone_number" value="+1112223333"/>
+            <column name="seller_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="user">
+            <column name="id" valueNumeric="4"/>
+            <column name="email" value="peter.pan@example.com"/>
+            <column name="password" value="$2a$10$lxuJBXAj4Y9p/V1FFvBbY.O2MC5v8PhCJqc/3M9sjYUGabJu9j9ZC"/>  <!-- Replace with a hashed password -->
+            <column name="first_name" value="Peter"/>
+            <column name="last_name" value="Pan"/>
+            <column name="avatar" value="https://example.com/avatar3.jpg"/>
+            <column name="is_active" valueBoolean="true"/>
+            <column name="username" value="peterpan"/>
+            <column name="phone_number" value="+4445556666"/>
+            <column name="seller_id" valueNumeric="4"/>
+        </insert>
+        <insert tableName="user">
+            <column name="id" valueNumeric="5"/>
+            <column name="email" value="alice.wonderland@example.com"/>
+            <column name="password" value="$2a$10$a5gdUngpoJNy6TYF26ca.eNNAwQOTopKUWVER8rHUJsQde0mejc3K"/>  <!-- Replace with a hashed password -->
+            <column name="first_name" value="Alice"/>
+            <column name="last_name" value="Wonderland"/>
+            <column name="avatar" value="https://example.com/avatar4.jpg"/>
+            <column name="is_active" valueBoolean="true"/>
+            <column name="username" value="alicewonderland"/>
+            <column name="phone_number" value="+7778889999"/>
+            <column name="seller_id" valueNumeric="5"/>
         </insert>
     </changeSet>
 </databaseChangeLog>

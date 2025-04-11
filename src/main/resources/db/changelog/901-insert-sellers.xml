@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="1003-insert-more-sellers" author="Kristina">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="seller"/>
+        </preConditions>
+        <insert tableName="seller">
+            <column name="id" valueNumeric="1"/>
+            <column name="store_name" value="Luna"/>
+            <column name="store_description" value="Specialty coffee and tea."/>
+            <column name="store_logo" value="luna_logo.png"/>
+            <column name="rating" valueNumeric="4.4"/>
+        </insert>
+        <insert tableName="seller">
+            <column name="id" valueNumeric="2"/>
+            <column name="store_name" value="Organic Greens"/>
+            <column name="store_description" value="Fresh organic vegetables and fruits."/>
+            <column name="store_logo" value="organic_logo.png"/>
+            <column name="rating" valueNumeric="4.8"/>
+        </insert>
+        <insert tableName="seller">
+            <column name="id" valueNumeric="3"/>
+            <column name="store_name" value="Tech Gadgets"/>
+            <column name="store_description" value="The latest electronics and gadgets."/>
+            <column name="store_logo" value="tech_logo.svg"/>
+            <column name="rating" valueNumeric="4.2"/>
+        </insert>
+        <insert tableName="seller">
+            <column name="id" valueNumeric="4"/>
+            <column name="store_name" value="Cozy Books"/>
+            <column name="store_description" value="A wide selection of books for all ages."/>
+            <column name="store_logo" value="book_logo.jpg"/>
+            <column name="rating" valueNumeric="4.9"/>
+        </insert>
+        <insert tableName="seller">
+            <column name="id" valueNumeric="5"/>
+            <column name="store_name" value="Handmade Crafts"/>
+            <column name="store_description" value="Unique and handcrafted items."/>
+            <column name="store_logo" value="craft_logo.gif"/>
+            <column name="rating" valueNumeric="4.6"/>
+        </insert>
+    </changeSet>
+        </databaseChangeLog>

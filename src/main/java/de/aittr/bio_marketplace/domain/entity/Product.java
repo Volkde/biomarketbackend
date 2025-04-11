@@ -74,10 +74,13 @@ public class Product {
     @Schema(description = "Category identifier", example = "1")
     private Long categoryId;
 
-    @Column(name = "seller_id")
+
+    //@JoinColumn(name = "seller_id")
+    //@Column(name = "seller_id")
+    @ManyToOne
     @NotNull(message = "Seller ID cannot be null")
     @Schema(description = "Seller identifier", example = "1")
-    private Long sellerId;
+    private Seller seller;
 
     @Column(name = "rating")
     @DecimalMin(
@@ -99,29 +102,28 @@ public class Product {
     public Product() {
     }
 
-    public Product(Long id,
-                   String title,
+    public Product(Long id, String title,
                    String description,
                    String image,
                    ProductUnitOfMeasure unitOfMeasure,
                    BigDecimal price,
-                   Boolean discounted,
+                   boolean discounted,
                    ProductStatus status,
-                   Boolean inStock,
+                   boolean inStock,
                    Long categoryId,
-                   Long sellerId,
-                   Double rating
-    ) {
+                   Seller seller,
+                   Double rating) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.image = image;
+        this.unitOfMeasure = unitOfMeasure;
         this.price = price;
         this.discounted = discounted;
         this.status = status;
         this.inStock = inStock;
         this.categoryId = categoryId;
-        this.sellerId = sellerId;
+        this.seller = seller;
         this.rating = rating;
     }
 
@@ -193,12 +195,12 @@ public class Product {
         this.categoryId = categoryId;
     }
 
-    public Long getSellerId() {
-        return sellerId;
+    public Seller getSeller() {
+        return seller;
     }
 
-    public void setSellerId(Long sellerId) {
-        this.sellerId = sellerId;
+    public void setSeller(Seller seller) {
+        this.seller = seller;
     }
 
     public boolean isDiscounted() {
@@ -231,12 +233,12 @@ public class Product {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return isDiscounted() == product.isDiscounted() && isInStock() == product.isInStock() && Objects.equals(getId(), product.getId()) && Objects.equals(getTitle(), product.getTitle()) && Objects.equals(getDescription(), product.getDescription()) && Objects.equals(getImage(), product.getImage()) && getUnitOfMeasure() == product.getUnitOfMeasure() && Objects.equals(getPrice(), product.getPrice()) && getStatus() == product.getStatus() && Objects.equals(getCategoryId(), product.getCategoryId()) && Objects.equals(getSellerId(), product.getSellerId()) && Objects.equals(getRating(), product.getRating());
+        return discounted == product.discounted && inStock == product.inStock && Objects.equals(id, product.id) && Objects.equals(title, product.title) && Objects.equals(description, product.description) && Objects.equals(image, product.image) && unitOfMeasure == product.unitOfMeasure && Objects.equals(price, product.price) && status == product.status && Objects.equals(categoryId, product.categoryId) && Objects.equals(seller, product.seller) && Objects.equals(rating, product.rating);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getDescription(), getImage(), getUnitOfMeasure(), getPrice(), isDiscounted(), getStatus(), isInStock(), getCategoryId(), getSellerId(), getRating());
+        return Objects.hash(id, title, description, image, unitOfMeasure, price, discounted, status, inStock, categoryId, seller, rating);
     }
 
 

@@ -12,7 +12,7 @@ import de.aittr.bio_marketplace.exception_handling.utils.StringValidator;
 import de.aittr.bio_marketplace.repository.SellerRepository;
 import de.aittr.bio_marketplace.service.interfaces.RoleService;
 import de.aittr.bio_marketplace.service.interfaces.SellerService;
-import de.aittr.bio_marketplace.service.interfaces.UserService;
+import de.aittr.bio_marketplace.service.interfaces.UserLookupService;
 import de.aittr.bio_marketplace.service.mapping.SellerMapper;
 import de.aittr.bio_marketplace.service.mapping.UserMapper;
 import jakarta.transaction.Transactional;
@@ -26,10 +26,10 @@ public class SellerServiceImpl implements SellerService {
     private final SellerRepository repository;
     private final SellerMapper mapper;
     private final UserMapper userMapper;
-    private final UserService userService;
+    private final UserLookupService userService;
     private final RoleService roleService;
 
-    public SellerServiceImpl(SellerRepository repository, SellerMapper sellerMapper, UserMapper userMapper, UserService userService, RoleService roleService) {
+    public SellerServiceImpl(SellerRepository repository, SellerMapper sellerMapper, UserMapper userMapper, UserLookupService userService, RoleService roleService) {
         this.repository = repository;
         this.mapper = sellerMapper;
         this.userMapper = userMapper;
@@ -44,7 +44,7 @@ public class SellerServiceImpl implements SellerService {
             Seller entity = mapper.mapDtoToEntity(seller);
             entity.setId(null);
             entity.setRating(null);
-            StringValidator.isValidName(entity.getStoreName());
+            StringValidator.isValidStoreName(entity.getStoreName());
             if (repository.findByStoreName(entity.getStoreName()).isPresent()) {
                 throw new UsernameValidateException("This Store Name already exists");
             }
@@ -84,7 +84,7 @@ public class SellerServiceImpl implements SellerService {
         if (seller.getStoreName() == null){
             seller.setStoreName(findSeller.getStoreName());
         }
-        StringValidator.isValidName(seller.getStoreName());
+        StringValidator.isValidStoreName(seller.getStoreName());
         findSeller.setStoreName(seller.getStoreName());
 
         if (seller.getStoreDescription() == null){

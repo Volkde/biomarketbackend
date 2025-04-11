@@ -7,10 +7,12 @@ import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.entity.Product;
 import de.aittr.bio_marketplace.domain.entity.ProductStatus;
 import de.aittr.bio_marketplace.domain.entity.QProduct;
+import de.aittr.bio_marketplace.domain.entity.Seller;
 import de.aittr.bio_marketplace.exception_handling.exceptions.ProductNotFoundException;
 import de.aittr.bio_marketplace.exception_handling.exceptions.ProductValidationException;
 import de.aittr.bio_marketplace.repository.ProductRepository;
 import de.aittr.bio_marketplace.service.interfaces.ProductService;
+import de.aittr.bio_marketplace.service.interfaces.SellerService;
 import de.aittr.bio_marketplace.service.mapping.ProductMapper;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -27,13 +29,15 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository repository;
     private final ProductMapper mappingService;
+    private final SellerService sellerService;
     private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     // --- CONSTRUCTOR ---
 
-    public ProductServiceImpl(ProductRepository repository, ProductMapper productMapper) {
+    public ProductServiceImpl(ProductRepository repository, ProductMapper productMapper, SellerService sellerService) {
         this.repository = repository;
         this.mappingService = productMapper;
+        this.sellerService = sellerService;
     }
 
 
@@ -46,6 +50,7 @@ public class ProductServiceImpl implements ProductService {
 
         try {
             Product entity = mappingService.mapDtoToEntity(dto);
+            entity.setSeller(sellerService.getActiveSellersEntityById(dto.getSellerId()));
             entity = repository.save(entity);
             return mappingService.mapEntityToDto(entity);
         } catch (Exception e) {
@@ -178,7 +183,8 @@ public class ProductServiceImpl implements ProductService {
             existentProduct.setCategoryId(product.getCategoryId());
         }
         if (product.getSellerId() != null) {
-            existentProduct.setSellerId(product.getSellerId());
+            Seller seller = sellerService.getActiveSellersEntityById(product.getSellerId());
+            existentProduct.setSeller(seller);
         }
         if (product.getRating() != null) {
             existentProduct.setRating(product.getRating());

@@ -8,12 +8,12 @@
     <include file="001-create-role-table.xml" relativeToChangelogFile="true"/>
     <include file="002-create-category-table.xml" relativeToChangelogFile="true"/>
     <include file="003-create-user-table.xml" relativeToChangelogFile="true"/>
+    <include file="009-create-table-seller.xml" relativeToChangelogFile="true"/>
     <include file="004-create-product-table.xml" relativeToChangelogFile="true"/>
     <include file="005-add-columns-description-and-image-to-product.xml" relativeToChangelogFile="true"/>
     <include file="006-update-user-table.xml" relativeToChangelogFile="true"/>
     <include file="007-create-cart-table.xml" relativeToChangelogFile="true"/>
     <include file="008-create-cart-item-table.xml" relativeToChangelogFile="true"/>
-    <include file="009-create-table-seller.xml" relativeToChangelogFile="true"/>
     <include file="010-create-user-role-table.xml" relativeToChangelogFile="true"/>
     <include file="011-add-foreign-key-user-to-seller.xml" relativeToChangelogFile="true"/>
     <include file="012-create-table-seller-user.xml" relativeToChangelogFile="true"/>
@@ -25,6 +25,7 @@
     <include file="018-create-reviews-table.xml" relativeToChangelogFile="true"/>
     <include file="019-insert-role-guest.xml" relativeToChangelogFile="true"/>
     <include file="020-create-table-confirm-code.xml" relativeToChangelogFile="true"/>
+    <include file="901-insert-sellers.xml" relativeToChangelogFile="true"/>
     <include file="902-insert-categories.xml" relativeToChangelogFile="true"/>
     <include file="903-insert-users.xml" relativeToChangelogFile="true"/>
     <include file="904-insert-products.xml" relativeToChangelogFile="true"/>

@@ -1,5 +1,4 @@
 package de.aittr.bio_marketplace.exception_handling.utils;
-import de.aittr.bio_marketplace.exception_handling.exceptions.AddressValidationException;
 import de.aittr.bio_marketplace.exception_handling.exceptions.UsernameValidateException;
 
 import java.util.regex.Matcher;
@@ -7,67 +6,65 @@ import java.util.regex.Pattern;
 
 public class StringValidator extends RuntimeException{
 
-    private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-ZäöüÄÖÜß\\s]{1,30}$");
-    private static final Pattern DIGITS_ONLY_PATTERN = Pattern.compile("\\d+");
-    private static final Pattern LETTERS_ONLY_PATTERN = Pattern.compile("[a-zA-Z]+");
+    private static final Pattern NAME_PATTERN = Pattern.compile("^[a-zA-Z\\u00C0-\\u017F-]+$");
+    private static final Pattern STORE_PATTERN = Pattern.compile("^[a-zA-Z\\u00C0-\\u017F0-9\\-:/ ]+$");
 
-    public static void isValidName(String name)throws UsernameValidateException {
-        if (name == null) {
-            throw new UsernameValidateException("Name cannot be null.");
+    public static void isValidStoreName(String storeName)throws UsernameValidateException {
+        if (storeName == null) {
+            throw new UsernameValidateException("Store name cannot be null.");
         }
 
-        if (name.trim().isEmpty()) {
-            throw new UsernameValidateException("Name cannot be empty.");
+        if (storeName.trim().isEmpty()) {
+            throw new UsernameValidateException("Store name cannot be empty.");
         }
 
-        if (name.length() > 30) {
-            throw new UsernameValidateException("Name cannot exceed 30 characters. Current length: " + name.length());
+        if (storeName.length() > 40) {
+            throw new UsernameValidateException("Store name cannot exceed 40 characters. Current length: " + storeName.length());
         }
 
-        Matcher matcher = NAME_PATTERN.matcher(name);
+        Matcher matcher = STORE_PATTERN.matcher(storeName);
         if (!matcher.matches()) {
-            throw new UsernameValidateException("Name contains invalid characters. Only letters and spaces are allowed.");
+            throw new UsernameValidateException("Store name contains invalid characters. Only digits, letters and symbols: -, /, : are allowed.");
         }
 
     }
 
-    public static void isValidZipCode(String zipCode)throws AddressValidationException {
-        if (zipCode == null) {
-            throw new AddressValidationException("zipCode cannot be null.");
+    public static void isValidFirstName(String firstName)throws UsernameValidateException {
+        if (firstName == null) {
+            throw new UsernameValidateException("Firstname cannot be null.");
         }
 
-        if (zipCode.trim().isEmpty()) {
-            throw new AddressValidationException("zipCode cannot be empty.");
+        if (firstName.trim().isEmpty()) {
+            throw new UsernameValidateException("Firstname cannot be empty.");
         }
 
-        if (zipCode.length() > 10) {
-            throw new AddressValidationException("zipCode cannot exceed 30 characters. Current length: " + zipCode.length());
+        if (firstName.length() > 30) {
+            throw new UsernameValidateException("Firstname cannot exceed 30 characters. Current length: " + firstName.length());
         }
 
-        Matcher matcher = DIGITS_ONLY_PATTERN.matcher(zipCode);
+        Matcher matcher = NAME_PATTERN.matcher(firstName);
         if (!matcher.matches()) {
-            throw new AddressValidationException("zipCode contains invalid characters. Only digits are allowed.");
+            throw new UsernameValidateException("Firstname contains invalid characters.  Only letters and the symbol: - are allowed.");
         }
     }
 
-        public static void isValidCountry(String country)throws AddressValidationException {
-            if (country == null) {
-                throw new AddressValidationException("Country cannot be null.");
-            }
+    public static void isValidLastName(String lastName)throws UsernameValidateException {
+        if (lastName == null) {
+            throw new UsernameValidateException("Lastname cannot be null.");
+        }
 
-            if (country.trim().isEmpty()) {
-                throw new AddressValidationException("Country cannot be empty.");
-            }
+        if (lastName.trim().isEmpty()) {
+            throw new UsernameValidateException("Lastname cannot be empty.");
+        }
 
-            if (country.length() > 30) {
-                throw new AddressValidationException("Country cannot exceed 30 characters. Current length: " + country.length());
-            }
+        if (lastName.length() > 30) {
+            throw new UsernameValidateException("Lastname cannot exceed 30 characters. Current length: " + lastName.length());
+        }
 
-            Matcher matcher = LETTERS_ONLY_PATTERN.matcher(country);
-            if (!matcher.matches()) {
-                throw new AddressValidationException("Country contains invalid characters. Only digits are allowed.");
-            }
-
+        Matcher matcher = NAME_PATTERN.matcher(lastName);
+        if (!matcher.matches()) {
+            throw new UsernameValidateException("Lastname contains invalid characters. Only letters and the symbol: - are allowed.");
+        }
     }
 
 }
