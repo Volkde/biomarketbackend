@@ -18,7 +18,7 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@CrossOrigin
+@CrossOrigin(origins = "http://loclahost:5174", allowedHeaders = "*")
 @RestController
 @RequestMapping("/auth")
 @Tag(name = "Auth controller", description = "Controller for various operations with Auth")
