@@ -12,7 +12,7 @@
         <insert tableName="seller">
             <column name="id" valueNumeric="1"/>
             <column name="store_name" value="Luna"/>
-            <column name="store_description" value="Specialty coffee and tea."/>
+            <column name="store_description" value="All food products."/>
             <column name="store_logo" value="luna_logo.png"/>
             <column name="rating" valueNumeric="4.4"/>
         </insert>
@@ -25,22 +25,22 @@
         </insert>
         <insert tableName="seller">
             <column name="id" valueNumeric="3"/>
-            <column name="store_name" value="Tech Gadgets"/>
-            <column name="store_description" value="The latest electronics and gadgets."/>
+            <column name="store_name" value="Dairy World"/>
+            <column name="store_description" value="Organic dairy products."/>
             <column name="store_logo" value="tech_logo.svg"/>
             <column name="rating" valueNumeric="4.2"/>
         </insert>
         <insert tableName="seller">
             <column name="id" valueNumeric="4"/>
-            <column name="store_name" value="Cozy Books"/>
-            <column name="store_description" value="A wide selection of books for all ages."/>
+            <column name="store_name" value="Cozy vegetables"/>
+            <column name="store_description" value="Fresh organic vegetables and fruits."/>
             <column name="store_logo" value="book_logo.jpg"/>
             <column name="rating" valueNumeric="4.9"/>
         </insert>
         <insert tableName="seller">
             <column name="id" valueNumeric="5"/>
-            <column name="store_name" value="Handmade Crafts"/>
-            <column name="store_description" value="Unique and handcrafted items."/>
+            <column name="store_name" value="Meat and Fish"/>
+            <column name="store_description" value="Fresh meat and fish."/>
             <column name="store_logo" value="craft_logo.gif"/>
             <column name="rating" valueNumeric="4.6"/>
         </insert>
