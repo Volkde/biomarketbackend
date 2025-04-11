@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <changeSet id="908-insert-addresses" author="Kristina">
+
+        <insert tableName="address">
+            <column name="id" valueNumeric="1"/>
+            <column name="country" value="USA"/>
+            <column name="city" value="Gotham"/>
+            <column name="street" value="Wayne Manor"/>
+            <column name="zip_code" value="10001"/>
+            <column name="user_id" valueNumeric="6"/>
+        </insert>
+
+        <insert tableName="address">
+            <column name="id" valueNumeric="2"/>
+            <column name="country" value="USA"/>
+            <column name="city" value="Metropolis"/>
+            <column name="street" value="Daily Planet Ave"/>
+            <column name="zip_code" value="10002"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="address">
+            <column name="id" valueNumeric="3"/>
+            <column name="country" value="USA"/>
+            <column name="city" value="Malibu"/>
+            <column name="street" value="Stark Tower"/>
+            <column name="zip_code" value="90265"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="address">
+            <column name="id" valueNumeric="4"/>
+            <column name="country" value="Themyscira"/>
+            <column name="city" value="Themyscira"/>
+            <column name="street" value="Royal Palace"/>
+            <column name="zip_code" value="00001"/>
+            <column name="user_id" valueNumeric="4"/>
+        </insert>
+
+        <insert tableName="address">
+            <column name="id" valueNumeric="5"/>
+            <column name="country" value="USA"/>
+            <column name="city" value="Central City"/>
+            <column name="street" value="Allen Street"/>
+            <column name="zip_code" value="30003"/>
+            <column name="seller_id" valueNumeric="4"/>
+        </insert>
+
+        <insert tableName="address">
+            <column name="id" valueNumeric="6"/>
+            <column name="country" value="UK"/>
+            <column name="city" value="London"/>
+            <column name="street" value="Baker Street 221B"/>
+            <column name="zip_code" value="NW16XE"/>
+            <column name="seller_id" valueNumeric="3"/>
+        </insert>
+
+        <insert tableName="address">
+            <column name="id" valueNumeric="7"/>
+            <column name="country" value="France"/>
+            <column name="city" value="Paris"/>
+            <column name="street" value="Champs-Élysées"/>
+            <column name="zip_code" value="75008"/>
+            <column name="user_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="address">
+            <column name="id" valueNumeric="8"/>
+            <column name="country" value="Germany"/>
+            <column name="city" value="Berlin"/>
+            <column name="street" value="Alexanderplatz 1"/>
+            <column name="zip_code" value="10178"/>
+            <column name="user_id" valueNumeric="9"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

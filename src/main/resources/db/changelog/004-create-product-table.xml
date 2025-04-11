@@ -20,7 +20,7 @@
                 <constraints foreignKeyName="fk_product_category" references="category(id)"/>
             </column>
             <column name="seller_id" type="BIGINT">
-                <constraints foreignKeyName="fk_product_seller" references="user(id)"/>
+                <constraints foreignKeyName="fk_product_seller" references="seller(id)"/>
             </column>
             <column name="status" type="VARCHAR(20)" defaultValue="ACTIVE"/>
             <column name="date_publication" type="DATE"/>

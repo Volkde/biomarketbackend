@@ -7,6 +7,7 @@ import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.entity.Product;
 import de.aittr.bio_marketplace.domain.entity.ProductStatus;
 import de.aittr.bio_marketplace.domain.entity.QProduct;
+import de.aittr.bio_marketplace.domain.entity.Seller;
 import de.aittr.bio_marketplace.exception_handling.exceptions.ProductNotFoundException;
 import de.aittr.bio_marketplace.exception_handling.exceptions.ProductValidationException;
 import de.aittr.bio_marketplace.repository.ProductRepository;
@@ -42,16 +43,15 @@ public class ProductServiceImpl implements ProductService {
     // --- Create ---
 
     @Override
-    public ProductDto save(ProductDto dto) {
-
+    public ProductDto save(ProductDto dto, Seller seller) {
         try {
             Product entity = mappingService.mapDtoToEntity(dto);
+            entity.setSeller(seller); // Устанавливаем продавца напрямую
             entity = repository.save(entity);
             return mappingService.mapEntityToDto(entity);
         } catch (Exception e) {
             throw new ProductValidationException(e);
         }
-
     }
 
     // --- Read ---
@@ -141,7 +141,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public ProductDto update(ProductDto product) {
+    public ProductDto update(ProductDto product, Seller seller) {
         Long id = product.getId();
         if (id == null) {
             logger.error("Attempted to update a null product");
@@ -177,8 +177,8 @@ public class ProductServiceImpl implements ProductService {
         if (product.getCategoryId() != null) {
             existentProduct.setCategoryId(product.getCategoryId());
         }
-        if (product.getSellerId() != null) {
-            existentProduct.setSellerId(product.getSellerId());
+        if (seller != null) {
+            existentProduct.setSeller(seller);
         }
         if (product.getRating() != null) {
             existentProduct.setRating(product.getRating());

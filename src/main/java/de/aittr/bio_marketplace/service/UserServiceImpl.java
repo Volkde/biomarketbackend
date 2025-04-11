@@ -33,7 +33,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserLookupService {
 
     private static final String PASSWORD_OR_EMAIL_IS_INCORRECT = "Password or email is incorrect";
     private static final String COOKIE_IS_INCORRECT = "Cookie is incorrect";
@@ -90,6 +90,8 @@ public class UserServiceImpl implements UserService {
         }
         UserValidator.isEmailValid(registerDto.email());
         UserValidator.isPasswordValid(registerDto.password());
+        StringValidator.isValidFirstName(registerDto.firstName());
+        StringValidator.isValidLastName(registerDto.lastName());
 
         User entity = mappingRegisterService.mapRegisterDtoToEntity(registerDto);
 
@@ -168,14 +170,14 @@ public class UserServiceImpl implements UserService {
         if (user.getFirstName() == null){
             user.setFirstName(findUser.getFirstName());
         }
-        StringValidator.isValidName(user.getFirstName());
+        StringValidator.isValidFirstName(user.getFirstName());
         findUser.setFirstName(user.getFirstName());
 
 
         if (user.getLastName() == null){
             user.setLastName(findUser.getLastName());
         }
-        StringValidator.isValidName(user.getLastName());
+        StringValidator.isValidLastName(user.getLastName());
         findUser.setLastName(user.getLastName());
 
 

@@ -79,7 +79,7 @@ public class ProductQueryPredicateBuilder {
     public ProductQueryPredicateBuilder bySellerId(Long sellerId) {
         if (sellerId != null) {
             this.predicate
-                    .and(this.product.sellerId.eq(sellerId));
+                    .and(this.product.seller.id.eq(sellerId));
         }
         return this;
     }
