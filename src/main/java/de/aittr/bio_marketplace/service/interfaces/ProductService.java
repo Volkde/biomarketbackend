@@ -2,6 +2,7 @@ package de.aittr.bio_marketplace.service.interfaces;
 
 import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.entity.Product;
+import de.aittr.bio_marketplace.domain.entity.Seller;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
 public interface ProductService {
 
     // Save product in DB
-    ProductDto save(ProductDto product);
+    ProductDto save(ProductDto dto, Seller seller);
 
     // Return all active products
     List<ProductDto> getAllActiveProducts();
@@ -35,7 +36,7 @@ public interface ProductService {
     Product getActiveProductEntityById(Long id);
 
     // Update product
-    ProductDto update(ProductDto product);
+    ProductDto update(ProductDto product, Seller seller);
 
     ProductDto activateById(Long id);
 

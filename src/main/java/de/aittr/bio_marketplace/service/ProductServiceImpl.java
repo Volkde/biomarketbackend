@@ -12,7 +12,6 @@ import de.aittr.bio_marketplace.exception_handling.exceptions.ProductNotFoundExc
 import de.aittr.bio_marketplace.exception_handling.exceptions.ProductValidationException;
 import de.aittr.bio_marketplace.repository.ProductRepository;
 import de.aittr.bio_marketplace.service.interfaces.ProductService;
-import de.aittr.bio_marketplace.service.interfaces.SellerService;
 import de.aittr.bio_marketplace.service.mapping.ProductMapper;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -29,15 +28,13 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository repository;
     private final ProductMapper mappingService;
-    private final SellerService sellerService;
     private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     // --- CONSTRUCTOR ---
 
-    public ProductServiceImpl(ProductRepository repository, ProductMapper productMapper, SellerService sellerService) {
+    public ProductServiceImpl(ProductRepository repository, ProductMapper productMapper) {
         this.repository = repository;
         this.mappingService = productMapper;
-        this.sellerService = sellerService;
     }
 
 
@@ -46,17 +43,15 @@ public class ProductServiceImpl implements ProductService {
     // --- Create ---
 
     @Override
-    public ProductDto save(ProductDto dto) {
-
+    public ProductDto save(ProductDto dto, Seller seller) {
         try {
             Product entity = mappingService.mapDtoToEntity(dto);
-            entity.setSeller(sellerService.getActiveSellersEntityById(dto.getSellerId()));
+            entity.setSeller(seller); // Устанавливаем продавца напрямую
             entity = repository.save(entity);
             return mappingService.mapEntityToDto(entity);
         } catch (Exception e) {
             throw new ProductValidationException(e);
         }
-
     }
 
     // --- Read ---
@@ -146,7 +141,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional
-    public ProductDto update(ProductDto product) {
+    public ProductDto update(ProductDto product, Seller seller) {
         Long id = product.getId();
         if (id == null) {
             logger.error("Attempted to update a null product");
@@ -182,8 +177,7 @@ public class ProductServiceImpl implements ProductService {
         if (product.getCategoryId() != null) {
             existentProduct.setCategoryId(product.getCategoryId());
         }
-        if (product.getSellerId() != null) {
-            Seller seller = sellerService.getActiveSellersEntityById(product.getSellerId());
+        if (seller != null) {
             existentProduct.setSeller(seller);
         }
         if (product.getRating() != null) {

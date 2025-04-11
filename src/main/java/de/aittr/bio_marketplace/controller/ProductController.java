@@ -5,7 +5,9 @@ import de.aittr.bio_marketplace.controller.responses.ProductsResponse;
 import de.aittr.bio_marketplace.controller.responses.UserResponse;
 import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.entity.Product;
+import de.aittr.bio_marketplace.domain.entity.Seller;
 import de.aittr.bio_marketplace.service.interfaces.ProductService;
+import de.aittr.bio_marketplace.service.interfaces.SellerService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,11 +24,13 @@ public class ProductController {
     // --- FIELDS ---
 
     private final ProductService service;
+    private final SellerService sellerService;
 
     // --- CONSTRUCTOR ---
 
-    public ProductController(ProductService service) {
+    public ProductController(ProductService service, SellerService sellerService) {
         this.service = service;
+        this.sellerService = sellerService;
     }
 
     // --- METHODS ---
@@ -42,7 +46,8 @@ public class ProductController {
             @RequestBody
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Instance of a Product")
             ProductDto product) {
-        ProductDto savedProduct = service.save(product);
+        Seller seller = sellerService.getActiveSellersEntityById(product.getSellerId());
+        ProductDto savedProduct = service.save(product, seller);
         return new ProductResponse(savedProduct);
     }
 
@@ -131,7 +136,8 @@ public class ProductController {
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Instance of a Product to update")
             ProductDto product) {
         product.setId(id);
-        ProductDto updatedProduct = service.update(product);
+        Seller seller = product.getSellerId() != null ? sellerService.getActiveSellersEntityById(product.getSellerId()) : null;
+        ProductDto updatedProduct = service.update(product, seller);
         return new ProductResponse(updatedProduct);
     }
 
