@@ -78,5 +78,42 @@
             <column name="zip_code" value="10178"/>
             <column name="user_id" valueNumeric="9"/>
         </insert>
+
+        <insert tableName="address">
+            <column name="id" valueNumeric="9"/>
+            <column name="country" value="France"/>
+            <column name="city" value="Marsel"/>
+            <column name="street" value="Champs-Élysées"/>
+            <column name="zip_code" value="75048"/>
+            <column name="seller_id" valueNumeric="5"/>
+        </insert>
+
+        <insert tableName="address">
+            <column name="id" valueNumeric="10"/>
+            <column name="country" value="Canada"/>
+            <column name="city" value="Vancouver"/>
+            <column name="street" value="Maple Leaf St"/>
+            <column name="zip_code" value="V5K0A1"/>
+            <column name="user_id" valueNumeric="5"/>
+        </insert>
+
+        <insert tableName="address">
+            <column name="id" valueNumeric="11"/>
+            <column name="country" value="Italy"/>
+            <column name="city" value="Rome"/>
+            <column name="street" value="Via Roma 100"/>
+            <column name="zip_code" value="00100"/>
+            <column name="user_id" valueNumeric="8"/>
+        </insert>
+
+        <insert tableName="address">
+            <column name="id" valueNumeric="12"/>
+            <column name="country" value="USA"/>
+            <column name="city" value="Star City"/>
+            <column name="street" value="Queen Mansion"/>
+            <column name="zip_code" value="20001"/>
+            <column name="user_id" valueNumeric="1"/>
+        </insert>
+
     </changeSet>
 </databaseChangeLog>
