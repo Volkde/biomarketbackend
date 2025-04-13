@@ -1,10 +1,13 @@
 package de.aittr.bio_marketplace.domain.dto;
 
+import de.aittr.bio_marketplace.domain.entity.Order;
+import de.aittr.bio_marketplace.domain.entity.OrderItem;
 import de.aittr.bio_marketplace.domain.entity.OrderStatus;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class OrderDto {
 
@@ -93,4 +96,27 @@ public class OrderDto {
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+    public Order toEntity() {
+        Order order = new Order();
+        order.setId(this.id);
+        order.setStatus(this.status);
+        order.setSellerId(this.sellerId);
+        order.setSellerAddress(this.sellerAddress != null ? this.sellerAddress.toEntity() : null);
+        order.setBuyerId(this.buyerId);
+        order.setBuyerAddress(this.buyerAddress != null ? this.buyerAddress.toEntity() : null);
+        order.setDateCreated(this.dateCreated);
+        order.setTotalPrice(this.totalPrice);
+
+        if (this.items != null) {
+            List<OrderItem> orderItems = this.items.stream()
+                    .map(OrderItemDto::toEntity)
+                    .peek(item -> item.setOrder(order))
+                    .collect(Collectors.toList());
+            order.setItems(orderItems);
+        }
+
+        return order;
+    }
+
 }

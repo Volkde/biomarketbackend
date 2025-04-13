@@ -99,7 +99,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
                                        
                         // Order controller
-                        .requestMatchers(HttpMethod.POST, "/orders").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/orders").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+//                        .requestMatchers(HttpMethod.POST, "/orders/**").permitAll()
 
                         // Seller Controller
                         .requestMatchers(HttpMethod.GET, "/sellers").permitAll()

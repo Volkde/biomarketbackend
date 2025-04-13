@@ -1,6 +1,7 @@
 package de.aittr.bio_marketplace.domain.dto;
 
 import de.aittr.bio_marketplace.domain.entity.Order;
+import de.aittr.bio_marketplace.domain.entity.OrderItem;
 
 import java.math.BigDecimal;
 
@@ -56,4 +57,15 @@ public class OrderItemDto {
     public void setUnitPrice(BigDecimal unitPrice) {
         this.unitPrice = unitPrice;
     }
+
+    public OrderItem toEntity() {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setId(this.id);
+        orderItem.setProductId(this.productId);
+        orderItem.setProductName(this.productName);
+        orderItem.setQuantity(this.quantity);
+        orderItem.setUnitPrice(this.unitPrice);
+        return orderItem;
+    }
+
 }
