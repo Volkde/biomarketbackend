@@ -69,4 +69,30 @@ public class EmailServiceImpl implements EmailService {
             throw new RuntimeException("Error generating email text: " + e.getMessage());
         }
     }
+
+    @Override
+    public void sendPasswordResetEmail(User user, String jwtToken) {
+        try {
+            Template template = freemarkerConfig.getTemplate("password_reset_jwt.ftlh");
+
+            Map<String, Object> model = new HashMap<>();
+            model.put("username", user.getUsername());
+            model.put("resetLink", confirmUrlPrefix + "/reset-password?token=" + jwtToken);
+
+            String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
+
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, "UTF-8");
+            helper.setFrom("noreply@bio-marketplace.de");
+            helper.setTo(user.getEmail());
+            helper.setSubject("Reset your password");
+            helper.setText(html, true);
+
+            mailSender.send(message);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to send password reset email: " + e.getMessage());
+        }
+    }
+
 }

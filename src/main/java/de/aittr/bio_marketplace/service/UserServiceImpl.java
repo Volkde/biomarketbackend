@@ -16,6 +16,7 @@ import de.aittr.bio_marketplace.exception_handling.exceptions.UsernameValidateEx
 import de.aittr.bio_marketplace.exceptions.AuthenticationException;
 import de.aittr.bio_marketplace.exception_handling.exceptions.UserNotFoundException;
 import de.aittr.bio_marketplace.repository.UserRepository;
+import de.aittr.bio_marketplace.security.service.JwtTokenService;
 import de.aittr.bio_marketplace.service.interfaces.*;
 import de.aittr.bio_marketplace.service.mapping.ProductMapper;
 import de.aittr.bio_marketplace.service.mapping.RegisterUserMapper;
@@ -31,6 +32,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService, UserLookupService {
@@ -40,37 +42,36 @@ public class UserServiceImpl implements UserService, UserLookupService {
 
     private final RegisterUserMapper mappingRegisterService;
     private final UserMapper mappingService;
-    private final ProductMapper mappingProductService;
     private final SellerMapper mappingSellerService;
     private final ProductService productService;
     private final UserRepository repository;
     private final RoleService roleService;
     private final PasswordEncoder encoder;
     private final AuthenticationManager authenticationManager;
-
+    private final JwtTokenService jwtTokenService;
     private final ConfirmationService confirmationService;
     private final EmailService emailService;
 
     public UserServiceImpl(RegisterUserMapper registerUserMapper,
-                           UserMapper userMapper, ProductMapper productMapper, SellerMapper sellerMapper,
+                           UserMapper userMapper, SellerMapper sellerMapper,
                            ProductService productService,
                            UserRepository repository,
                            RoleService roleService,
                            PasswordEncoder encoder,
-                           AuthenticationManager authenticationManager,
+                           AuthenticationManager authenticationManager, JwtTokenService jwtTokenService,
                            ConfirmationService confirmationService,
                            EmailService emailService
     )
     {
         this.mappingRegisterService = registerUserMapper;
         this.mappingService = userMapper;
-        this.mappingProductService = productMapper;
         this.mappingSellerService = sellerMapper;
         this.productService = productService;
         this.repository = repository;
         this.roleService = roleService;
         this.encoder = encoder;
         this.authenticationManager = authenticationManager;
+        this.jwtTokenService = jwtTokenService;
         this.confirmationService = confirmationService;
         this.emailService = emailService;
     }
@@ -333,5 +334,33 @@ public class UserServiceImpl implements UserService, UserLookupService {
         user.setPassword(encoder.encode(password));
         return mappingService.mapEntityToDto(user);
     }
+
+    @Override
+    public void requestPasswordReset(String email) {
+        User user = repository.findUserByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        String token = jwtTokenService.generatePasswordResetToken(email);
+        emailService.sendPasswordResetEmail(user, token);
+    }
+
+    @Override
+    public void resetPasswordWithToken(String token, String newPassword) {
+        if (!jwtTokenService.isValidPasswordResetToken(token)) {
+            throw new RuntimeException("Invalid or expired token");
+        }
+
+        String email = jwtTokenService.getEmailFromAccessToken(token);
+        if (email == null) {
+            throw new RuntimeException("Invalid token - no subject");
+        }
+        User user = repository.findUserByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+
+        user.setPassword(encoder.encode(newPassword));
+        repository.save(user);
+    }
+
+
 
 }

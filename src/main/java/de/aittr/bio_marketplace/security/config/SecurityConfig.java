@@ -70,6 +70,7 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+
                         // Auth controller
                         .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register", "/auth/logout").permitAll()
                         .requestMatchers(HttpMethod.GET, "/auth/refresh").permitAll()
@@ -110,6 +111,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/users").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
+                         .requestMatchers(HttpMethod.POST, "/users/**").permitAll()
 
                         // Order controller
                         .requestMatchers(HttpMethod.POST, "/orders").hasAnyRole(USER_ROLE, ADMIN_ROLE)
