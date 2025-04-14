@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -89,7 +90,7 @@ public class OrderController {
             summary = "Get all orders (admin)",
             description = "Returns the list of all orders in the system, regardless of their status"
     )
-    @GetMapping("/admin")
+    @GetMapping()
     public OrdersResponse getAllOrders() {
         logger.info("Received request to get all orders (admin)");
         List<OrderDto> orders = orderService.getAllOrders();
@@ -145,6 +146,21 @@ public class OrderController {
         OrderDto deactivatedOrder = orderService.deactivateSellersOrder(orderId, orderSellerId);
         logger.info("Successfully deactivated seller's order with ID {} for user {}: {}", orderId, principal.getName(), deactivatedOrder);
         return new OrderResponse(deactivatedOrder);
+    }
+
+    @Operation(
+            summary = "Delete order by ID (admin)",
+            description = "Deletes an order from the database by its ID and returns the deleted order wrapped in an 'order' object"
+    )
+    @DeleteMapping("/{orderId}")
+    public OrderResponse deleteOrderById(
+            @PathVariable
+            @Parameter(description = "Order unique identifier")
+            Long orderId) {
+        logger.info("Received request to delete order with ID: {}", orderId);
+        OrderDto deletedOrder = orderService.deleteOrderById(orderId);
+        logger.info("Successfully deleted order with ID {}: {}", orderId, deletedOrder);
+        return new OrderResponse(deletedOrder);
     }
 
 }

@@ -187,8 +187,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void deleteOrder(Long id, String email) {
-        Order order = getOrderByIdAndUser(id, email).toEntity();
+    public OrderDto deleteOrderById(Long orderId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order with ID " + orderId + " not found"));
+        OrderDto deletedOrderDto = orderMapper.toDto(order); // Сохраняем DTO для возврата
         orderRepository.delete(order);
+        return deletedOrderDto;
     }
 }

@@ -13,5 +13,5 @@ public interface OrderService {
     List<OrderDto> getAllOrders();
     OrderDto deactivateOrder(Long id, String email);
     OrderDto deactivateSellersOrder(Long orderId, Long sellerId);
-    void deleteOrder(Long id, String email);
+    OrderDto deleteOrderById(Long orderId);
 }
