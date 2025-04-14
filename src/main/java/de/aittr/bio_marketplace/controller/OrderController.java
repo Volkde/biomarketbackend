@@ -1,18 +1,18 @@
 package de.aittr.bio_marketplace.controller;
 
 import de.aittr.bio_marketplace.controller.requests.CreateOrderRequest;
+import de.aittr.bio_marketplace.controller.responses.OrderResponse;
 import de.aittr.bio_marketplace.controller.responses.OrdersResponse;
-import de.aittr.bio_marketplace.domain.dto.AddressDto;
 import de.aittr.bio_marketplace.domain.dto.OrderDto;
 import de.aittr.bio_marketplace.domain.dto.SellerDto;
 import de.aittr.bio_marketplace.domain.dto.UserDto;
 import de.aittr.bio_marketplace.service.interfaces.OrderService;
 import de.aittr.bio_marketplace.service.interfaces.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -96,4 +96,21 @@ public class OrderController {
         return new OrdersResponse(orders);
     }
 
+    // --- Delete ---
+
+    @Operation(
+            summary = "Deactivate user's order by ID",
+            description = "Changes the status of a user's order to 'DELETED' by its ID, making it inactive without removing it from the database, and returns the deactivated order wrapped in an 'order' object"
+    )
+    @PutMapping("/user/deactivate/{orderId}")
+    public OrderResponse deactivateUsersOrderById(
+            @PathVariable
+            @Parameter(description = "Order unique identifier")
+            Long orderId,
+            Principal principal) {
+        logger.info("Received request to deactivate order with ID: {} for user: {}", orderId, principal.getName());
+        OrderDto deactivatedOrder = orderService.deactivateOrder(orderId, principal.getName());
+        logger.info("Deactivated order with ID {}: {}", orderId, deactivatedOrder);
+        return new OrderResponse(deactivatedOrder);
+    }
 }

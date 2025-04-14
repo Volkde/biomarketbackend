@@ -168,6 +168,14 @@ public class OrderServiceImpl implements OrderService {
     // --- Delete ---
 
     @Override
+    public OrderDto deactivateOrder(Long id, String email) {
+        Order order = getOrderByIdAndUser(id, email).toEntity();
+        order.setStatus(OrderStatus.DELETED);
+        Order updatedOrder = orderRepository.save(order);
+        return orderMapper.toDto(updatedOrder);
+    }
+
+    @Override
     public void deleteOrder(Long id, String email) {
         Order order = getOrderByIdAndUser(id, email).toEntity();
         orderRepository.delete(order);
