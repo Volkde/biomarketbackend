@@ -25,19 +25,15 @@ public class CategoryDto {
     @Schema(description = "Category description", example = "Fresh dairy products from German farms")
     private String description;
 
-    @Schema(description = "Parent category identifier, if this is a subcategory", example = "null")
-    private Long parentId;
-
     // --- CONSTRUCTORS ---
 
     public CategoryDto() {
     }
 
-    public CategoryDto(Long id, String name, String description, Long parentId) {
+    public CategoryDto(Long id, String name, String description) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.parentId = parentId;
     }
 
     // --- METHODS ---
@@ -68,14 +64,6 @@ public class CategoryDto {
         this.description = description;
     }
 
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
-
     // --- Equals and hashcode ---
 
     @Override
@@ -85,12 +73,11 @@ public class CategoryDto {
         CategoryDto that = (CategoryDto) o;
         return Objects.equals(id, that.id) &&
                 Objects.equals(name, that.name) &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(parentId, that.parentId);
+                Objects.equals(description, that.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, parentId);
+        return Objects.hash(id, name, description);
     }
 }
