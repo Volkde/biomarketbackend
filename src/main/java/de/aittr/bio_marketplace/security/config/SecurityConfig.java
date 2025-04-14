@@ -78,12 +78,19 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/confirm/**").permitAll()
 
                                 // Product controller
-                                .requestMatchers(HttpMethod.POST, "/products").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                                .requestMatchers(HttpMethod.POST, "/products").hasAnyRole(USER_ROLE, SELLER_ROLE, ADMIN_ROLE)
                                 .requestMatchers(HttpMethod.GET, "/products").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
                                 .requestMatchers(HttpMethod.PUT, "/products/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
                                 .requestMatchers(HttpMethod.PUT, "/products/deactivate/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
                                 .requestMatchers(HttpMethod.DELETE, "/products/**").hasRole(ADMIN_ROLE)
+
+                                // Category controller
+                                .requestMatchers(HttpMethod.POST, "/categories").hasAnyRole(USER_ROLE, SELLER_ROLE, ADMIN_ROLE)
+                                .requestMatchers(HttpMethod.GET, "/categories").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/categories/**").hasRole(ADMIN_ROLE)
+                                .requestMatchers(HttpMethod.DELETE, "/categories/**").hasRole(ADMIN_ROLE)
 
                                 // Cart controller
                                 .requestMatchers(HttpMethod.POST, "/cart/add").hasAnyRole(USER_ROLE, ADMIN_ROLE)
@@ -107,7 +114,6 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.PUT, "/orders/user/deactivate/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
                                 .requestMatchers(HttpMethod.PUT, "/orders/seller/deactivate/**").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
                                 .requestMatchers(HttpMethod.DELETE, "/orders/**").hasRole(ADMIN_ROLE)
-//                        .requestMatchers(HttpMethod.POST, "/orders/**").permitAll()
 
                                 // Seller Controller
                                 .requestMatchers(HttpMethod.GET, "/sellers").permitAll()
