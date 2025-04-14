@@ -10,6 +10,7 @@ public class UserDto {
     private String username;
     private String phoneNumber;
     private String avatar;
+    private Long wishlistId;
 
     public Long getId() {
         return id;
@@ -40,6 +41,10 @@ public class UserDto {
         return avatar;
     }
 
+    public Long getWishlistId() {
+        return wishlistId;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -68,22 +73,33 @@ public class UserDto {
         this.avatar = avatar;
     }
 
+    public void setWishlistId(Long wishlistId) {
+        this.wishlistId = wishlistId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         UserDto userDto = (UserDto) o;
-        return Objects.equals(id, userDto.id);
+        return Objects.equals(id, userDto.id) &&
+                Objects.equals(firstName, userDto.firstName) &&
+                Objects.equals(lastName, userDto.lastName) &&
+                Objects.equals(email, userDto.email) &&
+                Objects.equals(username, userDto.username) &&
+                Objects.equals(phoneNumber, userDto.phoneNumber) &&
+                Objects.equals(avatar, userDto.avatar) &&
+                Objects.equals(wishlistId, userDto.wishlistId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, firstName, lastName, email, username, phoneNumber, avatar, wishlistId);
     }
 
     @Override
     public String toString() {
-        return String.format(" User: ID - %d, First name - %s, Last name - %s, Email - %s, Username - %s, Phone number  - %s, Avatar - %s.",
-                id, firstName, lastName, email, username, phoneNumber, avatar);
+        return String.format("User: ID - %d, First name - %s, Last name - %s, Email - %s, Username - %s, Phone number - %s, Avatar - %s, Wishlist ID - %s.",
+                id, firstName, lastName, email, username, phoneNumber, avatar, wishlistId);
     }
 }
 

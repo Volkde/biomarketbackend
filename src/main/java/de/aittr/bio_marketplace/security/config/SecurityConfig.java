@@ -70,82 +70,87 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
 
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                                // Auth controller
-                                .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register", "/auth/logout").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/auth/refresh").permitAll()
+                        // Auth controller
+                        .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register", "/auth/logout").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/auth/refresh").permitAll()
 
-                                // Confirm controller
-                                .requestMatchers(HttpMethod.GET, "/confirm/**").permitAll()
+                        // Confirm controller
+                        .requestMatchers(HttpMethod.GET, "/confirm/**").permitAll()
 
-                                // Product controller
-                                .requestMatchers(HttpMethod.POST, "/products").hasAnyRole(USER_ROLE, SELLER_ROLE, ADMIN_ROLE)
-                                .requestMatchers(HttpMethod.GET, "/products").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
-                                .requestMatchers(HttpMethod.PUT, "/products/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
-                                .requestMatchers(HttpMethod.PUT, "/products/deactivate/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
-                                .requestMatchers(HttpMethod.DELETE, "/products/**").hasRole(ADMIN_ROLE)
+                        // Product controller
+                        .requestMatchers(HttpMethod.POST, "/products").hasAnyRole(USER_ROLE, SELLER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/products").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/products/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.PUT, "/products/deactivate/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.DELETE, "/products/**").hasRole(ADMIN_ROLE)
 
-                                // Category controller
-                                .requestMatchers(HttpMethod.POST, "/categories").hasAnyRole(USER_ROLE, SELLER_ROLE, ADMIN_ROLE)
-                                .requestMatchers(HttpMethod.GET, "/categories").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
-                                .requestMatchers(HttpMethod.PUT, "/categories/**").hasRole(ADMIN_ROLE)
-                                .requestMatchers(HttpMethod.DELETE, "/categories/**").hasRole(ADMIN_ROLE)
+                        // Category controller
+                        .requestMatchers(HttpMethod.POST, "/categories").hasAnyRole(USER_ROLE, SELLER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/categories").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/categories/**").hasRole(ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.DELETE, "/categories/**").hasRole(ADMIN_ROLE)
 
-                                // Cart controller
-                                .requestMatchers(HttpMethod.POST, "/cart/add").hasAnyRole(USER_ROLE, ADMIN_ROLE)
-                                .requestMatchers(HttpMethod.GET, "/cart").hasAnyRole(USER_ROLE, ADMIN_ROLE)
-                                .requestMatchers(HttpMethod.PUT, "/cart/update").hasAnyRole(USER_ROLE, ADMIN_ROLE)
-                                .requestMatchers(HttpMethod.DELETE, "/cart/remove/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
-                                .requestMatchers(HttpMethod.DELETE, "/cart/clear").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        // Wishlist controller
+                        .requestMatchers(HttpMethod.POST, "/wishlist/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/wishlist").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.DELETE, "/wishlist").hasAnyRole(USER_ROLE, ADMIN_ROLE)
 
-                                // User controller
-                                .requestMatchers(HttpMethod.GET, "/users").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
-                                .requestMatchers(HttpMethod.PUT, "/users").permitAll()
-                                .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
-                                .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
+                        // Cart controller
+                        .requestMatchers(HttpMethod.POST, "/cart/add").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/cart").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.PUT, "/cart/update").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.DELETE, "/cart/remove/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.DELETE, "/cart/clear").hasAnyRole(USER_ROLE, ADMIN_ROLE)
 
-                                // Order controller
-                                .requestMatchers(HttpMethod.POST, "/orders").hasAnyRole(USER_ROLE, ADMIN_ROLE)
-                                .requestMatchers(HttpMethod.GET, "/orders/user").hasAnyRole(USER_ROLE, ADMIN_ROLE)
-                                .requestMatchers(HttpMethod.GET, "/orders/seller/**").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
-                                .requestMatchers(HttpMethod.GET, "/orders").hasRole(ADMIN_ROLE)
-                                .requestMatchers(HttpMethod.PUT, "/orders/user/deactivate/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
-                                .requestMatchers(HttpMethod.PUT, "/orders/seller/deactivate/**").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
-                                .requestMatchers(HttpMethod.DELETE, "/orders/**").hasRole(ADMIN_ROLE)
+                        // User controller
+                        .requestMatchers(HttpMethod.GET, "/users").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/users").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
 
-                                // Seller Controller
-                                .requestMatchers(HttpMethod.GET, "/sellers").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/sellers/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/sellers/**").permitAll()
-                                .requestMatchers(HttpMethod.PUT, "/sellers").permitAll()
-                                .requestMatchers(HttpMethod.PUT, "/sellers/**").permitAll()
+                        // Order controller
+                        .requestMatchers(HttpMethod.POST, "/orders").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/orders/user").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/orders/seller/**").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/orders").hasRole(ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.PUT, "/orders/user/deactivate/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.PUT, "/orders/seller/deactivate/**").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.DELETE, "/orders/**").hasRole(ADMIN_ROLE)
 
-                                // Review Controller
-                                .requestMatchers(HttpMethod.GET, "/reviews").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/reviews/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/reviews/**").permitAll()
-                                .requestMatchers(HttpMethod.PUT, "/reviews").permitAll()
-                                .requestMatchers(HttpMethod.PUT, "/reviews/**").permitAll()
-                                .requestMatchers(HttpMethod.DELETE, "/reviews/**").permitAll()
+                        // Seller Controller
+                        .requestMatchers(HttpMethod.GET, "/sellers").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/sellers/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/sellers/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/sellers").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/sellers/**").permitAll()
 
-                                // Address Controller
-                                .requestMatchers(HttpMethod.GET, "/address").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/address/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/address/**").permitAll()
-                                .requestMatchers(HttpMethod.PUT, "/address").permitAll()
-                                .requestMatchers(HttpMethod.PUT, "/address/**").permitAll()
-                                .requestMatchers(HttpMethod.DELETE, "/address/**").permitAll()
+                        // Review Controller
+                        .requestMatchers(HttpMethod.GET, "/reviews").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/reviews/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/reviews/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/reviews").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/reviews/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/reviews/**").permitAll()
 
-                                .requestMatchers("/v3/api-docs",
-                                        "/v3/api-docs/**",
-                                        "/swagger-ui/",
-                                        "/swagger-ui.html",
-                                        "/swagger-ui/index.html",
-                                        "/swagger-ui/**").permitAll()
+                        // Address Controller
+                        .requestMatchers(HttpMethod.GET, "/address").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/address/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/address/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/address").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/address/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/address/**").permitAll()
 
-                                .anyRequest().authenticated()
+                        .requestMatchers("/v3/api-docs",
+                                "/v3/api-docs/**",
+                                "/swagger-ui/",
+                                "/swagger-ui.html",
+                                "/swagger-ui/index.html",
+                                "/swagger-ui/**").permitAll()
+
+                        .anyRequest().authenticated()
                 )
 
                 .sessionManagement(x -> x.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

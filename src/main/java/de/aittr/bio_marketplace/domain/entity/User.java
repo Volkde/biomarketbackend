@@ -58,6 +58,9 @@ public class User {
     @Column(name = "avatar")
     private String avatar;
 
+    @Column(name = "wishlist_id")
+    private Long wishlistId;
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Cart cart;
 
@@ -81,6 +84,8 @@ public class User {
     @OneToOne
     @JoinColumn(name = "seller_id")
     private Seller seller;
+
+
 
     public User() {
     }
@@ -136,6 +141,10 @@ public class User {
         return avatar;
     }
 
+    public Long getWishlistId() {
+        return wishlistId;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -188,6 +197,10 @@ public class User {
         this.avatar = avatar;
     }
 
+    public void setWishlistId(Long wishlistId) {
+        this.wishlistId = wishlistId;
+    }
+
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
@@ -208,17 +221,19 @@ public class User {
                 Objects.equals(username, user.username) &&
                 Objects.equals(password, user.password) &&
                 Objects.equals(phoneNumber, user.phoneNumber) &&
-                Objects.equals(avatar, user.avatar);
+                Objects.equals(avatar, user.avatar) &&
+                Objects.equals(wishlistId, user.wishlistId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, username, password, phoneNumber, isActive, avatar);
+        return Objects.hash(id, firstName, lastName, email, username, password, phoneNumber, isActive, avatar, wishlistId);
     }
 
     @Override
     public String toString() {
-        return String.format("User: ID - %d, First name - %s, Last name - %s, Email - %s, Username - %s, Password - %s, Phone number - %s, Status - %s, Avatar - %s.",
-                id, firstName, lastName, email, username, password, phoneNumber, isActive, avatar);
+        return String.format("User: ID - %d, First name - %s, Last name - %s, Email - %s, Username - %s, Password - %s, Phone number - %s, Status - %s, Avatar - %s, Wishlist ID - %s.",
+                id, firstName, lastName, email, username, password, phoneNumber, isActive, avatar, wishlistId);
     }
 }
+
