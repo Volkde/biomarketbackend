@@ -97,4 +97,20 @@ public class CategoryController {
         return new CategoryResponse(updatedCategory);
     }
 
+    //  --- Delete ---
+
+    @Operation(
+            summary = "Delete category by ID (admin)",
+            description = "Deletes a category from the database by its ID and returns the deleted category, wrapped in a 'category' object"
+    )
+    @DeleteMapping("/{categoryId}")
+    public CategoryResponse deleteCategoryById(
+            @PathVariable
+            @Parameter(description = "Category unique identifier")
+            Long categoryId
+    ) {
+        CategoryDto deletedCategory = categoryService.deleteById(categoryId);
+        return new CategoryResponse(deletedCategory);
+    }
+
 }

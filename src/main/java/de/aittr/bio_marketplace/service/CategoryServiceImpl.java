@@ -65,4 +65,15 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.mapEntityToDto(updatedCategory);
     }
 
+    //  --- Delete ---
+
+    @Override
+    public CategoryDto deleteById(Long id) {
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category with id " + id + " not found"));
+        CategoryDto deletedCategoryDto = categoryMapper.mapEntityToDto(category);
+        categoryRepository.deleteById(id);
+        return deletedCategoryDto;
+    }
+
 }
