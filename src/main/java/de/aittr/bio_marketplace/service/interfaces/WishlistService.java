@@ -9,4 +9,8 @@ public interface WishlistService {
 
     // --- Read ---
     WishlistDto getWishlistByUserId(Long userId);
+
+    // --- Delete ---
+    WishlistDto clearWishlist(Long userId);
+
 }

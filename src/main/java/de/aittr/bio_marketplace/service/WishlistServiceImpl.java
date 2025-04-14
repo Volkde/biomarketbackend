@@ -69,4 +69,20 @@ public class WishlistServiceImpl implements WishlistService {
         return wishlistMapper.mapEntityToDto(wishlist);
     }
 
+    // --- Delete ---
+
+    @Override
+    public WishlistDto clearWishlist(Long userId) {
+        Wishlist wishlist = wishlistRepository.findByUserId(userId)
+                .orElseGet(() -> {
+                    Wishlist newWishlist = new Wishlist();
+                    newWishlist.setUserId(userId);
+                    return wishlistRepository.save(newWishlist);
+                });
+
+        wishlist.getProductIds().clear();
+        Wishlist updatedWishlist = wishlistRepository.save(wishlist);
+        return wishlistMapper.mapEntityToDto(updatedWishlist);
+    }
+
 }

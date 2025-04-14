@@ -94,6 +94,8 @@ public class SecurityConfig {
 
                         // Wishlist controller
                         .requestMatchers(HttpMethod.POST, "/wishlist/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/wishlist").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.DELETE, "/wishlist").hasAnyRole(USER_ROLE, ADMIN_ROLE)
 
                         // Cart controller
                         .requestMatchers(HttpMethod.POST, "/cart/add").hasAnyRole(USER_ROLE, ADMIN_ROLE)

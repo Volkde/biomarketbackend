@@ -88,4 +88,29 @@ public class WishlistController {
         return response;
     }
 
+    // --- Delete ---
+
+    @Operation(
+            summary = "Clear current user's wishlist",
+            description = "Removes all products from the current user's wishlist and returns the updated wishlist wrapped in a 'wishlist' object"
+    )
+    @DeleteMapping
+    public WishlistResponse clearWishlist(Principal principal) {
+        logger.info("Received request to clear wishlist for user: {}", principal.getName());
+
+        UserDto user = userService.getCurrentUserAsDto();
+        Long userId = user.getId();
+
+        WishlistDto clearedWishlist = wishlistService.clearWishlist(userId);
+        WishlistResponse response = new WishlistResponse(
+                clearedWishlist.getId(),
+                clearedWishlist.getUserId(),
+                clearedWishlist.getProductIds().size(),
+                clearedWishlist.getProductIds()
+        );
+
+        logger.info("Cleared wishlist for user {}: {}", principal.getName(), response);
+        return response;
+    }
+
 }
