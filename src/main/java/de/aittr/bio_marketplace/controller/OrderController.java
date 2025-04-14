@@ -6,6 +6,7 @@ import de.aittr.bio_marketplace.controller.responses.OrdersResponse;
 import de.aittr.bio_marketplace.domain.dto.OrderDto;
 import de.aittr.bio_marketplace.domain.dto.SellerDto;
 import de.aittr.bio_marketplace.domain.dto.UserDto;
+import de.aittr.bio_marketplace.domain.entity.Order;
 import de.aittr.bio_marketplace.service.interfaces.OrderService;
 import de.aittr.bio_marketplace.service.interfaces.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -113,4 +114,37 @@ public class OrderController {
         logger.info("Deactivated order with ID {}: {}", orderId, deactivatedOrder);
         return new OrderResponse(deactivatedOrder);
     }
+
+    @Operation(
+            summary = "Deactivate seller's order by ID",
+            description = "Changes the status of a seller's order to 'DELETED' by its ID, making it inactive without removing it from the database, and returns the deactivated order wrapped in an 'order' object"
+    )
+    @PutMapping("/seller/deactivate/{orderId}")
+    public OrderResponse deactivateSellersOrderById(
+            @PathVariable
+            @Parameter(description = "Order unique identifier")
+            Long orderId,
+            Principal principal) {
+        logger.info("Received request to deactivate seller's order with ID: {} for user: {}", orderId, principal.getName());
+
+        UserDto user = userService.getCurrentUserAsDto();
+        Long userId = user.getId();
+
+        List<SellerDto> sellers = userService.getAllSellers(userId);
+        if (sellers.isEmpty()) {
+            throw new SecurityException("User " + principal.getName() + " has no associated sellers");
+        }
+
+        Long orderSellerId = sellers.stream()
+                .filter(seller -> orderService.getOrdersForSeller(seller.getId()).stream()
+                        .anyMatch(order -> order.getId().equals(orderId)))
+                .map(SellerDto::getId)
+                .findFirst()
+                .orElseThrow(() -> new SecurityException("Order with ID " + orderId + " is not associated with any seller of user " + principal.getName()));
+
+        OrderDto deactivatedOrder = orderService.deactivateSellersOrder(orderId, orderSellerId);
+        logger.info("Successfully deactivated seller's order with ID {} for user {}: {}", orderId, principal.getName(), deactivatedOrder);
+        return new OrderResponse(deactivatedOrder);
+    }
+
 }

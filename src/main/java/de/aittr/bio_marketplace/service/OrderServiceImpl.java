@@ -174,6 +174,17 @@ public class OrderServiceImpl implements OrderService {
         Order updatedOrder = orderRepository.save(order);
         return orderMapper.toDto(updatedOrder);
     }
+    @Override
+    public OrderDto deactivateSellersOrder(Long orderId, Long sellerId) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new RuntimeException("Order with ID " + orderId + " not found"));
+        if (!order.getSellerId().equals(sellerId)) {
+            throw new SecurityException("Order with ID " + orderId + " does not belong to seller with ID " + sellerId);
+        }
+        order.setStatus(OrderStatus.DELETED);
+        Order updatedOrder = orderRepository.save(order);
+        return orderMapper.toDto(updatedOrder);
+    }
 
     @Override
     public void deleteOrder(Long id, String email) {
