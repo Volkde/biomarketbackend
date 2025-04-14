@@ -1,48 +1,39 @@
-package de.aittr.bio_marketplace.domain.entity;
+package de.aittr.bio_marketplace.domain.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
 
-@Entity
-@Table(name = "category")
-@Schema(description = "Class that describes a Category entity")
-public class Category {
+@Schema(description = "Class that describes Category DTO")
+public class CategoryDto {
 
     // --- FIELDS ---
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     @Schema(description = "Category unique identifier", example = "1", accessMode = Schema.AccessMode.READ_ONLY)
     private Long id;
 
-    @Column(name = "name", nullable = false)
     @NotNull(message = "Category name cannot be null")
     @NotBlank(message = "Category name cannot be empty")
     @Size(min = 2, max = 255, message = "Category name must be between 2 and 255 characters")
     @Schema(description = "Category name", example = "Dairy Products")
     private String name;
 
-    @Column(name = "description")
     @Size(max = 500, message = "Category description cannot exceed 500 characters")
     @Schema(description = "Category description", example = "Fresh dairy products from German farms")
     private String description;
 
-    @Column(name = "parent_id")
     @Schema(description = "Parent category identifier, if this is a subcategory", example = "null")
     private Long parentId;
 
     // --- CONSTRUCTORS ---
 
-    public Category() {
+    public CategoryDto() {
     }
 
-    public Category(Long id, String name, String description, Long parentId) {
+    public CategoryDto(Long id, String name, String description, Long parentId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -91,11 +82,11 @@ public class Category {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Category category = (Category) o;
-        return Objects.equals(id, category.id) &&
-                Objects.equals(name, category.name) &&
-                Objects.equals(description, category.description) &&
-                Objects.equals(parentId, category.parentId);
+        CategoryDto that = (CategoryDto) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(parentId, that.parentId);
     }
 
     @Override
