@@ -39,6 +39,9 @@
     <include file="909-insert-seller-user.xml" relativeToChangelogFile="true"/>
     <include file="915-update-products-discounted-and-in-stock.xml" relativeToChangelogFile="true"/>
     <include file="917-update-products-with-unit-of-measure.xml" relativeToChangelogFile="true"/>
+    <include file="921-insert-wishlists.xml" relativeToChangelogFile="true"/>
+    <include file="922-insert-wishlist-products.xml" relativeToChangelogFile="true"/>
+    <include file="923-update-user-wishlist-id.xml" relativeToChangelogFile="true"/>
 
 
 </databaseChangeLog>
