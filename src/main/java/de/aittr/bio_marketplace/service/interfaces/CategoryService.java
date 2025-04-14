@@ -6,6 +6,9 @@ import java.util.List;
 
 public interface CategoryService {
 
+    // --- Create ---
+    CategoryDto save(CategoryDto categoryDto);
+
     //  --- Read ---
     List<CategoryDto> getAllCategories();
     CategoryDto getById(Long id);

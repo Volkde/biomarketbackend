@@ -1,5 +1,6 @@
 package de.aittr.bio_marketplace.controller;
 
+import de.aittr.bio_marketplace.controller.requests.AddCategoryRequest;
 import de.aittr.bio_marketplace.controller.responses.CategoriesResponse;
 import de.aittr.bio_marketplace.controller.responses.CategoryResponse;
 import de.aittr.bio_marketplace.domain.dto.CategoryDto;
@@ -7,10 +8,7 @@ import de.aittr.bio_marketplace.service.interfaces.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,11 +17,38 @@ import java.util.List;
 @Tag(name = "Category controller", description = "Controller for operations with Categories")
 public class CategoryController {
 
+    // --- FIELDS ---
+
     private final CategoryService categoryService;
+
+    // --- CONSTRUCTOR ---
 
     public CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
+
+    // --- METHODS ---
+
+    // --- Create ---
+
+    @Operation(
+            summary = "Save category",
+            description = "Saves a new category with the given parameters, wrapped in a 'category' object"
+    )
+    @PostMapping
+    public CategoryResponse saveCategory(
+            @RequestBody
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Instance of a Category to save")
+            AddCategoryRequest request
+    ) {
+        CategoryDto categoryDto = new CategoryDto();
+        categoryDto.setName(request.getName());
+        categoryDto.setDescription(request.getDescription());
+        CategoryDto savedCategory = categoryService.save(categoryDto);
+        return new CategoryResponse(savedCategory);
+    }
+
+    // --- Read ---
 
     @Operation(
             summary = "Get all categories",

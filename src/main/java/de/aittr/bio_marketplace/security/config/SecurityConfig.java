@@ -78,7 +78,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/confirm/**").permitAll()
 
                                 // Product controller
-                                .requestMatchers(HttpMethod.POST, "/products").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                                .requestMatchers(HttpMethod.POST, "/products").hasAnyRole(USER_ROLE, SELLER_ROLE, ADMIN_ROLE)
                                 .requestMatchers(HttpMethod.GET, "/products").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/products/**").permitAll()
                                 .requestMatchers(HttpMethod.PUT, "/products/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
@@ -86,6 +86,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.DELETE, "/products/**").hasRole(ADMIN_ROLE)
 
                                 // Category controller
+                                .requestMatchers(HttpMethod.POST, "/categories").hasAnyRole(USER_ROLE, SELLER_ROLE, ADMIN_ROLE)
                                 .requestMatchers(HttpMethod.GET, "/categories").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
 
