@@ -85,9 +85,9 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.PUT, "/products/deactivate/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
                                 .requestMatchers(HttpMethod.DELETE, "/products/**").hasRole(ADMIN_ROLE)
 
-                                // Product controller
+                                // Category controller
                                 .requestMatchers(HttpMethod.GET, "/categories").permitAll()
-
+                                .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
 
                                 // Cart controller
                                 .requestMatchers(HttpMethod.POST, "/cart/add").hasAnyRole(USER_ROLE, ADMIN_ROLE)
@@ -111,7 +111,6 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.PUT, "/orders/user/deactivate/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
                                 .requestMatchers(HttpMethod.PUT, "/orders/seller/deactivate/**").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
                                 .requestMatchers(HttpMethod.DELETE, "/orders/**").hasRole(ADMIN_ROLE)
-//                        .requestMatchers(HttpMethod.POST, "/orders/**").permitAll()
 
                                 // Seller Controller
                                 .requestMatchers(HttpMethod.GET, "/sellers").permitAll()

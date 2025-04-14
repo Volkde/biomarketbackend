@@ -21,6 +21,8 @@ public class CategoryServiceImpl implements CategoryService {
         this.categoryMapper = categoryMapper;
     }
 
+    //  --- Read ---
+
     @Override
     public List<CategoryDto> getAllCategories() {
         List<Category> categories = categoryRepository.findAll();
@@ -28,4 +30,12 @@ public class CategoryServiceImpl implements CategoryService {
                 .map(categoryMapper::mapEntityToDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public CategoryDto getById(Long id) {
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category with id " + id + " not found"));
+        return categoryMapper.mapEntityToDto(category);
+    }
+
 }
