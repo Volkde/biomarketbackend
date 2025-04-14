@@ -8,6 +8,7 @@ import java.util.List;
 public interface OrderService {
     List<OrderDto> createOrdersFromCart(AddressDto buyerAddress, String email);
     List<OrderDto> getOrdersForUser(String email);
+    public List<OrderDto> getOrdersForSeller(Long sellerId);
     OrderDto getOrderByIdAndUser(Long id, String email);
     void deleteOrder(Long id, String email);
 }

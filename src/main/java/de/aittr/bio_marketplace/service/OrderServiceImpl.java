@@ -129,11 +129,22 @@ public class OrderServiceImpl implements OrderService {
                 .collect(Collectors.toList());
     }
 
+    // --- Read ---
+
     @Override
     public List<OrderDto> getOrdersForUser(String email) {
         User user = userRepository.findUserByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("User with email " + email + " not found"));
-        return orderRepository.findByUserId(user.getId()).stream()
+        return orderRepository.findByBuyerId(user.getId()).stream()
+                .filter(order -> order.getStatus() != OrderStatus.DELETED)
+                .map(orderMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<OrderDto> getOrdersForSeller(Long sellerId) {
+        return orderRepository.findBySellerId(sellerId).stream()
+                .filter(order -> order.getStatus() != OrderStatus.DELETED)
                 .map(orderMapper::toDto)
                 .collect(Collectors.toList());
     }

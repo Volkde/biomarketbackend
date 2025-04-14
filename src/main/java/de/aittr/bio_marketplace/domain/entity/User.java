@@ -200,17 +200,25 @@ public class User {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return isActive == user.isActive && Objects.equals(id, user.id) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(avatar, user.avatar) && Objects.equals(cart, user.cart) && Objects.equals(roles, user.roles) && Objects.equals(sellers, user.sellers) && Objects.equals(seller, user.seller);
+        return isActive == user.isActive &&
+                Objects.equals(id, user.id) &&
+                Objects.equals(firstName, user.firstName) &&
+                Objects.equals(lastName, user.lastName) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(phoneNumber, user.phoneNumber) &&
+                Objects.equals(avatar, user.avatar);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, username, password, phoneNumber, isActive, avatar, cart, roles, sellers, seller);
+        return Objects.hash(id, firstName, lastName, email, username, password, phoneNumber, isActive, avatar);
     }
 
     @Override
     public String toString() {
-        return String.format(" User: ID - %d, First name - %s, Last name - %s, Email - %s, Username - %s, Password - %s, Phone number  - %s, Status - %s, Avatar - %s, Roles - %s, Sellers - %s, Cart - %s.",
-                id, firstName, lastName, email, username, password, phoneNumber, isActive, avatar, roles, sellers, cart);
+        return String.format("User: ID - %d, First name - %s, Last name - %s, Email - %s, Username - %s, Password - %s, Phone number - %s, Status - %s, Avatar - %s.",
+                id, firstName, lastName, email, username, password, phoneNumber, isActive, avatar);
     }
 }

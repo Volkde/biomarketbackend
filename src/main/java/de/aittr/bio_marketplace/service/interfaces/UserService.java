@@ -20,6 +20,8 @@ public interface UserService {
 
     RegisterUserResponseDto getCurrentUser();
 
+    UserDto getCurrentUserAsDto();
+
     List<UserDto> getAllActiveUsers();
 
     UserDto getById(Long id);

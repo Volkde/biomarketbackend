@@ -33,6 +33,7 @@ public class SecurityConfig {
 
     private final String ADMIN_ROLE = "ADMIN";
     private final String USER_ROLE = "USER";
+    private final String SELLER_ROLE = "SELLER";
 
     public SecurityConfig(CustomUserDetailsService userDetailsService,
                           JwtAuthenticationFilter jwtAuthenticationFilter) {
@@ -101,6 +102,7 @@ public class SecurityConfig {
                         // Order controller
                         .requestMatchers(HttpMethod.POST, "/orders").hasAnyRole(USER_ROLE, ADMIN_ROLE)
                         .requestMatchers(HttpMethod.POST, "/orders/user").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.POST, "/orders/seller/**").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
 //                        .requestMatchers(HttpMethod.POST, "/orders/**").permitAll()
 
                         // Seller Controller
