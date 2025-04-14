@@ -89,6 +89,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.POST, "/categories").hasAnyRole(USER_ROLE, SELLER_ROLE, ADMIN_ROLE)
                                 .requestMatchers(HttpMethod.GET, "/categories").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/categories/**").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/categories/**").hasRole(ADMIN_ROLE)
 
                                 // Cart controller
                                 .requestMatchers(HttpMethod.POST, "/cart/add").hasAnyRole(USER_ROLE, ADMIN_ROLE)

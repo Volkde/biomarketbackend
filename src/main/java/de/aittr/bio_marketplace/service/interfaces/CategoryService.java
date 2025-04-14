@@ -12,4 +12,8 @@ public interface CategoryService {
     //  --- Read ---
     List<CategoryDto> getAllCategories();
     CategoryDto getById(Long id);
+
+    //  --- Update ---
+    CategoryDto update(Long id, CategoryDto categoryDto);
+
 }

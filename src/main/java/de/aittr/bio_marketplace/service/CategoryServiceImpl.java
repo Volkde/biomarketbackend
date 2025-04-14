@@ -47,4 +47,22 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.mapEntityToDto(category);
     }
 
+    //  --- Update ---
+
+    @Override
+    public CategoryDto update(Long id, CategoryDto categoryDto) {
+        Category existingCategory = categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category with id " + id + " not found"));
+
+        if (categoryDto.getName() != null) {
+            existingCategory.setName(categoryDto.getName());
+        }
+        if (categoryDto.getDescription() != null) {
+            existingCategory.setDescription(categoryDto.getDescription());
+        }
+
+        Category updatedCategory = categoryRepository.save(existingCategory);
+        return categoryMapper.mapEntityToDto(updatedCategory);
+    }
+
 }

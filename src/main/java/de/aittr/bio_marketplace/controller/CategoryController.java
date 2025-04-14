@@ -1,6 +1,7 @@
 package de.aittr.bio_marketplace.controller;
 
 import de.aittr.bio_marketplace.controller.requests.AddCategoryRequest;
+import de.aittr.bio_marketplace.controller.requests.UpdateCategoryRequest;
 import de.aittr.bio_marketplace.controller.responses.CategoriesResponse;
 import de.aittr.bio_marketplace.controller.responses.CategoryResponse;
 import de.aittr.bio_marketplace.domain.dto.CategoryDto;
@@ -72,6 +73,28 @@ public class CategoryController {
     ) {
         CategoryDto categoryDto = categoryService.getById(categoryId);
         return new CategoryResponse(categoryDto);
+    }
+
+    //  --- Update ---
+
+    @Operation(
+            summary = "Update category by ID (admin)",
+            description = "Updates an existing category by its ID with the given parameters, wrapped in a 'category' object"
+    )
+    @PutMapping("/{categoryId}")
+    public CategoryResponse updateCategoryById(
+            @PathVariable
+            @Parameter(description = "Category unique identifier")
+            Long categoryId,
+            @RequestBody
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Instance of a Category to update")
+            UpdateCategoryRequest request
+    ) {
+        CategoryDto categoryDto = new CategoryDto();
+        categoryDto.setName(request.getName());
+        categoryDto.setDescription(request.getDescription());
+        CategoryDto updatedCategory = categoryService.update(categoryId, categoryDto);
+        return new CategoryResponse(updatedCategory);
     }
 
 }
