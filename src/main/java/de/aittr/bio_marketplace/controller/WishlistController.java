@@ -62,4 +62,30 @@ public class WishlistController {
         logger.info("Updated wishlist for user {}: {}", principal.getName(), response);
         return response;
     }
+
+    // --- Read ---
+
+    @Operation(
+            summary = "Get current user's wishlist",
+            description = "Returns the wishlist of the current user wrapped in a 'wishlist' object"
+    )
+    @GetMapping
+    public WishlistResponse getCurrentUsersWishlist(Principal principal) {
+        logger.info("Received request to get wishlist for user: {}", principal.getName());
+
+        UserDto user = userService.getCurrentUserAsDto();
+        Long userId = user.getId();
+
+        WishlistDto wishlist = wishlistService.getWishlistByUserId(userId);
+        WishlistResponse response = new WishlistResponse(
+                wishlist.getId(),
+                wishlist.getUserId(),
+                wishlist.getProductIds().size(),
+                wishlist.getProductIds()
+        );
+
+        logger.info("Returning wishlist for user {}: {}", principal.getName(), response);
+        return response;
+    }
+
 }

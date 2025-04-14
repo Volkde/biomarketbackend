@@ -6,4 +6,7 @@ public interface WishlistService {
 
     // --- Create ---
     WishlistDto toggleProduct(Long userId, Long productId);
+
+    // --- Read ---
+    WishlistDto getWishlistByUserId(Long userId);
 }
