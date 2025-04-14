@@ -16,6 +16,17 @@ public class UserValidator extends RuntimeException{
         int indexAt = email.indexOf('@');
         if (indexAt == -1 || indexAt != email.lastIndexOf('@')) throw new EmailValidateException("@ error");
 
+        if (indexAt < 3) throw new EmailValidateException("less than 3 symbols before @");
+
+        for (int i = 1; i <= 3; i++) {
+            if (indexAt + i >= email.length()) {
+                throw new EmailValidateException("less than 3 symbols after @");
+            }
+            if (email.charAt(indexAt + i) == '.') {
+                throw new EmailValidateException("dot found in first 3 symbols after @");
+            }
+        }
+
         int dotIndexAfterAt = email.indexOf('.', indexAt + 1);
         if (dotIndexAfterAt == -1) throw new EmailValidateException(". after @ error");
 
