@@ -84,4 +84,16 @@ public class OrderController {
         return new OrdersResponse(orders);
     }
 
+    @Operation(
+            summary = "Get all orders (admin)",
+            description = "Returns the list of all orders in the system, regardless of their status"
+    )
+    @GetMapping("/admin")
+    public OrdersResponse getAllOrders() {
+        logger.info("Received request to get all orders (admin)");
+        List<OrderDto> orders = orderService.getAllOrders();
+        logger.info("Returning all orders: {}", orders);
+        return new OrdersResponse(orders);
+    }
+
 }

@@ -159,6 +159,15 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public List<OrderDto> getAllOrders() {
+        return orderRepository.findAll().stream()
+                .map(orderMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    // --- Delete ---
+
+    @Override
     public void deleteOrder(Long id, String email) {
         Order order = getOrderByIdAndUser(id, email).toEntity();
         orderRepository.delete(order);

@@ -10,5 +10,6 @@ public interface OrderService {
     List<OrderDto> getOrdersForUser(String email);
     public List<OrderDto> getOrdersForSeller(Long sellerId);
     OrderDto getOrderByIdAndUser(Long id, String email);
+    List<OrderDto> getAllOrders();
     void deleteOrder(Long id, String email);
 }

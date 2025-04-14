@@ -101,8 +101,9 @@ public class SecurityConfig {
                                        
                         // Order controller
                         .requestMatchers(HttpMethod.POST, "/orders").hasAnyRole(USER_ROLE, ADMIN_ROLE)
-                        .requestMatchers(HttpMethod.POST, "/orders/user").hasAnyRole(USER_ROLE, ADMIN_ROLE)
-                        .requestMatchers(HttpMethod.POST, "/orders/seller/**").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/orders/user").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/orders/seller/**").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/orders/admin").hasRole(ADMIN_ROLE)
 //                        .requestMatchers(HttpMethod.POST, "/orders/**").permitAll()
 
                         // Seller Controller
