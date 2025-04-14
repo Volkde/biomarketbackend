@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
 
-    <changeSet id="904-insert-products" author="team46">
+    <changeSet id="904-insert-products" author="Sergej">
         <preConditions onFail="MARK_RAN">
             <tableExists tableName="product"/>
         </preConditions>
@@ -20,7 +20,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.20"/>
             <column name="description" value="Fresh cow milk from Bavaria"/>
-            <column name="image" value="https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/2yzsbP5P/Bavarian-Milk.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="2"/>
@@ -32,7 +32,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.70"/>
             <column name="description" value="Creamy German quark"/>
-            <column name="image" value="https://images.pexels.com/photos/773253/pexels-photo-773253.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/bY7VsZ61/Quark-Cheese.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="3"/>
@@ -44,7 +44,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.90"/>
             <column name="description" value="Rich butter from the Black Forest"/>
-            <column name="image" value="https://i.postimg.cc/9fQWkPMP/Butter.png"/>
+            <column name="image" value="https://i.postimg.cc/xdMhs0Jw/Black-Forest-Butter.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="4"/>
@@ -56,7 +56,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.30"/>
             <column name="description" value="Aged Gouda from local farms"/>
-            <column name="image" value="https://images.pexels.com/photos/821365/pexels-photo-821365.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/8z8bZLRC/Gouda-Cheese.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="5"/>
@@ -68,7 +68,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.40"/>
             <column name="description" value="Organic plain yogurt"/>
-            <column name="image" value="https://images.pexels.com/photos/594672/pexels-photo-594672.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/MpTBwDy5/Yogurt-Natural.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="6"/>
@@ -80,7 +80,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.10"/>
             <column name="description" value="Spicy Tilsiter from northern Germany"/>
-            <column name="image" value="https://images.pexels.com/photos/773253/pexels-photo-773253.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/Y0zFrDnn/Tilsiter-Cheese.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="7"/>
@@ -92,7 +92,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.50"/>
             <column name="description" value="Fresh cream for cooking"/>
-            <column name="image" value="https://images.pexels.com/photos/594672/pexels-photo-594672.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/gJGSN3Ph/Cream-Fresh.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="8"/>
@@ -104,7 +104,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.30"/>
             <column name="description" value="Milk from Alpine cows"/>
-            <column name="image" value="https://images.pexels.com/photos/248412/pexels-photo-248412.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/zv8rwyx2/Alpine-Milk.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="9"/>
@@ -116,7 +116,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.50"/>
             <column name="description" value="Traditional German sausage"/>
-            <column name="image" value="https://images.pexels.com/photos/1108117/pexels-photo-1108117.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/ydT5HvTn/Bratwurst.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="10"/>
@@ -128,7 +128,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.90"/>
             <column name="description" value="Bavarian white sausage"/>
-            <column name="image" value="https://images.pexels.com/photos/1108117/pexels-photo-1108117.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/ydT5HvTn/Bratwurst.png"/> <!-- Используем Bratwurst.png, так как для Weisswurst нет отдельного изображения -->
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="11"/>
@@ -140,7 +140,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.30"/>
             <column name="description" value="Smoked ham from the Black Forest"/>
-            <column name="image" value="https://images.pexels.com/photos/6210939/pexels-photo-6210939.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/wvzPZSD7/Black-Forest-Ham.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="12"/>
@@ -152,7 +152,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.30"/>
             <column name="description" value="German liver sausage"/>
-            <column name="image" value="https://images.pexels.com/photos/1108117/pexels-photo-1108117.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/RVt8R73P/Leberwurst.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="13"/>
@@ -164,7 +164,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.50"/>
             <column name="description" value="Roasted pork knuckle"/>
-            <column name="image" value="https://images.pexels.com/photos/6210939/pexels-photo-6210939.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/NF66yjMx/Schweinshaxe.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="14"/>
@@ -176,7 +176,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.70"/>
             <column name="description" value="Sausage with curry sauce"/>
-            <column name="image" value="https://images.pexels.com/photos/1108117/pexels-photo-1108117.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/zf8Fr5PZ/Currywurst.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="15"/>
@@ -188,7 +188,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.10"/>
             <column name="description" value="Cured pork fat"/>
-            <column name="image" value="https://images.pexels.com/photos/6210939/pexels-photo-6210939.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/Qd4pKPXv/Speck.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="16"/>
@@ -200,7 +200,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.70"/>
             <column name="description" value="German beef roast"/>
-            <column name="image" value="https://images.pexels.com/photos/6210939/pexels-photo-6210939.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/rwJfnQq9/Rinderbraten.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="17"/>
@@ -212,7 +212,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.10"/>
             <column name="description" value="Fresh German potatoes"/>
-            <column name="image" value="https://images.pexels.com/photos/1627915/pexels-photo-1627915.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/JhpZCXkZ/Kartoffeln.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="18"/>
@@ -224,7 +224,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.50"/>
             <column name="description" value="Red cabbage"/>
-            <column name="image" value="https://images.pexels.com/photos/41123/pexels-photo-41123.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/DfXBk220/Rotkohl.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="19"/>
@@ -236,7 +236,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.80"/>
             <column name="description" value="White asparagus"/>
-            <column name="image" value="https://images.pexels.com/photos/1414651/pexels-photo-1414651.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/MZVb3dDj/Spargel.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="20"/>
@@ -248,7 +248,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.60"/>
             <column name="description" value="Fermented cabbage"/>
-            <column name="image" value="https://images.pexels.com/photos/41123/pexels-photo-41123.jpeg"/>
+            <column name="image" value="https://elavegan.com/de/wp-content/uploads/sites/5/2020/01/Sauerkraut-selber-machen-im-Einmachglas.jpg"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="21"/>
@@ -260,7 +260,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.30"/>
             <column name="description" value="Organic carrots"/>
-            <column name="image" value="https://i.postimg.cc/rpTDN3D0/Carrots.png"/>
+            <column name="image" value="https://i.postimg.cc/zGSTp6Dd/Karotten.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="22"/>
@@ -272,7 +272,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.20"/>
             <column name="description" value="Fresh onions"/>
-            <column name="image" value="https://i.postimg.cc/SK2PjjtF/Garlic.png"/>
+            <column name="image" value="https://i.postimg.cc/Kznkfs2G/Zwiebeln.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="23"/>
@@ -284,7 +284,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.40"/>
             <column name="description" value="Red beets"/>
-            <column name="image" value="https://i.postimg.cc/NMFW6p0V/Beets.png"/>
+            <column name="image" value="https://i.postimg.cc/50ZgYrmf/Rote-Beete.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="24"/>
@@ -296,7 +296,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.70"/>
             <column name="description" value="Kale from northern Germany"/>
-            <column name="image" value="https://i.postimg.cc/VvY49N4N/Kale.png"/>
+            <column name="image" value="https://i.postimg.cc/0yp0Frn0/Gru-nkohl.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="25"/>
@@ -308,7 +308,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.20"/>
             <column name="description" value="Freshly picked organic apples with a crisp texture and sweet-tart flavor. Perfect for snacking or baking."/>
-            <column name="image" value="https://i.postimg.cc/zf8NgCKZ/Apples.png"/>
+            <column name="image" value="https://i.postimg.cc/W36R42sG/A-pfel.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="26"/>
@@ -320,7 +320,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.40"/>
             <column name="description" value="Sweet and juicy organic pears, perfect for snacking or salads."/>
-            <column name="image" value="https://i.postimg.cc/2SBdZvmw/Pears.png"/>
+            <column name="image" value="https://i.postimg.cc/DyzV2kHG/Birnen.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="27"/>
@@ -332,7 +332,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.00"/>
             <column name="description" value="Sweet cherries"/>
-            <column name="image" value="https://i.postimg.cc/6QPN1DFw/Cherries.png"/>
+            <column name="image" value="https://i.postimg.cc/gJrRz0V5/Kirschen.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="28"/>
@@ -344,7 +344,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.60"/>
             <column name="description" value="Plums from German orchards"/>
-            <column name="image" value="https://images.pexels.com/photos/114112/pexels-photo-114112.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/dVmfMJjr/Pflaumen.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="29"/>
@@ -356,7 +356,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.40"/>
             <column name="description" value="Organic strawberries"/>
-            <column name="image" value="https://i.postimg.cc/QtMHpG13/Strawberries.png"/>
+            <column name="image" value="https://i.postimg.cc/L4bDZchL/Erdbeeren.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="30"/>
@@ -368,7 +368,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.60"/>
             <column name="description" value="Fresh raspberries"/>
-            <column name="image" value="https://images.pexels.com/photos/59997/pexels-photo-59997.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/RCy10wbT/Himbeeren.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="31"/>
@@ -380,7 +380,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.20"/>
             <column name="description" value="Red currants"/>
-            <column name="image" value="https://images.pexels.com/photos/70862/pexels-photo-70862.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/nhtv4pxj/Johannisbeeren.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="32"/>
@@ -392,7 +392,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.80"/>
             <column name="description" value="Grapes from German vineyards"/>
-            <column name="image" value="https://images.pexels.com/photos/96380/pexels-photo-96380.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/kX7819Gk/Trauben.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="33"/>
@@ -404,7 +404,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.90"/>
             <column name="description" value="German farmer’s bread"/>
-            <column name="image" value="https://images.pexels.com/photos/461060/pexels-photo-461060.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/TYNz1Nv4/Bauernbrot.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="34"/>
@@ -416,7 +416,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.70"/>
             <column name="description" value="Nutty and hearty organic rye bread, perfect for sandwiches."/>
-            <column name="image" value="https://i.postimg.cc/9QGR2BCv/Rye-Bread.png"/>
+            <column name="image" value="https://i.postimg.cc/50HptJLP/Roggenbrot.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="35"/>
@@ -428,7 +428,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.30"/>
             <column name="description" value="Traditional pretzels"/>
-            <column name="image" value="https://images.pexels.com/photos/2232/pexels-photo-2232.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/6q5P5njK/Brezeln.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="36"/>
@@ -440,7 +440,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.10"/>
             <column name="description" value="Whole grain bread"/>
-            <column name="image" value="https://images.pexels.com/photos/1586948/pexels-photo-1586948.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/vBRxWwC2/Vollkornbrot.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="37"/>
@@ -452,7 +452,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.50"/>
             <column name="description" value="Traditional pumpernickel bread"/>
-            <column name="image" value="https://images.pexels.com/photos/1586948/pexels-photo-1586948.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/V65ZbnQW/Pumpernickel.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="38"/>
@@ -464,7 +464,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.50"/>
             <column name="description" value="Lye bread sticks"/>
-            <column name="image" value="https://images.pexels.com/photos/2232/pexels-photo-2232.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/jqmmPgjw/Laugenstangen.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="39"/>
@@ -476,7 +476,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="4.30"/>
             <column name="description" value="Sourdough bread"/>
-            <column name="image" value="https://images.pexels.com/photos/1586948/pexels-photo-1586948.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/R0YQyYyw/Sauerteigbrot.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="40"/>
@@ -488,7 +488,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.10"/>
             <column name="description" value="Fresh bread rolls"/>
-            <column name="image" value="https://images.pexels.com/photos/461060/pexels-photo-461060.jpeg"/>
+            <column name="image" value="https://i.postimg.cc/cJRkRXPZ/Bro-tchen.png"/>
         </insert>
     </changeSet>
 </databaseChangeLog>
