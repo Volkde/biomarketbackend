@@ -104,17 +104,21 @@ public class Seller {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Seller seller = (Seller) o;
-        return Objects.equals(id, seller.id) && Objects.equals(storeName, seller.storeName) && Objects.equals(storeDescription, seller.storeDescription) && Objects.equals(storeLogo, seller.storeLogo) && Objects.equals(rating, seller.rating) && Objects.equals(user, seller.user);
+        return Objects.equals(id, seller.id) &&
+                Objects.equals(storeName, seller.storeName) &&
+                Objects.equals(storeDescription, seller.storeDescription) &&
+                Objects.equals(storeLogo, seller.storeLogo) &&
+                Objects.equals(rating, seller.rating);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, storeName, storeDescription, storeLogo, rating, user);
+        return Objects.hash(id, storeName, storeDescription, storeLogo, rating);
     }
 
     @Override
     public String toString() {
-        return String.format(" Seller: ID - %d, Store name - %s, Description - %s, Logo - %s, Rating - %.2f.",
-                id, storeName, storeDescription, storeLogo, rating);
+        return String.format("Seller: ID - %d, Store name - %s, Description - %s, Logo - %s, Rating - %.2f.",
+                id, storeName, storeDescription, storeLogo, rating != null ? rating : 0.0);
     }
 }

@@ -5,7 +5,6 @@ import de.aittr.bio_marketplace.controller.requests.UpdateCartRequest;
 import de.aittr.bio_marketplace.controller.responses.CartResponse;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
 import de.aittr.bio_marketplace.domain.entity.Cart;
-import de.aittr.bio_marketplace.domain.entity.CartItem;
 import de.aittr.bio_marketplace.domain.entity.Product;
 import de.aittr.bio_marketplace.domain.entity.ProductStatus;
 import de.aittr.bio_marketplace.service.interfaces.CartService;
@@ -14,7 +13,6 @@ import de.aittr.bio_marketplace.service.interfaces.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -89,7 +87,7 @@ public class CartController {
             description = "Returns the contents of the current user's shopping cart"
     )
     @GetMapping
-    public CartResponse getCurrentUserCart() {
+    public CartResponse getCurrentUsersCart() {
         RegisterUserResponseDto currentUser = userService.getCurrentUser();
         Long userId = currentUser.id();
         Cart cart = userService.getActiveUserEntityById(userId).getCart();

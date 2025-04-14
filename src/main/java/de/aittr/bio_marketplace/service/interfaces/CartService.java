@@ -16,6 +16,7 @@ public interface CartService {
     // --- Read ---
     Cart getById(Long cartId);
     List<CartItem> getAllItems(Long cartId);
+    Cart getCartByUserId(Long userId);
 
     // --- Update ---
     void updateProductQuantity(Long cartId, Long productId, BigDecimal quantity);

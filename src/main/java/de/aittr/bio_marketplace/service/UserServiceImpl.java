@@ -142,6 +142,15 @@ public class UserServiceImpl implements UserService, UserLookupService {
     }
 
     @Override
+    public UserDto getCurrentUserAsDto() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getPrincipal().toString();
+        User user = repository.findUserByEmail(email)
+                .orElseThrow(() -> new AuthenticationException(COOKIE_IS_INCORRECT));
+        return mappingService.mapEntityToDto(user);
+    }
+
+    @Override
     public List<UserDto> getAllActiveUsers() {
         return repository.findAll()
                 .stream()

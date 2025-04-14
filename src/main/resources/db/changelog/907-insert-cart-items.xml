@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
 
-    <changeSet id="907-insert-cart-items" author="team46">
+    <changeSet id="907-insert-cart-items" author="Sergej">
         <preConditions onFail="MARK_RAN">
             <tableExists tableName="cart_item"/>
         </preConditions>
@@ -24,6 +24,12 @@
         </insert>
         <insert tableName="cart_item">
             <column name="id" valueNumeric="3"/>
+            <column name="cart_id" valueNumeric="1"/>
+            <column name="product_id" valueNumeric="3"/>
+            <column name="quantity" valueNumeric="0.5"/>
+        </insert>
+        <insert tableName="cart_item">
+            <column name="id" valueNumeric="4"/>
             <column name="cart_id" valueNumeric="2"/>
             <column name="product_id" valueNumeric="9"/>
             <column name="quantity" valueNumeric="1.0"/>

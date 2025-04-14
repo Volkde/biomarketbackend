@@ -46,6 +46,19 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
+    public AddressDto saveOrderAddress(AddressDto address) {
+        Address entity = mapper.mapDtoToEntity(address);
+        entity.setId(null);
+        AddressValidator.isValidStreet(entity.getStreet());
+        AddressValidator.isValidCity(entity.getCity());
+        AddressValidator.isValidCountry(entity.getCountry());
+        AddressValidator.isValidZipCode(entity.getZipCode());
+        // Не устанавливаем user или seller
+        entity = repository.save(entity);
+        return mapper.mapEntityToDto(entity);
+    }
+
+    @Override
     public AddressDto saveSellerAddress(AddressDto address, Long seller_id) {
         Address entity = mapper.mapDtoToEntity(address);
         entity.setId(null);
@@ -72,6 +85,7 @@ public class AddressServiceImpl implements AddressService {
         return mapper.mapEntityToDto(getAddressEntityById(id));
     }
 
+    @Override
     public Address getAddressEntityById(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new AddressNotFoundException(id));}

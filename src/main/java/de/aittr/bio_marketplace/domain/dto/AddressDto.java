@@ -1,5 +1,6 @@
 package de.aittr.bio_marketplace.domain.dto;
 
+import de.aittr.bio_marketplace.domain.entity.Address;
 import java.util.Objects;
 
 public class AddressDto {
@@ -48,6 +49,16 @@ public class AddressDto {
 
     public void setZipCode(String zipCode) {
         this.zipCode = zipCode;
+    }
+
+    public Address toEntity() {
+        Address address = new Address();
+        address.setId(this.id);
+        address.setCountry(this.country);
+        address.setCity(this.city);
+        address.setStreet(this.street);
+        address.setZipCode(this.zipCode);
+        return address;
     }
 
     @Override
