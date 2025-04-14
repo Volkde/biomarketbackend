@@ -91,4 +91,20 @@ public class JwtTokenService {
         return (claims == null) ? null : claims.getSubject();
     }
 
+    public String generatePasswordResetToken(String email) {
+        Date expirationDate = new Date(System.currentTimeMillis() + 10 * 60 * 1000); // 10 минут
+        return Jwts.builder()
+                .setSubject(email)
+                .setExpiration(expirationDate)
+                .setIssuedAt(new Date())
+                .claim("type", "password-reset")
+                .signWith(accessTokenKey)
+                .compact();
+    }
+
+    public boolean isValidPasswordResetToken(String token) {
+        Claims claims = parseAccessToken(token);
+        return claims != null && "password-reset".equals(claims.get("type"));
+    }
+
 }

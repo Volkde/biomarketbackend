@@ -4,7 +4,6 @@ package de.aittr.bio_marketplace.controller;
 import de.aittr.bio_marketplace.controller.responses.AuthResponse;
 import de.aittr.bio_marketplace.controller.responses.UserResponse;
 import de.aittr.bio_marketplace.domain.dto.CartItemDto;
-import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.dto.SellerDto;
 import de.aittr.bio_marketplace.domain.dto.UserDto;
 import de.aittr.bio_marketplace.service.interfaces.UserService;
@@ -203,5 +202,22 @@ public class UserController {
         return new UserResponse(service.changePassword(password, id));
     }
 
+    @Operation(
+            summary = "Recover password",
+            description = "Set a new password for a user by their ID"
+    )
+    @PostMapping("/request-reset")
+    public void requestReset(@RequestParam String email) {
+        service.requestPasswordReset(email);
+    }
+
+    @Operation(
+            summary = "Recover password",
+            description = "Set a new password for a user by their ID"
+    )
+    @PostMapping("/reset")
+    public void reset(@RequestParam String token, @RequestParam String newPassword) {
+        service.resetPasswordWithToken(token, newPassword);
+    }
 
 }
