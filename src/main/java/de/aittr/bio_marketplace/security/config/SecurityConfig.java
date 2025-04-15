@@ -76,6 +76,7 @@ public class SecurityConfig {
 
                                 // Confirm controller
                                 .requestMatchers(HttpMethod.GET, "/confirm/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/reset-password").permitAll()
 
                                 // Product controller
                                 .requestMatchers(HttpMethod.POST, "/products").hasAnyRole(USER_ROLE, ADMIN_ROLE)
@@ -99,6 +100,8 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
                                 .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/users/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/users/request-reset", "/users/reset").permitAll()
+
 
                                 // Order controller
                                 .requestMatchers(HttpMethod.POST, "/orders").hasAnyRole(USER_ROLE, ADMIN_ROLE)

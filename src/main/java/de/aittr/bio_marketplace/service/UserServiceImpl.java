@@ -359,7 +359,7 @@ public class UserServiceImpl implements UserService, UserLookupService {
 
         user.setPassword(encoder.encode(newPassword));
         repository.save(user);
-    }
+        }
 
 
 
