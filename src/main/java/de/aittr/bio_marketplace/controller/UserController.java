@@ -10,7 +10,6 @@ import de.aittr.bio_marketplace.service.interfaces.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -114,7 +113,7 @@ public class UserController {
             summary = "Save product to user cart",
             description = "Saving product to user cart with given parameters"
     )
-    @PutMapping("/{id}/product/{productId}")
+    @PutMapping("/{userId}/product/{productId}")
     public void addProduct(@PathVariable Long userId, @PathVariable Long productId, BigDecimal quantity) {
         service.addProductToUserCart(userId, productId, quantity);
     }

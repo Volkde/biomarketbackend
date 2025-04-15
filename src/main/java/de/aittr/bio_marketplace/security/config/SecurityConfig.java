@@ -106,14 +106,22 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/cart/remove/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
                         .requestMatchers(HttpMethod.DELETE, "/cart/clear").hasAnyRole(USER_ROLE, ADMIN_ROLE)
 
-                                // User controller
-                                .requestMatchers(HttpMethod.GET, "/users").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
-                                .requestMatchers(HttpMethod.PUT, "/users").permitAll()
-                                .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
-                                .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/users/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/users/request-reset", "/users/reset").permitAll()
+                        // User controller
+                        .requestMatchers(HttpMethod.GET, "/users").hasAnyRole(ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/users/{id}").hasAnyRole(ADMIN_ROLE, USER_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/users/total-cost/**").hasAnyRole(USER_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/users/all-products-by-user-id/**").hasAnyRole(USER_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/users/all-sellers-by-user-id/**").hasAnyRole(USER_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/users/product-average-price/**").hasAnyRole(USER_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/users/**").hasAnyRole(ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.PUT, "/users").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.PUT, "/users/change-password/**").hasAnyRole(ADMIN_ROLE, USER_ROLE, SELLER_ROLE)
+                        .requestMatchers(HttpMethod.PUT, "/users//{userId}/product/{productId}").hasAnyRole(ADMIN_ROLE, SELLER_ROLE)
+                        .requestMatchers(HttpMethod.PUT, "/users/**").hasAnyRole(ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.DELETE, "/users/remove-user/**").hasAnyRole(ADMIN_ROLE, USER_ROLE)
+                        .requestMatchers(HttpMethod.DELETE, "/users/clear-cart/**").hasAnyRole(ADMIN_ROLE, USER_ROLE)
+                        .requestMatchers(HttpMethod.DELETE, "/users/**").hasAnyRole(ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.POST, "/users/request-reset", "/users/reset").permitAll()
 
 
                         // Order controller
@@ -127,26 +135,28 @@ public class SecurityConfig {
 
                         // Seller Controller
                         .requestMatchers(HttpMethod.GET, "/sellers").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/sellers/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/sellers/**").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/sellers").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/sellers/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/sellers/**").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.POST, "/sellers/**").hasAnyRole(ADMIN_ROLE, USER_ROLE)
+                        .requestMatchers(HttpMethod.PUT, "/sellers").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.PUT, "/sellers/**").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.DELETE, "/sellers/**").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
 
                         // Review Controller
                         .requestMatchers(HttpMethod.GET, "/reviews").permitAll()
                         .requestMatchers(HttpMethod.GET, "/reviews/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/reviews/**").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/reviews").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/reviews/**").permitAll()
-                        .requestMatchers(HttpMethod.DELETE, "/reviews/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/reviews/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.PUT, "/reviews").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.PUT, "/reviews/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.DELETE, "/reviews").hasRole(ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.DELETE, "/reviews/**").hasAnyRole(ADMIN_ROLE, USER_ROLE)
 
                         // Address Controller
-                        .requestMatchers(HttpMethod.GET, "/address").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/address/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/address/**").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/address").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/address/**").permitAll()
-                        .requestMatchers(HttpMethod.DELETE, "/address/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/address").hasRole(USER_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/address/**").hasRole(USER_ROLE)
+                        .requestMatchers(HttpMethod.POST, "/address/**").hasAnyRole(USER_ROLE, ADMIN_ROLE, SELLER_ROLE)
+                        .requestMatchers(HttpMethod.PUT, "/address").hasAnyRole(USER_ROLE, SELLER_ROLE)
+                        .requestMatchers(HttpMethod.DELETE, "/address").hasRole(ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.DELETE, "/address/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
 
                         .requestMatchers("/v3/api-docs",
                                 "/v3/api-docs/**",
