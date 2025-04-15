@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="923-update-user-wishlist-id" author="Sergej">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="user"/>
+            <tableExists tableName="wishlist"/>
+            <columnExists tableName="user" columnName="wishlist_id"/>
+        </preConditions>
+
+        <update tableName="user">
+            <column name="wishlist_id" valueNumeric="1"/>
+            <where>id = 1</where>
+        </update>
+        <update tableName="user">
+            <column name="wishlist_id" valueNumeric="2"/>
+            <where>id = 2</where>
+        </update>
+        <update tableName="user">
+            <column name="wishlist_id" valueNumeric="3"/>
+            <where>id = 3</where>
+        </update>
+        <update tableName="user">
+            <column name="wishlist_id" valueNumeric="4"/>
+            <where>id = 4</where>
+        </update>
+        <update tableName="user">
+            <column name="wishlist_id" valueNumeric="5"/>
+            <where>id = 5</where>
+        </update>
+        <update tableName="user">
+            <column name="wishlist_id" valueNumeric="6"/>
+            <where>id = 6</where>
+        </update>
+        <update tableName="user">
+            <column name="wishlist_id" valueNumeric="7"/>
+            <where>id = 7</where>
+        </update>
+        <update tableName="user">
+            <column name="wishlist_id" valueNumeric="8"/>
+            <where>id = 8</where>
+        </update>
+        <update tableName="user">
+            <column name="wishlist_id" valueNumeric="9"/>
+            <where>id = 9</where>
+        </update>
+        <update tableName="user">
+            <column name="wishlist_id" valueNumeric="10"/>
+            <where>id = 10</where>
+        </update>
+    </changeSet>
+</databaseChangeLog>

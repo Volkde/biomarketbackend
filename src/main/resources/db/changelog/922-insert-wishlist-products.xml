@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="922-insert-wishlist-products" author="Sergej">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="wishlist_product"/>
+            <tableExists tableName="wishlist"/>
+            <tableExists tableName="product"/>
+        </preConditions>
+
+        <insert tableName="wishlist_product">
+            <column name="wishlist_id" valueNumeric="1"/>
+            <column name="product_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="wishlist_product">
+            <column name="wishlist_id" valueNumeric="1"/>
+            <column name="product_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="wishlist_product">
+            <column name="wishlist_id" valueNumeric="1"/>
+            <column name="product_id" valueNumeric="4"/>
+        </insert>
+        <insert tableName="wishlist_product">
+            <column name="wishlist_id" valueNumeric="1"/>
+            <column name="product_id" valueNumeric="5"/>
+        </insert>
+        <insert tableName="wishlist_product">
+            <column name="wishlist_id" valueNumeric="1"/>
+            <column name="product_id" valueNumeric="6"/>
+        </insert>
+        <insert tableName="wishlist_product">
+            <column name="wishlist_id" valueNumeric="1"/>
+            <column name="product_id" valueNumeric="18"/>
+        </insert>
+        <insert tableName="wishlist_product">
+            <column name="wishlist_id" valueNumeric="1"/>
+            <column name="product_id" valueNumeric="33"/>
+        </insert>
+
+        <insert tableName="wishlist_product">
+            <column name="wishlist_id" valueNumeric="2"/>
+            <column name="product_id" valueNumeric="9"/>
+        </insert>
+        <insert tableName="wishlist_product">
+            <column name="wishlist_id" valueNumeric="2"/>
+            <column name="product_id" valueNumeric="10"/>
+        </insert>
+        <insert tableName="wishlist_product">
+            <column name="wishlist_id" valueNumeric="2"/>
+            <column name="product_id" valueNumeric="11"/>
+        </insert>
+        <insert tableName="wishlist_product">
+            <column name="wishlist_id" valueNumeric="2"/>
+            <column name="product_id" valueNumeric="17"/>
+        </insert>
+        <insert tableName="wishlist_product">
+            <column name="wishlist_id" valueNumeric="2"/>
+            <column name="product_id" valueNumeric="20"/>
+        </insert>
+        <insert tableName="wishlist_product">
+            <column name="wishlist_id" valueNumeric="2"/>
+            <column name="product_id" valueNumeric="35"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>
