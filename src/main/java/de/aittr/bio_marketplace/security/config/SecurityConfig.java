@@ -75,8 +75,9 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register", "/auth/logout").permitAll()
                         .requestMatchers(HttpMethod.GET, "/auth/refresh").permitAll()
 
-                        // Confirm controller
-                        .requestMatchers(HttpMethod.GET, "/confirm/**").permitAll()
+                                // Confirm controller
+                                .requestMatchers(HttpMethod.GET, "/confirm/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/reset-password").permitAll()
 
                         // Product controller
                         .requestMatchers(HttpMethod.POST, "/products").hasAnyRole(USER_ROLE, SELLER_ROLE, ADMIN_ROLE)
@@ -105,13 +106,15 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/cart/remove/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
                         .requestMatchers(HttpMethod.DELETE, "/cart/clear").hasAnyRole(USER_ROLE, ADMIN_ROLE)
 
-                        // User controller
-                        .requestMatchers(HttpMethod.GET, "/users").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/users").permitAll()
-                        .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
-                        .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
-                         .requestMatchers(HttpMethod.POST, "/users/**").permitAll()
+                                // User controller
+                                .requestMatchers(HttpMethod.GET, "/users").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/users").permitAll()
+                                .requestMatchers(HttpMethod.PUT, "/users/**").permitAll()
+                                .requestMatchers(HttpMethod.DELETE, "/users/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/users/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/users/request-reset", "/users/reset").permitAll()
+
 
                         // Order controller
                         .requestMatchers(HttpMethod.POST, "/orders").hasAnyRole(USER_ROLE, ADMIN_ROLE)

@@ -10,6 +10,7 @@ import de.aittr.bio_marketplace.service.interfaces.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -203,8 +204,8 @@ public class UserController {
     }
 
     @Operation(
-            summary = "Recover password",
-            description = "Set a new password for a user by their ID"
+            summary = "Request password reset",
+            description = "Sends a password reset link to the user's email"
     )
     @PostMapping("/request-reset")
     public void requestReset(@RequestParam String email) {
@@ -212,8 +213,8 @@ public class UserController {
     }
 
     @Operation(
-            summary = "Recover password",
-            description = "Set a new password for a user by their ID"
+            summary = "Reset password with token",
+            description = "Sets a new password using a valid password reset token"
     )
     @PostMapping("/reset")
     public void reset(@RequestParam String token, @RequestParam String newPassword) {

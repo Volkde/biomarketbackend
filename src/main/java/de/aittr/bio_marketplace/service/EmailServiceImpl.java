@@ -77,7 +77,7 @@ public class EmailServiceImpl implements EmailService {
 
             Map<String, Object> model = new HashMap<>();
             model.put("username", user.getUsername());
-            model.put("resetLink", confirmUrlPrefix + "/reset-password?token=" + jwtToken);
+            model.put("resetLink", "https://farmvibe-app-2u9sj.ondigitalocean.app/api/reset-password?token=" + jwtToken);
 
             String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, model);
 
