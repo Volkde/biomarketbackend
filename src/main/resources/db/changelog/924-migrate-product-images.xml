@@ -6,22 +6,461 @@
          https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
 
     <changeSet id="924-migrate-product-images" author="Sergej">
-
         <preConditions onFail="MARK_RAN">
             <tableExists tableName="product"/>
-            <tableExists tableName="image"/>
+            <tableExists tableName="product_image"/>
             <columnExists tableName="product" columnName="image"/>
+            <columnExists tableName="product_image" columnName="seller_id"/>
         </preConditions>
 
         <sql>
-            INSERT INTO image (url, product_id)
-            SELECT image, id
+            INSERT INTO product_image (url, product_id, seller_id)
+            SELECT image, id, seller_id
             FROM product
             WHERE image IS NOT NULL;
         </sql>
 
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/CLj05kbP/Alpine-Milk2.png"/>
+            <column name="product_id" valueNumeric="8"/>
+            <column name="seller_id" valueNumeric="5"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/0QMRsw8C/Alpine-Milk3.png"/>
+            <column name="product_id" valueNumeric="8"/>
+            <column name="seller_id" valueNumeric="5"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/ZqqzwQ22/A-pfel2.png"/>
+            <column name="product_id" valueNumeric="25"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/ZRGkK5nz/A-pfel3.png"/>
+            <column name="product_id" valueNumeric="25"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/xdFDhRSC/Bauernbrot2.png"/>
+            <column name="product_id" valueNumeric="33"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/0y8TN3kj/Bauernbrot3.png"/>
+            <column name="product_id" valueNumeric="33"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/fRB6SKyK/Bavarian-Milk2.png"/>
+            <column name="product_id" valueNumeric="1"/>
+            <column name="seller_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/VNv2qCbc/Bavarian-Milk3.png"/>
+            <column name="product_id" valueNumeric="1"/>
+            <column name="seller_id" valueNumeric="3"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/wBrZ0jhR/Birnen2.png"/>
+            <column name="product_id" valueNumeric="26"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/t4CcbxkV/Birnen3.png"/>
+            <column name="product_id" valueNumeric="26"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/vm4SgwpY/Black-Forest-Butter2.png"/>
+            <column name="product_id" valueNumeric="3"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/q7WD2ZT8/Black-Forest-Butter3.png"/>
+            <column name="product_id" valueNumeric="3"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/26vcGFkg/Black-Forest-Ham2.png"/>
+            <column name="product_id" valueNumeric="11"/>
+            <column name="seller_id" valueNumeric="5"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/L6mCk1r0/Black-Forest-Ham3.png"/>
+            <column name="product_id" valueNumeric="11"/>
+            <column name="seller_id" valueNumeric="5"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/4xSWTFnr/Bratwurst2.png"/>
+            <column name="product_id" valueNumeric="9"/>
+            <column name="seller_id" valueNumeric="5"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/N02pG7HL/Bratwurst3.png"/>
+            <column name="product_id" valueNumeric="9"/>
+            <column name="seller_id" valueNumeric="5"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/KzXQ1kPf/Brezeln2.png"/>
+            <column name="product_id" valueNumeric="35"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/85h4MpwS/Brezeln3.png"/>
+            <column name="product_id" valueNumeric="35"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/pdjJMWwF/Bro-tchen2.png"/>
+            <column name="product_id" valueNumeric="40"/>
+            <column name="seller_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/wjZQryGz/Bro-tchen3.png"/>
+            <column name="product_id" valueNumeric="40"/>
+            <column name="seller_id" valueNumeric="3"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/MT8b6kwr/Cream-Fresh2.png"/>
+            <column name="product_id" valueNumeric="7"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/3RCjWLJr/Cream-Fresh3.png"/>
+            <column name="product_id" valueNumeric="7"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/52h8gcXN/Currywurst2.png"/>
+            <column name="product_id" valueNumeric="14"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/KzFBXn76/Currywurst3.png"/>
+            <column name="product_id" valueNumeric="14"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/g038BMhy/Erdbeeren2.png"/>
+            <column name="product_id" valueNumeric="29"/>
+            <column name="seller_id" valueNumeric="4"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/hjrxKfpf/Erdbeeren3.png"/>
+            <column name="product_id" valueNumeric="29"/>
+            <column name="seller_id" valueNumeric="4"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/pXy8tV8L/Gouda-Cheese2.png"/>
+            <column name="product_id" valueNumeric="4"/>
+            <column name="seller_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/bwtts6mX/Gouda-Cheese3.png"/>
+            <column name="product_id" valueNumeric="4"/>
+            <column name="seller_id" valueNumeric="3"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/43vH1YCB/Gru-nkohl2.png"/>
+            <column name="product_id" valueNumeric="24"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/k5Pt8xH2/Gru-nkohl3.png"/>
+            <column name="product_id" valueNumeric="24"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/DZ2Jp7nF/Himbeeren2.png"/>
+            <column name="product_id" valueNumeric="30"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/NMpyWZjX/Himbeeren3.png"/>
+            <column name="product_id" valueNumeric="30"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/NFFyYbKz/Johannisbeeren2.png"/>
+            <column name="product_id" valueNumeric="31"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/HnNrL55s/Johannisbeeren3.png"/>
+            <column name="product_id" valueNumeric="31"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/xTWkDvn6/Karotten2.png"/>
+            <column name="product_id" valueNumeric="21"/>
+            <column name="seller_id" valueNumeric="4"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/wTttGf8t/Karotten3.png"/>
+            <column name="product_id" valueNumeric="21"/>
+            <column name="seller_id" valueNumeric="4"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/9fBz7sTk/Kartoffeln2.png"/>
+            <column name="product_id" valueNumeric="17"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/43GmnXKt/Kartoffeln3.png"/>
+            <column name="product_id" valueNumeric="17"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/FRWRPcTg/Kirschen2.png"/>
+            <column name="product_id" valueNumeric="27"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/3NkwzR6M/Kirschen3.png"/>
+            <column name="product_id" valueNumeric="27"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/MHgGww2n/Laugenstangen2.png"/>
+            <column name="product_id" valueNumeric="38"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/T2s1gVLT/Laugenstangen3.png"/>
+            <column name="product_id" valueNumeric="38"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/28B6w1hh/Leberwurst2.png"/>
+            <column name="product_id" valueNumeric="12"/>
+            <column name="seller_id" valueNumeric="5"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/fRnbgMfF/Leberwurst3.png"/>
+            <column name="product_id" valueNumeric="12"/>
+            <column name="seller_id" valueNumeric="5"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/htLtkNCG/Pflaumen2.png"/>
+            <column name="product_id" valueNumeric="28"/>
+            <column name="seller_id" valueNumeric="4"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/MGzpqt4m/Pflaumen3.png"/>
+            <column name="product_id" valueNumeric="28"/>
+            <column name="seller_id" valueNumeric="4"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/KYQvzBhS/Pumpernickel2.png"/>
+            <column name="product_id" valueNumeric="37"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/Y9srN7Sd/Pumpernickel3.png"/>
+            <column name="product_id" valueNumeric="37"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/XJJNyqnZ/Quark-Cheese2.png"/>
+            <column name="product_id" valueNumeric="2"/>
+            <column name="seller_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/T15RCsLf/Quark-Cheese3.png"/>
+            <column name="product_id" valueNumeric="2"/>
+            <column name="seller_id" valueNumeric="3"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/Z0kJgLp3/Rinderbraten2.png"/>
+            <column name="product_id" valueNumeric="16"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/nc7mLRdy/Rinderbraten3.png"/>
+            <column name="product_id" valueNumeric="16"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/2S7BQqNT/Roggenbrot2.png"/>
+            <column name="product_id" valueNumeric="34"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/t4jxn3wY/Roggenbrot3.png"/>
+            <column name="product_id" valueNumeric="34"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/3wL4qPRv/Rote-Beete2.png"/>
+            <column name="product_id" valueNumeric="23"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/rmK02Q0Y/Rote-Beete3.png"/>
+            <column name="product_id" valueNumeric="23"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/76dCH0SP/Rotkohl2.png"/>
+            <column name="product_id" valueNumeric="18"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/wMN17MkX/Rotkohl3.png"/>
+            <column name="product_id" valueNumeric="18"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/ryR0hZLD/Sauerkraut2.png"/>
+            <column name="product_id" valueNumeric="20"/>
+            <column name="seller_id" valueNumeric="4"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/bwpZwzSn/Sauerkraut3.png"/>
+            <column name="product_id" valueNumeric="20"/>
+            <column name="seller_id" valueNumeric="4"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/13BfgLDj/Sauerteigbrot2.png"/>
+            <column name="product_id" valueNumeric="39"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/1zz4DJH5/Sauerteigbrot3.png"/>
+            <column name="product_id" valueNumeric="39"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/yNrxjcQh/Schweinshaxe2.png"/>
+            <column name="product_id" valueNumeric="13"/>
+            <column name="seller_id" valueNumeric="5"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/KjtYmVZQ/Schweinshaxe3.png"/>
+            <column name="product_id" valueNumeric="13"/>
+            <column name="seller_id" valueNumeric="5"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/gkq05ft2/Spargel2.png"/>
+            <column name="product_id" valueNumeric="19"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/Y2F0N41g/Spargel3.png"/>
+            <column name="product_id" valueNumeric="19"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/t4B4RFj0/Speck2.png"/>
+            <column name="product_id" valueNumeric="15"/>
+            <column name="seller_id" valueNumeric="5"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/3NQKfBgG/Speck3.png"/>
+            <column name="product_id" valueNumeric="15"/>
+            <column name="seller_id" valueNumeric="5"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/T1jTzD94/Tilsiter-Cheese2.png"/>
+            <column name="product_id" valueNumeric="6"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/0575MTs0/Tilsiter-Cheese3.png"/>
+            <column name="product_id" valueNumeric="6"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/J4mrbp7V/Trauben2.png"/>
+            <column name="product_id" valueNumeric="32"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/pXZ2kKy9/Trauben3.png"/>
+            <column name="product_id" valueNumeric="32"/>
+            <column name="seller_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/Z5sJzZ84/Vollkornbrot2.png"/>
+            <column name="product_id" valueNumeric="36"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/httKYh72/Vollkornbrot3.png"/>
+            <column name="product_id" valueNumeric="36"/>
+            <column name="seller_id" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/Bv84qypD/Weisswurst2.png"/>
+            <column name="product_id" valueNumeric="10"/>
+            <column name="seller_id" valueNumeric="5"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/pdgxyZcS/Weisswurst3.png"/>
+            <column name="product_id" valueNumeric="10"/>
+            <column name="seller_id" valueNumeric="5"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/3RmhGvPx/Yogurt-Natural2.png"/>
+            <column name="product_id" valueNumeric="5"/>
+            <column name="seller_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/PJHjQqjz/Yogurt-Natural3.png"/>
+            <column name="product_id" valueNumeric="5"/>
+            <column name="seller_id" valueNumeric="3"/>
+        </insert>
+
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/yxTzQz6q/Zwiebeln2.png"/>
+            <column name="product_id" valueNumeric="22"/>
+            <column name="seller_id" valueNumeric="4"/>
+        </insert>
+        <insert tableName="product_image">
+            <column name="url" value="https://i.postimg.cc/kMN9XWQj/Zwiebeln3.png"/>
+            <column name="product_id" valueNumeric="22"/>
+            <column name="seller_id" valueNumeric="4"/>
+        </insert>
+
         <dropColumn tableName="product" columnName="image"/>
 
     </changeSet>
-
 </databaseChangeLog>

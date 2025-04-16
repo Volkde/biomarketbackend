@@ -128,7 +128,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.90"/>
             <column name="description" value="Bavarian white sausage"/>
-            <column name="image" value="https://i.postimg.cc/ydT5HvTn/Bratwurst.png"/> <!-- Используем Bratwurst.png, так как для Weisswurst нет отдельного изображения -->
+            <column name="image" value="https://i.postimg.cc/Gt0T8Pcc/Weisswurst.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="11"/>
@@ -248,7 +248,7 @@
             <column name="date_publication" valueDate="2025-03-28"/>
             <column name="rating" valueNumeric="3.60"/>
             <column name="description" value="Fermented cabbage"/>
-            <column name="image" value="https://elavegan.com/de/wp-content/uploads/sites/5/2020/01/Sauerkraut-selber-machen-im-Einmachglas.jpg"/>
+            <column name="image" value="https://i.postimg.cc/jj57Gdgr/Sauerkraut.png"/>
         </insert>
         <insert tableName="product">
             <column name="id" valueNumeric="21"/>

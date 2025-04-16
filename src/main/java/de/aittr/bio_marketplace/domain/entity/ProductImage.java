@@ -8,7 +8,7 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
-@Table(name = "image")
+@Table(name = "product_image")
 @Schema(description = "Class that describes a ProductImage entity")
 public class ProductImage {
 

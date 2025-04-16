@@ -6,23 +6,27 @@
          https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
 
     <changeSet id="025-add-column-seller-to-image-table" author="Sergej">
+
         <preConditions onFail="MARK_RAN">
-            <tableExists tableName="image"/>
+            <tableExists tableName="product_image"/>
             <tableExists tableName="product"/>
+            <tableExists tableName="seller"/>
         </preConditions>
 
-        <addColumn tableName="image">
+        <addColumn tableName="product_image">
             <column name="seller_id" type="BIGINT">
                 <constraints nullable="false" foreignKeyName="fk_image_seller" references="seller(id)"/>
             </column>
         </addColumn>
 
         <sql>
-            UPDATE image i
+            UPDATE product_image i
             SET i.seller_id = (SELECT p.seller_id FROM product p WHERE p.id = i.product_id)
             WHERE i.product_id IS NOT NULL;
         </sql>
 
-        <dropNotNullConstraint tableName="image" columnName="product_id" columnDataType="BIGINT"/>
+        <dropNotNullConstraint tableName="product_image" columnName="product_id" columnDataType="BIGINT"/>
+
     </changeSet>
+
 </databaseChangeLog>
