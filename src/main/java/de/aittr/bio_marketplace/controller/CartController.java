@@ -26,15 +26,21 @@ import java.util.stream.Collectors;
 @Validated
 public class CartController {
 
+    // --- FIELDS ---
+
     private final CartService cartService;
     private final UserService userService;
     private final ProductService productService;
+
+    // --- CONSTRUCTOR ---
 
     public CartController(CartService cartService, UserService userService, ProductService productService) {
         this.cartService = cartService;
         this.userService = userService;
         this.productService = productService;
     }
+
+    // --- METHODS ---
 
     // --- Create ---
 

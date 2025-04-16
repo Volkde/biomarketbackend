@@ -16,14 +16,20 @@ import java.util.List;
 @Transactional
 public class CartServiceImpl implements CartService {
 
+    // --- FIELDS ---
+
     private final CartRepository cartRepository;
     private final ProductRepository productRepository;
+
+    // --- CONSTRUCTOR ---
 
     public CartServiceImpl(CartRepository cartRepository,
                            ProductRepository productRepository) {
         this.cartRepository = cartRepository;
         this.productRepository = productRepository;
     }
+
+    // --- METHODS ---
 
     // --- Create ---
 

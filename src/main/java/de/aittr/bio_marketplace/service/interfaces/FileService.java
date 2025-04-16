@@ -1,10 +1,13 @@
 package de.aittr.bio_marketplace.service.interfaces;
 
+import de.aittr.bio_marketplace.domain.entity.ProductImage;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface FileService {
 
-    String upload(MultipartFile file, String productTitle);
+    // --- Create ---
+
+    ProductImage uploadProductImage(MultipartFile file, Long sellerId);
 
 
 }

@@ -122,14 +122,14 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/orders/seller/deactivate/**").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
                         .requestMatchers(HttpMethod.DELETE, "/orders/**").hasRole(ADMIN_ROLE)
 
-                        // Seller Controller
+                        // Seller controller
                         .requestMatchers(HttpMethod.GET, "/sellers").permitAll()
                         .requestMatchers(HttpMethod.GET, "/sellers/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/sellers/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/sellers").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/sellers/**").permitAll()
 
-                        // Review Controller
+                        // Review controller
                         .requestMatchers(HttpMethod.GET, "/reviews").permitAll()
                         .requestMatchers(HttpMethod.GET, "/reviews/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/reviews/**").permitAll()
@@ -137,13 +137,16 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/reviews/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/reviews/**").permitAll()
 
-                        // Address Controller
+                        // Address controller
                         .requestMatchers(HttpMethod.GET, "/address").permitAll()
                         .requestMatchers(HttpMethod.GET, "/address/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/address/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/address").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/address/**").permitAll()
                         .requestMatchers(HttpMethod.DELETE, "/address/**").permitAll()
+
+                        // File controller
+                        .requestMatchers(HttpMethod.POST, "/files/product_images").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
 
                         .requestMatchers("/v3/api-docs",
                                 "/v3/api-docs/**",

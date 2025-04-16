@@ -25,14 +25,20 @@ import java.util.List;
 @Tag(name = "Order controller", description = "Controller for operations with user orders")
 public class OrderController {
 
+    // --- FIELDS ---
+
     private final Logger logger = LoggerFactory.getLogger(OrderController.class);
     private final OrderService orderService;
     private final UserService userService;
+
+    // --- CONSTRUCTOR ---
 
     public OrderController(OrderService orderService, UserService userService) {
         this.orderService = orderService;
         this.userService = userService;
     }
+
+    // --- METHODS ---
 
     // --- Create ---
 

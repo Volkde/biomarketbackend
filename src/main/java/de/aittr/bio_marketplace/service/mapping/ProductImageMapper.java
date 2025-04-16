@@ -6,7 +6,6 @@ import de.aittr.bio_marketplace.domain.entity.ProductImage;
 import de.aittr.bio_marketplace.domain.entity.Seller;
 import de.aittr.bio_marketplace.repository.ProductRepository;
 import org.mapstruct.AfterMapping;
-import org.mapstruct.Context;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -23,27 +22,18 @@ public interface ProductImageMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "product", ignore = true)
     @Mapping(target = "seller", ignore = true)
-    ProductImage toEntity(ProductImageDto dto, @Context ProductRepository productRepository, @Context Seller seller);
+    ProductImage toEntity(ProductImageDto dto);
 
     List<ProductImageDto> toDtoList(List<ProductImage> entities);
 
-    List<ProductImage> toEntityList(List<ProductImageDto> dtos, @Context ProductRepository productRepository, @Context Seller seller);
+    List<ProductImage> toEntityList(List<ProductImageDto> dtos);
 
     @AfterMapping
-    default void afterDtoToEntityMapping(ProductImageDto dto, @MappingTarget ProductImage image,
-                                         @Context ProductRepository productRepository,
-                                         @Context Seller seller) {
-        // Устанавливаем product
+    default void afterDtoToEntityMapping(ProductImageDto dto, @MappingTarget ProductImage image) {
+        // Устанавливаем product только если productId не null
         if (dto.getProductId() != null) {
-            Product product = productRepository.findById(dto.getProductId())
-                    .orElseThrow(() -> new RuntimeException("Product not found with id: " + dto.getProductId()));
-            image.setProduct(product);
+            throw new UnsupportedOperationException("Product assignment not implemented yet");
         }
-
-        // Устанавливаем seller
-        if (seller == null) {
-            throw new IllegalArgumentException("Seller cannot be null when mapping ProductImage");
-        }
-        image.setSeller(seller);
+        // Seller устанавливается через sellerId в основном маппинге (не здесь)
     }
 }
