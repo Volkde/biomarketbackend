@@ -1,12 +1,10 @@
 package de.aittr.bio_marketplace.service;
 
-import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.dto.SellerDto;
 import de.aittr.bio_marketplace.domain.dto.UserDto;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserDto;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
 import de.aittr.bio_marketplace.domain.entity.Cart;
-import de.aittr.bio_marketplace.domain.entity.CartItem;
 import de.aittr.bio_marketplace.domain.entity.Product;
 import de.aittr.bio_marketplace.domain.entity.User;
 import de.aittr.bio_marketplace.exception_handling.utils.StringValidator;
@@ -18,7 +16,6 @@ import de.aittr.bio_marketplace.exception_handling.exceptions.UserNotFoundExcept
 import de.aittr.bio_marketplace.repository.UserRepository;
 import de.aittr.bio_marketplace.security.service.JwtTokenService;
 import de.aittr.bio_marketplace.service.interfaces.*;
-import de.aittr.bio_marketplace.service.mapping.ProductMapper;
 import de.aittr.bio_marketplace.service.mapping.RegisterUserMapper;
 import de.aittr.bio_marketplace.service.mapping.SellerMapper;
 import de.aittr.bio_marketplace.service.mapping.UserMapper;
@@ -28,11 +25,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService, UserLookupService {
