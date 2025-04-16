@@ -45,8 +45,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto save(ProductDto dto, Seller seller) {
         try {
+            if (dto.getSellerId() != null && !dto.getSellerId().equals(seller.getId())) {
+                throw new IllegalArgumentException("Seller ID in DTO does not match provided Seller");
+            }
             Product entity = mappingService.mapDtoToEntity(dto);
-            entity.setSeller(seller); // Устанавливаем продавца напрямую
+            entity.setSeller(seller);
             entity = repository.save(entity);
             return mappingService.mapEntityToDto(entity);
         } catch (Exception e) {
@@ -153,38 +156,12 @@ public class ProductServiceImpl implements ProductService {
                 .filter(p -> p.getStatus() == ProductStatus.ACTIVE)
                 .orElseThrow(() -> new ProductNotFoundException(id));
 
-        if (product.getTitle() != null) {
-            existentProduct.setTitle(product.getTitle());
-        }
-        if (product.getDescription() != null) {
-            existentProduct.setDescription(product.getDescription());
-        }
-        if (product.getImage() != null) {
-            existentProduct.setImage(product.getImage());
-        }
-        if (product.getUnitOfMeasure() != null) {
-            existentProduct.setUnitOfMeasure(product.getUnitOfMeasure());
-        }
-        if (product.getPrice() != null) {
-            existentProduct.setPrice(product.getPrice());
-        }
-        if (product.isDiscounted() != null) {
-            existentProduct.setDiscounted(product.isDiscounted());
-        }
-        if (product.isInStock() != null) {
-            existentProduct.setInStock(product.isInStock());
-        }
-        if (product.getCategoryId() != null) {
-            existentProduct.setCategoryId(product.getCategoryId());
-        }
-        if (seller != null) {
-            existentProduct.setSeller(seller);
-        }
-        if (product.getRating() != null) {
-            existentProduct.setRating(product.getRating());
-        }
+        Product updatedEntity = mappingService.mapDtoToEntity(product);
+        updatedEntity.setId(id);
+        updatedEntity.setStatus(existentProduct.getStatus());
+        updatedEntity.setSeller(seller != null ? seller : existentProduct.getSeller());
 
-        Product updatedProduct = repository.save(existentProduct);
+        Product updatedProduct = repository.save(updatedEntity);
         logger.info("Successfully updated product with ID: {}", id);
 
         return mappingService.mapEntityToDto(updatedProduct);

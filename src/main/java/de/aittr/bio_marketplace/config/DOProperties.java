@@ -7,10 +7,16 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "do")
 public class DOProperties {
 
+    // --- FIELDS ---
+
     private String accessKey;
     private String secretKey;
     private String endpoint;
     private String region;
+
+    // --- METHODS ---
+
+    // --- Getters and setters ---
 
     public String getAccessKey() {
         return accessKey;

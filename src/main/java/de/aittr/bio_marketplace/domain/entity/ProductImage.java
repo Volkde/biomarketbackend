@@ -12,6 +12,8 @@ import java.util.Objects;
 @Schema(description = "Class that describes a ProductImage entity")
 public class ProductImage {
 
+    // --- FIELDS ---
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -34,7 +36,8 @@ public class ProductImage {
     @Schema(description = "Seller associated with this image")
     private Seller seller;
 
-    // Constructors
+    // --- CONSTRUCTORS ---
+
     public ProductImage() {
     }
 

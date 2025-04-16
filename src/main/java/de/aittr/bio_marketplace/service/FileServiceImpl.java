@@ -24,27 +24,28 @@ public class FileServiceImpl implements FileService {
 
     @Override
     public String upload(MultipartFile file, String productTitle) {
-        try {
-            String uniqueName = generateUniqueFileName(file);
-
-
-            ObjectMetadata metaData = new ObjectMetadata();
-            metaData.setContentType(file.getContentType());
-
-            PutObjectRequest request = new PutObjectRequest(
-                    "farmvibe-bucket", uniqueName, file.getInputStream(), metaData
-            ).withCannedAcl(CannedAccessControlList.PublicRead);
-
-            client.putObject(request);
-
-            String url = client.getUrl("farmvibe-bucket", uniqueName).toString();
-
-            productService.attachImage(url, productTitle);
-
-            return url;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            String uniqueName = generateUniqueFileName(file);
+//
+//
+//            ObjectMetadata metaData = new ObjectMetadata();
+//            metaData.setContentType(file.getContentType());
+//
+//            PutObjectRequest request = new PutObjectRequest(
+//                    "farmvibe-bucket", uniqueName, file.getInputStream(), metaData
+//            ).withCannedAcl(CannedAccessControlList.PublicRead);
+//
+//            client.putObject(request);
+//
+//            String url = client.getUrl("farmvibe-bucket", uniqueName).toString();
+//
+//            productService.attachImage(url, productTitle);
+//
+//            return url;
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+        return null;
     }
 
     private String generateUniqueFileName(MultipartFile file) {
