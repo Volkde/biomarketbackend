@@ -2,6 +2,7 @@ package de.aittr.bio_marketplace.controller;
 
 
 import de.aittr.bio_marketplace.controller.responses.AuthResponse;
+import de.aittr.bio_marketplace.controller.responses.UserResponse;
 import de.aittr.bio_marketplace.domain.dto.auth.LoginRequestDto;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserDto;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
@@ -123,8 +124,8 @@ public class AuthController {
             description = "Get current registered user"
     )
     @GetMapping("/profile")
-    public RegisterUserResponseDto profile() {
-         return service.getCurrentUser();
+    public UserResponse profile() {
+         return new UserResponse(service.getCurrentUser());
     }
 
 

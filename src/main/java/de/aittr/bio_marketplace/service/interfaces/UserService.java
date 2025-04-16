@@ -15,7 +15,7 @@ public interface UserService {
 
     RegisterUserResponseDto loginUser(String email, String password);
 
-    RegisterUserResponseDto getCurrentUser();
+    UserDto getCurrentUser();
 
     UserDto getCurrentUserAsDto();
 
