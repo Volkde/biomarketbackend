@@ -45,5 +45,7 @@ public interface ProductService {
     // Delete product by id
     ProductDto deleteById(Long id);
 
+    void deleteAllBySellerId(Long sellerId);
+
 
 }

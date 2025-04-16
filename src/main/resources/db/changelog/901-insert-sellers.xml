@@ -15,6 +15,7 @@
             <column name="store_description" value="All food products."/>
             <column name="store_logo" value="luna_logo.png"/>
             <column name="rating" valueNumeric="4.4"/>
+            <column name="active" valueBoolean="true"/>
         </insert>
         <insert tableName="seller">
             <column name="id" valueNumeric="2"/>
@@ -22,6 +23,7 @@
             <column name="store_description" value="Fresh organic vegetables and fruits."/>
             <column name="store_logo" value="organic_logo.png"/>
             <column name="rating" valueNumeric="4.8"/>
+            <column name="active" valueBoolean="true"/>
         </insert>
         <insert tableName="seller">
             <column name="id" valueNumeric="3"/>
@@ -29,6 +31,7 @@
             <column name="store_description" value="Organic dairy products."/>
             <column name="store_logo" value="tech_logo.svg"/>
             <column name="rating" valueNumeric="4.2"/>
+            <column name="active" valueBoolean="true"/>
         </insert>
         <insert tableName="seller">
             <column name="id" valueNumeric="4"/>
@@ -36,6 +39,7 @@
             <column name="store_description" value="Fresh organic vegetables and fruits."/>
             <column name="store_logo" value="book_logo.jpg"/>
             <column name="rating" valueNumeric="4.9"/>
+            <column name="active" valueBoolean="true"/>
         </insert>
         <insert tableName="seller">
             <column name="id" valueNumeric="5"/>
@@ -43,6 +47,7 @@
             <column name="store_description" value="Fresh meat and fish."/>
             <column name="store_logo" value="craft_logo.gif"/>
             <column name="rating" valueNumeric="4.6"/>
+            <column name="active" valueBoolean="true"/>
         </insert>
     </changeSet>
         </databaseChangeLog>

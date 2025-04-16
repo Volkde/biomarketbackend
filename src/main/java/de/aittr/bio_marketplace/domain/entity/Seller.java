@@ -38,6 +38,9 @@ public class Seller {
     @Column(name = "rating")
     private BigDecimal rating;
 
+    @Column(name = "active", nullable = false)
+    private boolean active = true;
+
     @OneToOne(mappedBy = "seller", cascade = CascadeType.ALL)
     private User user;
 
@@ -50,6 +53,16 @@ public class Seller {
         this.storeDescription = storeDescription;
         this.storeLogo = storeLogo;
         this.rating = rating;
+    }
+
+    public Seller(User user, boolean active, BigDecimal rating, String storeLogo, String storeDescription, String storeName, Long id) {
+        this.user = user;
+        this.active = active;
+        this.rating = rating;
+        this.storeLogo = storeLogo;
+        this.storeDescription = storeDescription;
+        this.storeName = storeName;
+        this.id = id;
     }
 
     public Long getId() {
@@ -100,25 +113,29 @@ public class Seller {
         this.user = user;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Seller seller = (Seller) o;
-        return Objects.equals(id, seller.id) &&
-                Objects.equals(storeName, seller.storeName) &&
-                Objects.equals(storeDescription, seller.storeDescription) &&
-                Objects.equals(storeLogo, seller.storeLogo) &&
-                Objects.equals(rating, seller.rating);
+        return active == seller.active && Objects.equals(id, seller.id) && Objects.equals(storeName, seller.storeName) && Objects.equals(storeDescription, seller.storeDescription) && Objects.equals(storeLogo, seller.storeLogo) && Objects.equals(rating, seller.rating) && Objects.equals(user, seller.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, storeName, storeDescription, storeLogo, rating);
+        return Objects.hash(id, storeName, storeDescription, storeLogo, rating, active, user);
     }
 
     @Override
     public String toString() {
-        return String.format("Seller: ID - %d, Store name - %s, Description - %s, Logo - %s, Rating - %.2f.",
-                id, storeName, storeDescription, storeLogo, rating != null ? rating : 0.0);
+        return String.format("Seller: ID - %d, Store name - %s, Description - %s, Logo - %s, Rating - %.2f, Active - %s.",
+                id, storeName, storeDescription, storeLogo, rating, active);
     }
 }

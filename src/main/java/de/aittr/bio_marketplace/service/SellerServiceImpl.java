@@ -10,11 +10,10 @@ import de.aittr.bio_marketplace.exception_handling.exceptions.SellerValidationEx
 import de.aittr.bio_marketplace.exception_handling.exceptions.UsernameValidateException;
 import de.aittr.bio_marketplace.exception_handling.utils.StringValidator;
 import de.aittr.bio_marketplace.repository.SellerRepository;
-import de.aittr.bio_marketplace.service.interfaces.RoleService;
-import de.aittr.bio_marketplace.service.interfaces.SellerService;
-import de.aittr.bio_marketplace.service.interfaces.UserLookupService;
+import de.aittr.bio_marketplace.service.interfaces.*;
 import de.aittr.bio_marketplace.service.mapping.SellerMapper;
 import jakarta.transaction.Transactional;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,12 +25,16 @@ public class SellerServiceImpl implements SellerService {
     private final SellerMapper mapper;
     private final UserLookupService userService;
     private final RoleService roleService;
+    private final ReviewService reviewService;
+    private final ProductService productService;
 
-    public SellerServiceImpl(SellerRepository repository, SellerMapper sellerMapper, UserLookupService userService, RoleService roleService) {
+    public SellerServiceImpl(SellerRepository repository, SellerMapper sellerMapper, UserLookupService userService, RoleService roleService, ReviewService reviewService,@Lazy ProductService productService) {
         this.repository = repository;
         this.mapper = sellerMapper;
         this.userService = userService;
         this.roleService = roleService;
+        this.reviewService = reviewService;
+        this.productService = productService;
     }
 
     @Override
@@ -41,6 +44,7 @@ public class SellerServiceImpl implements SellerService {
             Seller entity = mapper.mapDtoToEntity(seller);
             entity.setId(null);
             entity.setRating(null);
+            entity.setActive(true);
             StringValidator.isValidStoreName(entity.getStoreName());
             if (repository.findByStoreName(entity.getStoreName()).isPresent()) {
                 throw new UsernameValidateException("This Store Name already exists");
@@ -76,6 +80,7 @@ public class SellerServiceImpl implements SellerService {
     public List<SellerDto> getAllActiveSellers() {
         return repository.findAll()
                 .stream()
+                .filter(Seller::isActive)
                 .map(mapper::mapEntityToDto)
                 .toList();
     }
@@ -135,12 +140,16 @@ public class SellerServiceImpl implements SellerService {
     @Override
     public Seller getActiveSellersEntityById(Long id) {
         return repository.findById(id)
+                .filter(Seller::isActive)
                 .orElseThrow(()-> new SellerNotFoundException(id));
     }
 
     @Override
+    @Transactional
     public SellerDto deleteById(Long id) {
          Seller seller = getActiveSellersEntityById(id);
+         reviewService.deleteAllReviewsBySellerId(id);
+         productService.deleteAllBySellerId(id);
          seller.getUser().getRoles().remove(roleService.getRoleSeller());
          seller.getUser().setSeller(null);
          repository.deleteById(id);
@@ -149,8 +158,25 @@ public class SellerServiceImpl implements SellerService {
 
     @Override
     @Transactional
+    public SellerDto deactivateById(Long id) {
+        Seller seller = getActiveSellersEntityById(id);
+        seller.setActive(false);
+        return mapper.mapEntityToDto(seller);
+    }
+
+    @Override
+    public SellerDto deactivateByStoreName(String storeName) {
+        Seller seller = repository.findByStoreName(storeName).orElseThrow(()-> new SellerNotFoundException(storeName));
+        seller.setActive(false);
+        return mapper.mapEntityToDto(seller);
+    }
+
+    @Override
+    @Transactional
     public SellerDto deleteByStoreName(String storeName) {
         Seller seller = repository.findByStoreName(storeName).orElseThrow(()-> new SellerNotFoundException(storeName));
+        reviewService.deleteAllReviewsBySellerId(seller.getId());
+        productService.deleteAllBySellerId(seller.getId());
         seller.getUser().getRoles().remove(roleService.getRoleSeller());
         seller.getUser().setSeller(null);
         repository.deleteByStoreName(storeName);

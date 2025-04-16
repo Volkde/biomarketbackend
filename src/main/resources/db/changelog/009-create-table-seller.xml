@@ -18,6 +18,7 @@
             <column name="store_description" type="TEXT"/>
             <column name="store_logo" type="VARCHAR(255)"/>
             <column name="rating" type="DECIMAL(5,2)"/>
+            <column name="active" type="BOOLEAN" defaultValueBoolean="true"/>
 
         </createTable>
 

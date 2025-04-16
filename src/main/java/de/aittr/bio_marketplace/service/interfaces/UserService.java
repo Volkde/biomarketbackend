@@ -58,7 +58,7 @@ public interface UserService {
 
     RegisterUserResponseDto removeAdmin(Long userId);
 
-    UserDto changePassword(String password, Long userId);
+    UserDto changePassword(String new_password, String password, Long userId);
 
     void requestPasswordReset(String email);
 

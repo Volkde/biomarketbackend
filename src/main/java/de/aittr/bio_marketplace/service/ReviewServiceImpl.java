@@ -12,6 +12,7 @@ import de.aittr.bio_marketplace.service.interfaces.ReviewService;
 import de.aittr.bio_marketplace.service.interfaces.SellerService;
 import de.aittr.bio_marketplace.service.mapping.ReviewMapper;
 import jakarta.transaction.Transactional;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -27,7 +28,7 @@ public class ReviewServiceImpl implements ReviewService {
     private final SellerService sellerService;
     private final ProductService productService;
 
-    public ReviewServiceImpl(ReviewRepository repository, ReviewMapper reviewMapper, SellerService sellerService, ProductService productService) {
+    public ReviewServiceImpl(ReviewRepository repository, ReviewMapper reviewMapper, @Lazy SellerService sellerService, ProductService productService) {
         this.repository = repository;
         this.mapper = reviewMapper;
         this.sellerService = sellerService;
@@ -157,6 +158,34 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public void deleteAll() {
         repository.deleteAll();
+    }
+
+    @Override
+    @Transactional
+    public void deleteAllReviewsBySellerId(Long sellerId) {
+        Seller seller = sellerService.getActiveSellersEntityById(sellerId);
+
+        List<Review> sellerReviews = getAllEntityBySeller(sellerId);
+
+        if (sellerReviews.isEmpty()) {
+            throw new ReviewBySellerNotFoundException(sellerId);
+        }
+        repository.deleteAll(sellerReviews);
+        seller.setRating(BigDecimal.ZERO);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAllReviewsByProductId(Long productId) {
+        Product product = productService.getActiveProductEntityById(productId);
+
+        List<Review> productReviews = getAllEntityByProduct(productId);
+
+        if (productReviews.isEmpty()) {
+            throw new ReviewByProductNotFoundException(productId);
+        }
+        repository.deleteAll(productReviews);
+        product.setRating(0.0);
     }
 
     private void changeRating(Review review){
