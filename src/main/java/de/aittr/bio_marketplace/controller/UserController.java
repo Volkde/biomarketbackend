@@ -6,10 +6,15 @@ import de.aittr.bio_marketplace.controller.responses.UserResponse;
 import de.aittr.bio_marketplace.domain.dto.CartItemDto;
 import de.aittr.bio_marketplace.domain.dto.SellerDto;
 import de.aittr.bio_marketplace.domain.dto.UserDto;
+import de.aittr.bio_marketplace.service.CookieService;
 import de.aittr.bio_marketplace.service.interfaces.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.util.List;
@@ -20,9 +25,11 @@ import java.util.List;
 public class UserController {
 
     private final UserService service;
+    private final CookieService cookieService;
 
-    public UserController(UserService service) {
+    public UserController(UserService service, CookieService cookieService) {
         this.service = service;
+        this.cookieService = cookieService;
     }
 
     @GetMapping
@@ -192,13 +199,26 @@ public class UserController {
         return new AuthResponse(service.removeAdmin(id));
     }
 
-  @Operation(
+    @Operation(
             summary = "Change password by user id",
             description = "Changing password in database by user id"
     )
-    @PutMapping("/change-password/{password}/by-id/{id}")
-    public UserResponse changePassword(@PathVariable String password,@PathVariable Long id) {
-        return new UserResponse(service.changePassword(password, id));
+    @PutMapping("/change-password/by-id/{id}")
+    public ResponseEntity<UserResponse> changePassword(
+            @RequestParam String new_password,
+            @RequestParam String password,
+            @PathVariable Long id
+    ) {
+        UserDto updatedUser = service.changePassword(new_password, password, id);
+
+        ResponseCookie cleanAccess = cookieService.getCleanAtJwtCookie();
+        ResponseCookie cleanRefresh = cookieService.getCleanRtJwtCookie();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add(HttpHeaders.SET_COOKIE, cleanAccess.toString());
+        headers.add(HttpHeaders.SET_COOKIE, cleanRefresh.toString());
+
+        return new ResponseEntity<>(new UserResponse(updatedUser), headers, HttpStatus.OK);
     }
 
     @Operation(

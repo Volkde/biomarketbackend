@@ -25,5 +25,9 @@ public interface SellerService {
 
     SellerDto deleteById(Long id);
 
+    SellerDto deactivateById(Long id);
+
     SellerDto deleteByStoreName(String storeName);
+
+    SellerDto deactivateByStoreName(String storeName);
 }

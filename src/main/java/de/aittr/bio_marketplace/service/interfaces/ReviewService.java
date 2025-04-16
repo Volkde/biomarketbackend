@@ -23,4 +23,8 @@ public interface ReviewService {
 
     void deleteAll();
 
+    void deleteAllReviewsBySellerId(Long sellerId);
+
+    void deleteAllReviewsByProductId(Long productId);
+
 }

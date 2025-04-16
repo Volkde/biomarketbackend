@@ -114,7 +114,7 @@ public class UserServiceImpl implements UserService, UserLookupService {
         boolean isMatch = encoder.matches(password, user.getPassword());
 
         if (!isMatch) {
-            throw new AuthenticationException(PASSWORD_OR_EMAIL_IS_INCORRECT);
+            throw new AuthenticationException("PASSWORD_IS_INCORRECT");
         }
 
         Authentication authenticationToken = new UsernamePasswordAuthenticationToken(email, password);
@@ -323,11 +323,17 @@ public class UserServiceImpl implements UserService, UserLookupService {
 
     @Override
     @Transactional
-    public UserDto changePassword(String password, Long userId) {
-        UserValidator.isPasswordValid(password);
+    public UserDto changePassword(String new_password, String password, Long userId) {
         User user = getActiveUserEntityById(userId);
-        user.setPassword(encoder.encode(password));
-        return mappingService.mapEntityToDto(user);
+        boolean isMatch = encoder.matches(password, user.getPassword());
+
+        if (!isMatch) {
+            throw new AuthenticationException("OLD_PASSWORD_IS_INCORRECT");
+        }
+            UserValidator.isPasswordValid(new_password);
+            user.setPassword(encoder.encode(new_password));
+            return mappingService.mapEntityToDto(user);
+
     }
 
     @Override
