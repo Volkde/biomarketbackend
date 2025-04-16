@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="924-migrate-product-images" author="Sergej">
+
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="product"/>
+            <tableExists tableName="image"/>
+            <columnExists tableName="product" columnName="image"/>
+        </preConditions>
+
+        <sql>
+            INSERT INTO image (url, product_id)
+            SELECT image, id
+            FROM product
+            WHERE image IS NOT NULL;
+        </sql>
+
+        <dropColumn tableName="product" columnName="image"/>
+
+    </changeSet>
+
+</databaseChangeLog>

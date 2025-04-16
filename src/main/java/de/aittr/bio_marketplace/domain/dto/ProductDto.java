@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Schema(description = "Class that describes Product DTO")
@@ -30,8 +32,11 @@ public class ProductDto {
     @Size(max = 500, message = "Description cannot exceed 500 characters")
     private String description;
 
-    @Schema(description = "Product image URL", example = "https://example.com/images/banana.jpg")
+    @Schema(description = "Main image URL for the product (first image in the list)", example = "https://bucket.digitalocean.com/images/banana.jpg")
     private String image;
+
+    @Schema(description = "List of image URLs for the product", example = "[\"https://bucket.digitalocean.com/images/banana1.jpg\", \"https://bucket.digitalocean.com/images/banana2.jpg\"]")
+    private List<String> images = new ArrayList<>();
 
     @Schema(description = "Unit of measure for the product", example = "kg")
     private ProductUnitOfMeasure unitOfMeasure;
@@ -94,6 +99,26 @@ public class ProductDto {
 
     public void setImage(String image) {
         this.image = image;
+        if (image != null) {
+            if (images.isEmpty()) {
+                images.add(image);
+            } else {
+                images.set(0, image);
+            }
+        } else {
+            if (!images.isEmpty()) {
+                images.remove(0);
+            }
+        }
+    }
+
+    public List<String> getImages() {
+        return images;
+    }
+
+    public void setImages(List<String> images) {
+        this.images = images != null ? images : new ArrayList<>();
+        this.image = this.images.isEmpty() ? null : this.images.get(0);
     }
 
     public ProductUnitOfMeasure getUnitOfMeasure() {
@@ -170,16 +195,26 @@ public class ProductDto {
 
     // --- Equals and hashcode ---
 
-
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         ProductDto that = (ProductDto) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getTitle(), that.getTitle()) && Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getImage(), that.getImage()) && getUnitOfMeasure() == that.getUnitOfMeasure() && Objects.equals(getPrice(), that.getPrice()) && Objects.equals(getDiscounted(), that.getDiscounted()) && Objects.equals(getInStock(), that.getInStock()) && Objects.equals(getCategoryId(), that.getCategoryId()) && Objects.equals(getSellerId(), that.getSellerId()) && Objects.equals(getRating(), that.getRating());
+        return Objects.equals(getId(), that.getId()) &&
+                Objects.equals(getTitle(), that.getTitle()) &&
+                Objects.equals(getDescription(), that.getDescription()) &&
+                Objects.equals(getImage(), that.getImage()) &&
+                Objects.equals(getImages(), that.getImages()) &&
+                getUnitOfMeasure() == that.getUnitOfMeasure() &&
+                Objects.equals(getPrice(), that.getPrice()) &&
+                Objects.equals(getDiscounted(), that.getDiscounted()) &&
+                Objects.equals(getInStock(), that.getInStock()) &&
+                Objects.equals(getCategoryId(), that.getCategoryId()) &&
+                Objects.equals(getSellerId(), that.getSellerId()) &&
+                Objects.equals(getRating(), that.getRating());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getDescription(), getImage(), getUnitOfMeasure(), getPrice(), getDiscounted(), getInStock(), getCategoryId(), getSellerId(), getRating());
+        return Objects.hash(getId(), getTitle(), getDescription(), getImage(), getImages(), getUnitOfMeasure(), getPrice(), getDiscounted(), getInStock(), getCategoryId(), getSellerId(), getRating());
     }
 }
