@@ -15,7 +15,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
 
-    @Mapping(target = "sellerId", source = "seller.id")
+    @Mapping(target = "sellerId", expression = "java(entity.getSellerId())")
     @Mapping(target = "image", source = "image")
     @Mapping(target = "images", expression = "java(entity.getImages().stream().map(de.aittr.bio_marketplace.domain.entity.ProductImage::getUrl).toList())")
     ProductDto mapEntityToDto(Product entity);
@@ -31,16 +31,16 @@ public interface ProductMapper {
     @AfterMapping
     default void afterDtoToEntityMapping(ProductDto dto, @MappingTarget Product product) {
         // Устанавливаем images
+        List<ProductImage> images = new ArrayList<>();
         if (dto.getImages() != null && !dto.getImages().isEmpty()) {
-            List<ProductImage> images = new ArrayList<>();
             for (String imageUrl : dto.getImages()) {
                 ProductImage image = new ProductImage();
                 image.setUrl(imageUrl);
                 image.setProduct(product);
-                image.setSeller(product.getSeller());
+                // Seller должен быть установлен в сервисе, поэтому здесь его не устанавливаем
                 images.add(image);
             }
-            product.setImages(images);
         }
+        product.setImages(images); // Полностью заменяем список, даже если он пустой
     }
 }

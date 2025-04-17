@@ -14,6 +14,7 @@ import de.aittr.bio_marketplace.repository.ProductRepository;
 import de.aittr.bio_marketplace.service.interfaces.ProductService;
 import de.aittr.bio_marketplace.service.mapping.ProductMapper;
 import jakarta.transaction.Transactional;
+import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -49,7 +50,7 @@ public class ProductServiceImpl implements ProductService {
                 throw new IllegalArgumentException("Seller ID in DTO does not match provided Seller");
             }
             Product entity = mappingService.mapDtoToEntity(dto);
-            entity.setSeller(seller);
+            entity.setSeller(seller); // Устанавливаем seller перед сохранением
             entity = repository.save(entity);
             return mappingService.mapEntityToDto(entity);
         } catch (Exception e) {
@@ -76,10 +77,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     // Returns active product entity by id
+    @Transactional
     public Product getActiveProductEntityById(Long id) {
-        return repository.findById(id)
-                .filter(product -> product.getStatus() == ProductStatus.ACTIVE)
+        Product product = repository.findById(id)
+                .filter(p -> p.getStatus() == ProductStatus.ACTIVE)
                 .orElseThrow(() -> new ProductNotFoundException(id));
+        Hibernate.initialize(product.getSeller()); // Явная загрузка seller в транзакции
+        logger.debug("Loaded product with ID: {}, sellerId: {}", id, product.getSeller().getId());
+        return product;
     }
 
     // Returns active products filtered by given parameters

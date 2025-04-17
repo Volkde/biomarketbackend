@@ -76,11 +76,9 @@ public class Product {
     @Schema(description = "Category identifier", example = "1")
     private Long categoryId;
 
-
-    //@JoinColumn(name = "seller_id")
-    //@Column(name = "seller_id")
-    @ManyToOne
-    @NotNull(message = "Seller ID cannot be null")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "seller_id", nullable = false)
+    @NotNull(message = "Seller cannot be null")
     @Schema(description = "Seller identifier", example = "1")
     private Seller seller;
 
@@ -226,6 +224,10 @@ public class Product {
 
     public void setSeller(Seller seller) {
         this.seller = seller;
+    }
+
+    public Long getSellerId() {
+        return (seller != null) ? seller.getId() : null;
     }
 
     public boolean isDiscounted() {

@@ -147,6 +147,7 @@ public class SecurityConfig {
 
                         // File controller
                         .requestMatchers(HttpMethod.POST, "/files/product_images").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.PUT, "/files/product_images").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
 
                         .requestMatchers("/v3/api-docs",
                                 "/v3/api-docs/**",

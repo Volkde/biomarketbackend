@@ -30,10 +30,10 @@ public interface ProductImageMapper {
 
     @AfterMapping
     default void afterDtoToEntityMapping(ProductImageDto dto, @MappingTarget ProductImage image) {
-        // Устанавливаем product только если productId не null
+
         if (dto.getProductId() != null) {
             throw new UnsupportedOperationException("Product assignment not implemented yet");
         }
-        // Seller устанавливается через sellerId в основном маппинге (не здесь)
+
     }
 }
