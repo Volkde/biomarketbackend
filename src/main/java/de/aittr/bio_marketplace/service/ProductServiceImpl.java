@@ -12,11 +12,13 @@ import de.aittr.bio_marketplace.exception_handling.exceptions.ProductNotFoundExc
 import de.aittr.bio_marketplace.exception_handling.exceptions.ProductValidationException;
 import de.aittr.bio_marketplace.repository.ProductRepository;
 import de.aittr.bio_marketplace.service.interfaces.ProductService;
+import de.aittr.bio_marketplace.service.interfaces.ReviewService;
 import de.aittr.bio_marketplace.service.mapping.ProductMapper;
 import jakarta.transaction.Transactional;
 import org.hibernate.Hibernate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -29,13 +31,15 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository repository;
     private final ProductMapper mappingService;
+    private final ReviewService reviewService;
     private static final Logger logger = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     // --- CONSTRUCTOR ---
 
-    public ProductServiceImpl(ProductRepository repository, ProductMapper productMapper) {
+    public ProductServiceImpl(ProductRepository repository, ProductMapper productMapper,@Lazy ReviewService reviewService) {
         this.repository = repository;
         this.mappingService = productMapper;
+        this.reviewService = reviewService;
     }
 
 
@@ -220,7 +224,26 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto deleteById(Long id) {
         ProductDto productDto = getById(id);
+        reviewService.deleteAllReviewsByProductId(id);
         repository.deleteById(id);
         return productDto;
     }
+
+    @Override
+    @Transactional
+    public void deleteAllBySellerId(Long sellerId) {
+        List<Product> products = repository.findAll()
+                .stream()
+                .filter(product -> product.getSeller() != null
+                        && product.getSeller().getId().equals(sellerId))
+                .toList();
+
+        if (!products.isEmpty()) {
+            repository.deleteAll(products);
+        }
+        if (products.isEmpty()) {
+            throw new ProductNotFoundException("No products found for seller with ID: " + sellerId);
+        }
+    }
+
 }

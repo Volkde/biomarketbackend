@@ -11,6 +11,7 @@ public class UserDto {
     private String phoneNumber;
     private String avatar;
     private Long wishlistId;
+    private Long sellerId;
 
     public Long getId() {
         return id;
@@ -77,29 +78,30 @@ public class UserDto {
         this.wishlistId = wishlistId;
     }
 
+    public Long getSellerId() {
+        return sellerId;
+    }
+
+    public void setSellerId(Long sellerId) {
+        this.sellerId = sellerId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         UserDto userDto = (UserDto) o;
-        return Objects.equals(id, userDto.id) &&
-                Objects.equals(firstName, userDto.firstName) &&
-                Objects.equals(lastName, userDto.lastName) &&
-                Objects.equals(email, userDto.email) &&
-                Objects.equals(username, userDto.username) &&
-                Objects.equals(phoneNumber, userDto.phoneNumber) &&
-                Objects.equals(avatar, userDto.avatar) &&
-                Objects.equals(wishlistId, userDto.wishlistId);
+        return Objects.equals(id, userDto.id) && Objects.equals(firstName, userDto.firstName) && Objects.equals(lastName, userDto.lastName) && Objects.equals(email, userDto.email) && Objects.equals(username, userDto.username) && Objects.equals(phoneNumber, userDto.phoneNumber) && Objects.equals(avatar, userDto.avatar) && Objects.equals(wishlistId, userDto.wishlistId) && Objects.equals(sellerId, userDto.sellerId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, username, phoneNumber, avatar, wishlistId);
+        return Objects.hash(id, firstName, lastName, email, username, phoneNumber, avatar, wishlistId, sellerId);
     }
 
     @Override
     public String toString() {
-        return String.format("User: ID - %d, First name - %s, Last name - %s, Email - %s, Username - %s, Phone number - %s, Avatar - %s, Wishlist ID - %s.",
-                id, firstName, lastName, email, username, phoneNumber, avatar, wishlistId);
+        return String.format("User: ID - %d, First name - %s, Last name - %s, Email - %s, Username - %s, Phone number - %s, Avatar - %s, Wishlist ID - %s, seller_id - %d.",
+                id, firstName, lastName, email, username, phoneNumber, avatar, wishlistId, sellerId);
     }
 }
 

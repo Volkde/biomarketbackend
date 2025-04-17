@@ -3,6 +3,7 @@ package de.aittr.bio_marketplace.controller;
 import de.aittr.bio_marketplace.controller.requests.AddProductRequest;
 import de.aittr.bio_marketplace.controller.requests.UpdateCartRequest;
 import de.aittr.bio_marketplace.controller.responses.CartResponse;
+import de.aittr.bio_marketplace.domain.dto.UserDto;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
 import de.aittr.bio_marketplace.domain.entity.Cart;
 import de.aittr.bio_marketplace.domain.entity.Product;
@@ -51,8 +52,8 @@ public class CartController {
     @PostMapping("/add")
     public CartResponse addProductToCart(
             @Valid @RequestBody AddProductRequest request) {
-        RegisterUserResponseDto currentUser = userService.getCurrentUser();
-        Long userId = currentUser.id();
+        UserDto currentUser = userService.getCurrentUser();
+        Long userId = currentUser.getId();
         Cart cart = userService.getActiveUserEntityById(userId).getCart();
         Long cartId = cart.getId();
 
@@ -94,8 +95,8 @@ public class CartController {
     )
     @GetMapping
     public CartResponse getCurrentUsersCart() {
-        RegisterUserResponseDto currentUser = userService.getCurrentUser();
-        Long userId = currentUser.id();
+        UserDto currentUser = userService.getCurrentUser();
+        Long userId = currentUser.getId();
         Cart cart = userService.getActiveUserEntityById(userId).getCart();
 
         List<CartResponse.CartItemResponse> items = cart.getItems().stream()
@@ -130,8 +131,8 @@ public class CartController {
     @PutMapping("/update")
     public CartResponse updateProductQuantity(
             @Valid @RequestBody UpdateCartRequest request) {
-        RegisterUserResponseDto currentUser = userService.getCurrentUser();
-        Long userId = currentUser.id();
+        UserDto currentUser = userService.getCurrentUser();
+        Long userId = currentUser.getId();
         Cart cart = userService.getActiveUserEntityById(userId).getCart();
         Long cartId = cart.getId();
 
@@ -174,8 +175,8 @@ public class CartController {
     @DeleteMapping("/remove/{productId}")
     public CartResponse removeProductFromCart(
             @PathVariable Long productId) {
-        RegisterUserResponseDto currentUser = userService.getCurrentUser();
-        Long userId = currentUser.id();
+        UserDto currentUser = userService.getCurrentUser();
+        Long userId = currentUser.getId();
         Cart cart = userService.getActiveUserEntityById(userId).getCart();
         Long cartId = cart.getId();
 
@@ -210,8 +211,8 @@ public class CartController {
     )
     @DeleteMapping("/clear")
     public CartResponse clearCart() {
-        RegisterUserResponseDto currentUser = userService.getCurrentUser();
-        Long userId = currentUser.id();
+        UserDto currentUser = userService.getCurrentUser();
+        Long userId = currentUser.getId();
         Cart cart = userService.getActiveUserEntityById(userId).getCart();
         Long cartId = cart.getId();
 

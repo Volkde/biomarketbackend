@@ -1,11 +1,8 @@
 package de.aittr.bio_marketplace.service.interfaces;
 
-import de.aittr.bio_marketplace.domain.dto.CartItemDto;
-import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.dto.SellerDto;
 import de.aittr.bio_marketplace.domain.dto.UserDto;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
-import de.aittr.bio_marketplace.domain.entity.CartItem;
 import de.aittr.bio_marketplace.domain.entity.User;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserDto;
 
@@ -18,7 +15,7 @@ public interface UserService {
 
     RegisterUserResponseDto loginUser(String email, String password);
 
-    RegisterUserResponseDto getCurrentUser();
+    UserDto getCurrentUser();
 
     UserDto getCurrentUserAsDto();
 
@@ -61,7 +58,7 @@ public interface UserService {
 
     RegisterUserResponseDto removeAdmin(Long userId);
 
-    UserDto changePassword(String password, Long userId);
+    UserDto changePassword(String new_password, String password, Long userId);
 
     void requestPasswordReset(String email);
 

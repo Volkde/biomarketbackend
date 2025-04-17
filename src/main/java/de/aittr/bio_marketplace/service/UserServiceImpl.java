@@ -1,12 +1,10 @@
 package de.aittr.bio_marketplace.service;
 
-import de.aittr.bio_marketplace.domain.dto.ProductDto;
 import de.aittr.bio_marketplace.domain.dto.SellerDto;
 import de.aittr.bio_marketplace.domain.dto.UserDto;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserDto;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
 import de.aittr.bio_marketplace.domain.entity.Cart;
-import de.aittr.bio_marketplace.domain.entity.CartItem;
 import de.aittr.bio_marketplace.domain.entity.Product;
 import de.aittr.bio_marketplace.domain.entity.User;
 import de.aittr.bio_marketplace.exception_handling.utils.StringValidator;
@@ -18,7 +16,6 @@ import de.aittr.bio_marketplace.exception_handling.exceptions.UserNotFoundExcept
 import de.aittr.bio_marketplace.repository.UserRepository;
 import de.aittr.bio_marketplace.security.service.JwtTokenService;
 import de.aittr.bio_marketplace.service.interfaces.*;
-import de.aittr.bio_marketplace.service.mapping.ProductMapper;
 import de.aittr.bio_marketplace.service.mapping.RegisterUserMapper;
 import de.aittr.bio_marketplace.service.mapping.SellerMapper;
 import de.aittr.bio_marketplace.service.mapping.UserMapper;
@@ -28,11 +25,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 @Service
 public class UserServiceImpl implements UserService, UserLookupService {
@@ -119,7 +114,7 @@ public class UserServiceImpl implements UserService, UserLookupService {
         boolean isMatch = encoder.matches(password, user.getPassword());
 
         if (!isMatch) {
-            throw new AuthenticationException(PASSWORD_OR_EMAIL_IS_INCORRECT);
+            throw new AuthenticationException("PASSWORD_IS_INCORRECT");
         }
 
         Authentication authenticationToken = new UsernamePasswordAuthenticationToken(email, password);
@@ -135,10 +130,10 @@ public class UserServiceImpl implements UserService, UserLookupService {
     }
 
     @Override
-    public RegisterUserResponseDto getCurrentUser() {
+    public UserDto getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getPrincipal().toString();
-        return mappingRegisterService.mapEntityToRegisterResponseDto(repository.findUserByEmail(email)
+        return mappingService.mapEntityToDto(repository.findUserByEmail(email)
                 .orElseThrow(() -> new AuthenticationException(COOKIE_IS_INCORRECT)));
     }
 
@@ -328,11 +323,17 @@ public class UserServiceImpl implements UserService, UserLookupService {
 
     @Override
     @Transactional
-    public UserDto changePassword(String password, Long userId) {
-        UserValidator.isPasswordValid(password);
+    public UserDto changePassword(String new_password, String password, Long userId) {
         User user = getActiveUserEntityById(userId);
-        user.setPassword(encoder.encode(password));
-        return mappingService.mapEntityToDto(user);
+        boolean isMatch = encoder.matches(password, user.getPassword());
+
+        if (!isMatch) {
+            throw new AuthenticationException("OLD_PASSWORD_IS_INCORRECT");
+        }
+            UserValidator.isPasswordValid(new_password);
+            user.setPassword(encoder.encode(new_password));
+            return mappingService.mapEntityToDto(user);
+
     }
 
     @Override
@@ -359,7 +360,7 @@ public class UserServiceImpl implements UserService, UserLookupService {
 
         user.setPassword(encoder.encode(newPassword));
         repository.save(user);
-    }
+        }
 
 
 

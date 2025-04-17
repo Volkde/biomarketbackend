@@ -95,7 +95,7 @@ public class SellerController {
     )
     @DeleteMapping("/{id}")
     public SellerResponse deleteById(@PathVariable Long id) {
-        return new SellerResponse(service.deleteById(id));
+        return new SellerResponse(service.deactivateById(id));
     }
 
     @Operation(
@@ -104,6 +104,6 @@ public class SellerController {
     )
     @DeleteMapping("/by-storeName/{storeName}")
     public SellerResponse deleteByTitle(@PathVariable String storeName) {
-        return new SellerResponse(service.deleteByStoreName(storeName));
+        return new SellerResponse(service.deactivateByStoreName(storeName));
     }
 }
