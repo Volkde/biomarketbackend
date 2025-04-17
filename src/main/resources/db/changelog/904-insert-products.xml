@@ -170,7 +170,7 @@
             <column name="id" valueNumeric="14"/>
             <column name="title" value="Currywurst"/>
             <column name="price" valueNumeric="5.80"/>
-            <column name="category_id" valueNumeric="3"/>
+            <column name="category_id" valueNumeric="2"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
@@ -206,7 +206,7 @@
             <column name="id" valueNumeric="17"/>
             <column name="title" value="Kartoffeln"/>
             <column name="price" valueNumeric="1.50"/>
-            <column name="category_id" valueNumeric="2"/>
+            <column name="category_id" valueNumeric="3"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>
@@ -230,7 +230,7 @@
             <column name="id" valueNumeric="19"/>
             <column name="title" value="Spargel"/>
             <column name="price" valueNumeric="7.00"/>
-            <column name="category_id" valueNumeric="2"/>
+            <column name="category_id" valueNumeric="3"/>
             <column name="seller_id" valueNumeric="1"/>
             <column name="status" value="ACTIVE"/>
             <column name="date_publication" valueDate="2025-03-28"/>

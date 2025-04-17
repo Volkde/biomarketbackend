@@ -6,7 +6,6 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
 
     <changeSet id="908-insert-addresses" author="Kristina">
-
         <insert tableName="address">
             <column name="id" valueNumeric="1"/>
             <column name="country" value="USA"/>
@@ -15,7 +14,6 @@
             <column name="zip_code" value="10001"/>
             <column name="user_id" valueNumeric="6"/>
         </insert>
-
         <insert tableName="address">
             <column name="id" valueNumeric="2"/>
             <column name="country" value="USA"/>
@@ -24,7 +22,6 @@
             <column name="zip_code" value="10002"/>
             <column name="seller_id" valueNumeric="1"/>
         </insert>
-
         <insert tableName="address">
             <column name="id" valueNumeric="3"/>
             <column name="country" value="USA"/>
@@ -33,7 +30,6 @@
             <column name="zip_code" value="90265"/>
             <column name="seller_id" valueNumeric="2"/>
         </insert>
-
         <insert tableName="address">
             <column name="id" valueNumeric="4"/>
             <column name="country" value="Themyscira"/>
@@ -42,7 +38,6 @@
             <column name="zip_code" value="00001"/>
             <column name="user_id" valueNumeric="4"/>
         </insert>
-
         <insert tableName="address">
             <column name="id" valueNumeric="5"/>
             <column name="country" value="USA"/>
@@ -51,7 +46,6 @@
             <column name="zip_code" value="30003"/>
             <column name="seller_id" valueNumeric="4"/>
         </insert>
-
         <insert tableName="address">
             <column name="id" valueNumeric="6"/>
             <column name="country" value="UK"/>
@@ -60,7 +54,6 @@
             <column name="zip_code" value="NW16XE"/>
             <column name="seller_id" valueNumeric="3"/>
         </insert>
-
         <insert tableName="address">
             <column name="id" valueNumeric="7"/>
             <column name="country" value="France"/>
@@ -69,7 +62,6 @@
             <column name="zip_code" value="75008"/>
             <column name="user_id" valueNumeric="2"/>
         </insert>
-
         <insert tableName="address">
             <column name="id" valueNumeric="8"/>
             <column name="country" value="Germany"/>
@@ -78,7 +70,6 @@
             <column name="zip_code" value="10178"/>
             <column name="user_id" valueNumeric="9"/>
         </insert>
-
         <insert tableName="address">
             <column name="id" valueNumeric="9"/>
             <column name="country" value="France"/>
@@ -87,7 +78,6 @@
             <column name="zip_code" value="75048"/>
             <column name="seller_id" valueNumeric="5"/>
         </insert>
-
         <insert tableName="address">
             <column name="id" valueNumeric="10"/>
             <column name="country" value="Canada"/>
@@ -96,7 +86,6 @@
             <column name="zip_code" value="V5K0A1"/>
             <column name="user_id" valueNumeric="5"/>
         </insert>
-
         <insert tableName="address">
             <column name="id" valueNumeric="11"/>
             <column name="country" value="Italy"/>
@@ -105,7 +94,6 @@
             <column name="zip_code" value="00100"/>
             <column name="user_id" valueNumeric="8"/>
         </insert>
-
         <insert tableName="address">
             <column name="id" valueNumeric="12"/>
             <column name="country" value="USA"/>
@@ -114,6 +102,33 @@
             <column name="zip_code" value="20001"/>
             <column name="user_id" valueNumeric="1"/>
         </insert>
-
+        <insert tableName="address">
+            <column name="id" valueNumeric="13"/>
+            <column name="country" value="Germany"/>
+            <column name="city" value="Munich"/>
+            <column name="street" value="Ludwigstraße 1"/>
+            <column name="zip_code" value="80331"/>
+        </insert>
+        <insert tableName="address">
+            <column name="id" valueNumeric="14"/>
+            <column name="country" value="Germany"/>
+            <column name="city" value="Hamburg"/>
+            <column name="street" value="Elbphilharmonie 1"/>
+            <column name="zip_code" value="20457"/>
+        </insert>
+        <insert tableName="address">
+            <column name="id" valueNumeric="15"/>
+            <column name="country" value="Germany"/>
+            <column name="city" value="Cologne"/>
+            <column name="street" value="Hohenzollernring 1"/>
+            <column name="zip_code" value="50667"/>
+        </insert>
+        <insert tableName="address">
+            <column name="id" valueNumeric="16"/>
+            <column name="country" value="Germany"/>
+            <column name="city" value="Frankfurt"/>
+            <column name="street" value="Römerberg 1"/>
+            <column name="zip_code" value="60311"/>
+        </insert>
     </changeSet>
 </databaseChangeLog>

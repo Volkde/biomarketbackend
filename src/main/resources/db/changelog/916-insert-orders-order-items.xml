@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="916-insert-orders-order-items" author="Sergej">
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="orders"/>
+            <tableExists tableName="order_item"/>
+        </preConditions>
+
+        <insert tableName="orders">
+            <column name="id" valueNumeric="1"/>
+            <column name="status" value="COMPLETED"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="seller_address_id" valueNumeric="2"/>
+            <column name="buyer_id" valueNumeric="7"/>
+            <column name="buyer_address_id" valueNumeric="13"/>
+            <column name="date_created" valueDate="2025-04-17"/>
+            <column name="total_price" valueNumeric="29.50"/>
+        </insert>
+        <insert tableName="order_item">
+            <column name="id" valueNumeric="1"/>
+            <column name="product_id" valueNumeric="33"/>
+            <column name="product_name" value="Bauernbrot"/>
+            <column name="quantity" valueNumeric="2"/>
+            <column name="unit_price" valueNumeric="3.50"/>
+            <column name="order_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="order_item">
+            <column name="id" valueNumeric="2"/>
+            <column name="product_id" valueNumeric="17"/>
+            <column name="product_name" value="Kartoffeln"/>
+            <column name="quantity" valueNumeric="5"/>
+            <column name="unit_price" valueNumeric="1.50"/>
+            <column name="order_id" valueNumeric="1"/>
+        </insert>
+        <insert tableName="order_item">
+            <column name="id" valueNumeric="3"/>
+            <column name="product_id" valueNumeric="3"/>
+            <column name="product_name" value="Black Forest Butter"/>
+            <column name="quantity" valueNumeric="1"/>
+            <column name="unit_price" valueNumeric="15.00"/>
+            <column name="order_id" valueNumeric="1"/>
+        </insert>
+
+        <insert tableName="orders">
+            <column name="id" valueNumeric="2"/>
+            <column name="status" value="COMPLETED"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="seller_address_id" valueNumeric="2"/>
+            <column name="buyer_id" valueNumeric="8"/>
+            <column name="buyer_address_id" valueNumeric="14"/>
+            <column name="date_created" valueDate="2025-04-17"/>
+            <column name="total_price" valueNumeric="34.60"/>
+        </insert>
+        <insert tableName="order_item">
+            <column name="id" valueNumeric="4"/>
+            <column name="product_id" valueNumeric="14"/>
+            <column name="product_name" value="Currywurst"/>
+            <column name="quantity" valueNumeric="3"/>
+            <column name="unit_price" valueNumeric="5.80"/>
+            <column name="order_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="order_item">
+            <column name="id" valueNumeric="5"/>
+            <column name="product_id" valueNumeric="19"/>
+            <column name="product_name" value="Spargel"/>
+            <column name="quantity" valueNumeric="2"/>
+            <column name="unit_price" valueNumeric="7.00"/>
+            <column name="order_id" valueNumeric="2"/>
+        </insert>
+        <insert tableName="order_item">
+            <column name="id" valueNumeric="6"/>
+            <column name="product_id" valueNumeric="34"/>
+            <column name="product_name" value="Roggenbrot"/>
+            <column name="quantity" valueNumeric="1"/>
+            <column name="unit_price" valueNumeric="3.20"/>
+            <column name="order_id" valueNumeric="2"/>
+        </insert>
+
+        <insert tableName="orders">
+            <column name="id" valueNumeric="3"/>
+            <column name="status" value="IN_DELIVERY"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="seller_address_id" valueNumeric="2"/>
+            <column name="buyer_id" valueNumeric="9"/>
+            <column name="buyer_address_id" valueNumeric="15"/>
+            <column name="date_created" valueDate="2025-04-17"/>
+            <column name="total_price" valueNumeric="24.50"/>
+        </insert>
+        <insert tableName="order_item">
+            <column name="id" valueNumeric="7"/>
+            <column name="product_id" valueNumeric="6"/>
+            <column name="product_name" value="Tilsiter Cheese"/>
+            <column name="quantity" valueNumeric="1"/>
+            <column name="unit_price" valueNumeric="16.00"/>
+            <column name="order_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="order_item">
+            <column name="id" valueNumeric="8"/>
+            <column name="product_id" valueNumeric="35"/>
+            <column name="product_name" value="Brezeln"/>
+            <column name="quantity" valueNumeric="5"/>
+            <column name="unit_price" valueNumeric="0.80"/>
+            <column name="order_id" valueNumeric="3"/>
+        </insert>
+        <insert tableName="order_item">
+            <column name="id" valueNumeric="9"/>
+            <column name="product_id" valueNumeric="17"/>
+            <column name="product_name" value="Kartoffeln"/>
+            <column name="quantity" valueNumeric="3"/>
+            <column name="unit_price" valueNumeric="1.50"/>
+            <column name="order_id" valueNumeric="3"/>
+        </insert>
+
+        <insert tableName="orders">
+            <column name="id" valueNumeric="4"/>
+            <column name="status" value="CONFIRMED"/>
+            <column name="seller_id" valueNumeric="1"/>
+            <column name="seller_address_id" valueNumeric="2"/>
+            <column name="buyer_id" valueNumeric="10"/>
+            <column name="buyer_address_id" valueNumeric="16"/>
+            <column name="date_created" valueDate="2025-04-17"/>
+            <column name="total_price" valueNumeric="22.90"/>
+        </insert>
+        <insert tableName="order_item">
+            <column name="id" valueNumeric="10"/>
+            <column name="product_id" valueNumeric="37"/>
+            <column name="product_name" value="Pumpernickel"/>
+            <column name="quantity" valueNumeric="1"/>
+            <column name="unit_price" valueNumeric="4.00"/>
+            <column name="order_id" valueNumeric="4"/>
+        </insert>
+        <insert tableName="order_item">
+            <column name="id" valueNumeric="11"/>
+            <column name="product_id" valueNumeric="39"/>
+            <column name="product_name" value="Sauerteigbrot"/>
+            <column name="quantity" valueNumeric="1"/>
+            <column name="unit_price" valueNumeric="3.90"/>
+            <column name="order_id" valueNumeric="4"/>
+        </insert>
+        <insert tableName="order_item">
+            <column name="id" valueNumeric="12"/>
+            <column name="product_id" valueNumeric="3"/>
+            <column name="product_name" value="Black Forest Butter"/>
+            <column name="quantity" valueNumeric="1"/>
+            <column name="unit_price" valueNumeric="15.00"/>
+            <column name="order_id" valueNumeric="4"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
