@@ -133,7 +133,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/orders/seller/deactivate/**").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
                         .requestMatchers(HttpMethod.DELETE, "/orders/**").hasRole(ADMIN_ROLE)
 
-                        // Seller Controller
+                        // Seller controller
                         .requestMatchers(HttpMethod.GET, "/sellers").permitAll()
                         .requestMatchers(HttpMethod.GET, "/sellers/**").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
                         .requestMatchers(HttpMethod.POST, "/sellers/**").hasAnyRole(ADMIN_ROLE, USER_ROLE)
@@ -141,7 +141,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/sellers/**").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
                         .requestMatchers(HttpMethod.DELETE, "/sellers/**").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
 
-                        // Review Controller
+                        // Review controller
                         .requestMatchers(HttpMethod.GET, "/reviews").permitAll()
                         .requestMatchers(HttpMethod.GET, "/reviews/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/reviews/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
@@ -150,13 +150,18 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/reviews").hasRole(ADMIN_ROLE)
                         .requestMatchers(HttpMethod.DELETE, "/reviews/**").hasAnyRole(ADMIN_ROLE, USER_ROLE)
 
-                        // Address Controller
+
+                        // Address сontroller
                         .requestMatchers(HttpMethod.GET, "/address").hasRole(USER_ROLE)
                         .requestMatchers(HttpMethod.GET, "/address/**").hasRole(USER_ROLE)
                         .requestMatchers(HttpMethod.POST, "/address/**").hasAnyRole(USER_ROLE, ADMIN_ROLE, SELLER_ROLE)
                         .requestMatchers(HttpMethod.PUT, "/address").hasAnyRole(USER_ROLE, SELLER_ROLE)
                         .requestMatchers(HttpMethod.DELETE, "/address").hasRole(ADMIN_ROLE)
                         .requestMatchers(HttpMethod.DELETE, "/address/**").hasAnyRole(USER_ROLE, ADMIN_ROLE)
+
+                        // File controller
+                        .requestMatchers(HttpMethod.POST, "/files/product_images").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.PUT, "/files/product_images").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
 
                         .requestMatchers("/v3/api-docs",
                                 "/v3/api-docs/**",

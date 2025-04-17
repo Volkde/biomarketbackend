@@ -13,7 +13,7 @@
     <include file="005-add-columns-description-and-image-to-product.xml" relativeToChangelogFile="true"/>
     <include file="006-update-user-table.xml" relativeToChangelogFile="true"/>
     <include file="007-create-cart-table.xml" relativeToChangelogFile="true"/>
-    <include file="008-create-cart-item-table.xml" relativeToChangelogFile="true"/>
+    <include file="008-create-cart_item-table.xml" relativeToChangelogFile="true"/>
     <include file="010-create-user-role-table.xml" relativeToChangelogFile="true"/>
     <include file="011-add-foreign-key-user-to-seller.xml" relativeToChangelogFile="true"/>
     <include file="012-create-table-seller-user.xml" relativeToChangelogFile="true"/>
@@ -28,6 +28,8 @@
     <include file="021-create-wishlist-table.xml" relativeToChangelogFile="true"/>
     <include file="022-create-wishlist_product-table.xml" relativeToChangelogFile="true"/>
     <include file="023-add-column-wishlist-id-to-user-table.xml" relativeToChangelogFile="true"/>
+    <include file="024-create-product_image-table.xml" relativeToChangelogFile="true"/>
+    <include file="025-add-column-seller-to-image-table.xml" relativeToChangelogFile="true"/>
     <include file="901-insert-sellers.xml" relativeToChangelogFile="true"/>
     <include file="902-insert-categories.xml" relativeToChangelogFile="true"/>
     <include file="903-insert-users.xml" relativeToChangelogFile="true"/>
@@ -42,6 +44,7 @@
     <include file="921-insert-wishlists.xml" relativeToChangelogFile="true"/>
     <include file="922-insert-wishlist-products.xml" relativeToChangelogFile="true"/>
     <include file="923-update-user-wishlist-id.xml" relativeToChangelogFile="true"/>
+    <include file="924-migrate-product-images.xml" relativeToChangelogFile="true"/>
 
 
 </databaseChangeLog>

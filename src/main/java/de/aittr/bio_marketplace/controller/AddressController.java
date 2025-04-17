@@ -15,11 +15,17 @@ import java.util.List;
 @Tag(name = "Address controller", description = "Controller for various operations with Address")
 public class AddressController {
 
+    // --- FIELDS ---
+
     private final AddressService service;
+
+    // --- CONSTRUCTOR ---
 
     public AddressController(AddressService service) {
         this.service = service;
     }
+
+    // --- METHODS ---
 
     @Operation(
             summary = "Save user address",

@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -34,9 +36,9 @@ public class Product {
     @Schema(description = "Product description", example = "Juicy natural banana")
     private String description;
 
-    @Column(name = "image")
-    @Schema(description = "Product image URL", example = "https://example.com/images/banana.jpg")
-    private String image;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Schema(description = "List of images for the product, ordered to define the main image (first element)")
+    private List<ProductImage> images = new ArrayList<>();
 
     @Column(name = "unit_of_measure")
     @Enumerated(EnumType.STRING)
@@ -74,11 +76,9 @@ public class Product {
     @Schema(description = "Category identifier", example = "1")
     private Long categoryId;
 
-
-    //@JoinColumn(name = "seller_id")
-    //@Column(name = "seller_id")
-    @ManyToOne
-    @NotNull(message = "Seller ID cannot be null")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "seller_id", nullable = false)
+    @NotNull(message = "Seller cannot be null")
     @Schema(description = "Seller identifier", example = "1")
     private Seller seller;
 
@@ -104,7 +104,7 @@ public class Product {
 
     public Product(Long id, String title,
                    String description,
-                   String image,
+                   List<ProductImage> images,
                    ProductUnitOfMeasure unitOfMeasure,
                    BigDecimal price,
                    boolean discounted,
@@ -116,7 +116,7 @@ public class Product {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.image = image;
+        this.images = images != null ? images : new ArrayList<>();
         this.unitOfMeasure = unitOfMeasure;
         this.price = price;
         this.discounted = discounted;
@@ -163,12 +163,35 @@ public class Product {
         this.description = description;
     }
 
-    public String getImage() {
-        return image;
+    public List<ProductImage> getImages() {
+        return images;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImages(List<ProductImage> images) {
+        this.images = images != null ? images : new ArrayList<>();
+    }
+
+    @Schema(description = "Main image URL for the product (first image in the list)", example = "https://bucket.digitalocean.com/images/banana.jpg")
+    public String getImage() {
+        return images.isEmpty() ? null : images.get(0).getUrl();
+    }
+
+    public void setImage(String imageUrl) {
+        if (imageUrl == null) {
+            if (!images.isEmpty()) {
+                images.remove(0);
+            }
+        } else {
+            if (images.isEmpty()) {
+                ProductImage newImage = new ProductImage();
+                newImage.setUrl(imageUrl);
+                newImage.setProduct(this);
+                newImage.setSeller(this.seller);
+                images.add(newImage);
+            } else {
+                images.get(0).setUrl(imageUrl);
+            }
+        }
     }
 
     public ProductUnitOfMeasure getUnitOfMeasure() {
@@ -203,6 +226,10 @@ public class Product {
         this.seller = seller;
     }
 
+    public Long getSellerId() {
+        return (seller != null) ? seller.getId() : null;
+    }
+
     public boolean isDiscounted() {
         return discounted;
     }
@@ -233,18 +260,28 @@ public class Product {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return discounted == product.discounted && inStock == product.inStock && Objects.equals(id, product.id) && Objects.equals(title, product.title) && Objects.equals(description, product.description) && Objects.equals(image, product.image) && unitOfMeasure == product.unitOfMeasure && Objects.equals(price, product.price) && status == product.status && Objects.equals(categoryId, product.categoryId) && Objects.equals(seller, product.seller) && Objects.equals(rating, product.rating);
+        return discounted == product.discounted &&
+                inStock == product.inStock &&
+                Objects.equals(id, product.id) &&
+                Objects.equals(title, product.title) &&
+                Objects.equals(description, product.description) &&
+                Objects.equals(images, product.images) &&
+                unitOfMeasure == product.unitOfMeasure &&
+                Objects.equals(price, product.price) &&
+                status == product.status &&
+                Objects.equals(categoryId, product.categoryId) &&
+                Objects.equals(seller, product.seller) &&
+                Objects.equals(rating, product.rating);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, description, image, unitOfMeasure, price, discounted, status, inStock, categoryId, seller, rating);
+        return Objects.hash(id, title, description, images, unitOfMeasure, price, discounted, status, inStock, categoryId, seller, rating);
     }
 
 
 
     /* TODO: add the following fields:
-    - images
     - attributes
     - reviews
     - dateProduction
