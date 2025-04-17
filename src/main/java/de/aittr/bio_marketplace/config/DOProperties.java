@@ -49,5 +49,4 @@ public class DOProperties {
     public void setRegion(String region) {
         this.region = region;
     }
-
 }
