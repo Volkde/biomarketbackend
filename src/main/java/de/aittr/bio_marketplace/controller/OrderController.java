@@ -76,20 +76,22 @@ public class OrderController {
     )
     @GetMapping("/seller/{id}")
     public OrdersResponse getSellersOrders(@PathVariable Long id, Principal principal) {
-        logger.info("Received request to get orders for seller ID: {} by user: {}", id, principal.getName());
-
-        UserDto user = userService.getCurrentUserAsDto();
-        Long userId = user.getId();
-
-        List<SellerDto> sellers = userService.getAllSellers(userId);
-        boolean isSellerAssigned = sellers.stream().anyMatch(seller -> seller.getId().equals(id));
-        if (!isSellerAssigned) {
-            throw new SecurityException("Seller with ID " + id + " is not assigned to user " + principal.getName());
-        }
+//        logger.info("Received request to get orders for seller ID: {} by user: {}", id, principal.getName());
+//
+//        UserDto user = userService.getCurrentUserAsDto();
+//        Long userId = user.getId();
+//
+//        List<SellerDto> sellers = userService.getAllSellers(userId);
+//        boolean isSellerAssigned = sellers.stream().anyMatch(seller -> seller.getId().equals(id));
+//        if (!isSellerAssigned) {
+//            throw new SecurityException("Seller with ID " + id + " is not assigned to user " + principal.getName());
+//        }
 
         List<OrderDto> orders = orderService.getOrdersForSeller(id);
         logger.info("Returning orders for seller ID {}: {}", id, orders);
         return new OrdersResponse(orders);
+
+        // TODO: uncomment this code later
     }
 
     @Operation(
