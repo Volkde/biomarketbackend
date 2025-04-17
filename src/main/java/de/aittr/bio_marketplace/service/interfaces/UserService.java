@@ -11,9 +11,9 @@ import java.util.List;
 
 public interface UserService {
 
-    RegisterUserResponseDto registerUser(RegisterUserDto registerUserDto);
+    UserDto registerUser(RegisterUserDto registerUserDto);
 
-    RegisterUserResponseDto loginUser(String email, String password);
+    UserDto loginUser(String email, String password);
 
     UserDto getCurrentUser();
 

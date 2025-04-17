@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService, UserLookupService {
 
     @Override
     @Transactional
-    public RegisterUserResponseDto registerUser(RegisterUserDto registerDto){
+    public UserDto registerUser(RegisterUserDto registerDto){
 
         if (registerDto.username() == null || registerDto.username().isBlank()) {
             throw new UsernameValidateException("Username cannot be null or empty");
@@ -104,11 +104,11 @@ public class UserServiceImpl implements UserService, UserLookupService {
         String code = confirmationService.generateConfirmationCode(entity);
         emailService.sendConfirmationEmail(entity, code);
 
-        return mappingRegisterService.mapEntityToRegisterResponseDto(entity);
+        return mappingService.mapEntityToDto(entity);
     }
 
     @Override
-    public RegisterUserResponseDto loginUser(String email, String password) {
+    public UserDto loginUser(String email, String password) {
         User user = repository.findUserByEmail(email)
                 .orElseThrow(() -> new AuthenticationException(PASSWORD_OR_EMAIL_IS_INCORRECT));
         boolean isMatch = encoder.matches(password, user.getPassword());
@@ -122,7 +122,7 @@ public class UserServiceImpl implements UserService, UserLookupService {
             Authentication authenticated = authenticationManager.authenticate(authenticationToken);
             SecurityContextHolder.getContext().setAuthentication(authenticated);
 
-            return mappingRegisterService.mapEntityToRegisterResponseDto(user);
+            return mappingService.mapEntityToDto(user);
 
         } catch (DisabledException | LockedException | BadCredentialsException ex) {
             throw new AuthenticationException(PASSWORD_OR_EMAIL_IS_INCORRECT);

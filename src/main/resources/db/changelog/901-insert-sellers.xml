@@ -13,7 +13,7 @@
             <column name="id" valueNumeric="1"/>
             <column name="store_name" value="Luna"/>
             <column name="store_description" value="All food products."/>
-            <column name="store_logo" value="luna_logo.png"/>
+            <column name="store_logo" value="https://i.postimg.cc/gjkdX5qh/luna-logo2.png"/>
             <column name="rating" valueNumeric="4.4"/>
             <column name="active" valueBoolean="true"/>
         </insert>
