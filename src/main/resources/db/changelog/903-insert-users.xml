@@ -15,7 +15,7 @@
             <column name="password" value="$2a$10$a5gdUngpoJNy6TYF26ca.eNNAwQOTopKUWVER8rHUJsQde0mejc3K"/>
             <column name="first_name" value="John"/>
             <column name="last_name" value="Doe"/>
-            <column name="avatar" value="https://example.com/avatar.jpg"/>
+            <column name="avatar" value="https://i.postimg.cc/6pGKvCRM/man-photo.png"/>
             <column name="is_active" valueBoolean="true"/>
             <column name="username" value="seller1"/>
             <column name="phone_number" value="+1234567890"/>

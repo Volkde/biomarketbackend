@@ -3,6 +3,7 @@ package de.aittr.bio_marketplace.controller;
 
 import de.aittr.bio_marketplace.controller.responses.AuthResponse;
 import de.aittr.bio_marketplace.controller.responses.UserResponse;
+import de.aittr.bio_marketplace.domain.dto.UserDto;
 import de.aittr.bio_marketplace.domain.dto.auth.LoginRequestDto;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserDto;
 import de.aittr.bio_marketplace.domain.dto.auth.RegisterUserResponseDto;
@@ -40,13 +41,13 @@ public class AuthController {
             description = "Registration new user with given parameters"
     )
     @PostMapping("/register")
-    public AuthResponse register(
+    public UserResponse register(
             @RequestBody
             @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "Instance of a User")
             RegisterUserDto registerUserDto
     ) {
-        RegisterUserResponseDto responseDto = service.registerUser(registerUserDto);
-        return new AuthResponse(responseDto);
+        UserDto responseDto = service.registerUser(registerUserDto);
+        return new UserResponse(responseDto);
     }
 
     @Operation(
@@ -56,7 +57,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDto loginDto) {
         try {
-            RegisterUserResponseDto responseDto = service.loginUser(loginDto.email(), loginDto.password());
+            UserDto responseDto = service.loginUser(loginDto.email(), loginDto.password());
 
             ResponseCookie accessTokenCookie = cookieService.generateAccessTokenCookie(loginDto.email());
             ResponseCookie refreshTokenCookie = cookieService.generateRefreshTokenCookie(loginDto.email());
@@ -65,7 +66,7 @@ public class AuthController {
             headers.add(HttpHeaders.SET_COOKIE, accessTokenCookie.toString());
             headers.add(HttpHeaders.SET_COOKIE, refreshTokenCookie.toString());
 
-            return new ResponseEntity<>(new AuthResponse(responseDto), headers, HttpStatus.OK);
+            return new ResponseEntity<>(new UserResponse(responseDto), headers, HttpStatus.OK);
 
         } catch (AuthenticationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials");

@@ -135,7 +135,7 @@ public class SecurityConfig {
 
                         // Seller controller
                         .requestMatchers(HttpMethod.GET, "/sellers").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/sellers/**").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
+                        .requestMatchers(HttpMethod.GET, "/sellers/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/sellers/**").hasAnyRole(ADMIN_ROLE, USER_ROLE)
                         .requestMatchers(HttpMethod.PUT, "/sellers").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
                         .requestMatchers(HttpMethod.PUT, "/sellers/**").hasAnyRole(SELLER_ROLE, ADMIN_ROLE)
